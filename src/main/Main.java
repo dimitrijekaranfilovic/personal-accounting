@@ -11,7 +11,7 @@ public class Main {
 	// write your code here
         //System.out.println("Hello world!");
         DatabaseManager dbm = new DatabaseManager();
-        //dbm.addUser("dimitrije", "123456");
+        //dbm.addUser("dimitrije", "aaaa");
             ResultSet rs = dbm.display();
             while(rs.next()) {
                 System.out.println(rs.getString(1) + " " + rs.getString(2));

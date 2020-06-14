@@ -6,13 +6,13 @@ import java.util.ArrayList;
 public class Balance implements  Comparable<Balance>{
     private LocalDateTime time;
     private ArrayList<Integer> currencyBalances;
-
+    //TODO: treba mu se proslediti lista valuta, ili da ima uvid u staticku listu valuta
     public Balance(LocalDateTime time) {
         this.time = time;
-        this.currencyBalances = new ArrayList<Integer>();
-        for(int i = 0; i < Currency.values().length;i++){
+        this.currencyBalances = new ArrayList<>();
+        /*for(int i = 0; i < Currency.values().length;i++){
             this.currencyBalances.add(0);
-        }
+        }*/
     }
 
     public LocalDateTime getTime() {

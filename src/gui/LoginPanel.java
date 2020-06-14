@@ -56,16 +56,7 @@ public class LoginPanel extends JPanel {
         panel.add(cancelBtn);
         panel.add(this.createAccountBtn);
 
-
-        //this.setLocationRelativeTo(null);
-        //this.setSize(250, 150);
         this.add(panel);
-       // this.setResizable(false);
-        //this.setTitle("Log In");
-        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //this.setVisible(true);
-        System.out.println("Login panel " + this.getWidth() + "," + this.getHeight());
-
 
         showPassword.addActionListener(ae -> {
             JCheckBox c = (JCheckBox) ae.getSource();
@@ -78,12 +69,8 @@ public class LoginPanel extends JPanel {
             }
             else
                 JOptionPane.showMessageDialog(null, "Wrong username or password!", "Warning", JOptionPane.WARNING_MESSAGE);
-
-
         });
-        cancelBtn.addActionListener(ae->{
-            System.exit(0);
-        });
+
+        cancelBtn.addActionListener(ae-> System.exit(0));
     }
-
 }

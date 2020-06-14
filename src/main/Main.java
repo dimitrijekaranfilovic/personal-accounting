@@ -1,13 +1,11 @@
 package main;
 
-import gui.CreateAccountFrame;
-import gui.LoginFrame;
+import gui.CreateAccountPanel;
+import gui.LoginPanel;
+import gui.MainFrame;
 import managers.DatabaseManager;
 
 import javax.swing.*;
-import java.awt.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class Main {
 
@@ -34,7 +32,11 @@ public class Main {
        // setUIFont(new javax.swing.plaf.FontUIResource("Serif", Font.PLAIN, 14));
         DatabaseManager dbm = new DatabaseManager();
         //LoginFrame lf = new LoginFrame(dbm);
-        CreateAccountFrame caf = new CreateAccountFrame(dbm);
+        //CreateAccountPanel caf = new CreateAccountPanel(dbm);
+        MainFrame mf = new MainFrame(dbm);
+        //LoginPanel lp = new LoginPanel(dbm);
+        //lp.setVisible(true);
+
 
     }
     public static void setUIFont (javax.swing.plaf.FontUIResource f){

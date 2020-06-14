@@ -1,19 +1,23 @@
 package gui;
 
 import managers.DatabaseManager;
+import managers.UserManager;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame{
     private JPanel mainPanel;
+    private UserManager userManager;
     private DatabaseManager databaseManager;
 
     public  MainFrame(DatabaseManager dbm){
         this.databaseManager = dbm;
+        this.userManager = new UserManager(this.databaseManager);
         //this.setLayout(new MigLayout());
 
-        LoginPanel loginPanel = new LoginPanel(this.databaseManager);
-        CreateAccountPanel createAccountPanel = new CreateAccountPanel(this.databaseManager);
+        LoginPanel loginPanel = new LoginPanel(this.userManager);
+        CreateAccountPanel createAccountPanel = new CreateAccountPanel(this.userManager);
 
         mainPanel = new JPanel(new CardLayout());
         mainPanel.add(loginPanel, "Log In");

@@ -1,16 +1,18 @@
 package gui;
 
 import managers.DatabaseManager;
+import managers.UserManager;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.*;
 
 public class CreateAccountPanel extends JPanel {
-    private DatabaseManager databaseManager;
+    //private DatabaseManager databaseManager;
+    private UserManager userManager;
     JButton backBtn;
 
-    public CreateAccountPanel(DatabaseManager dbm){
-        this.databaseManager = dbm;
+    public CreateAccountPanel(UserManager um){
+        this.userManager = um;
         MigLayout mig = new MigLayout();
 
         JLabel usernameLabel = new JLabel("Username");
@@ -58,13 +60,17 @@ public class CreateAccountPanel extends JPanel {
         });
 
         okBtn.addActionListener(ae->{
-            if(databaseManager.addUser(usernameField.getText(), new String(passwordField.getPassword()))){
-                JOptionPane.showMessageDialog(null, "Account successfully created!", "Information", JOptionPane.INFORMATION_MESSAGE);
-                usernameField.setText("");
-                passwordField.setText("");
-            }
-            else{
-                JOptionPane.showMessageDialog(null, "Username is taken!", "Warning", JOptionPane.WARNING_MESSAGE);
+            switch (userManager.addUser(usernameField.getText(), passwordField.getPassword()))
+            {
+                case UserManager.OK:
+                    JOptionPane.showMessageDialog(null, "Account successfully created!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case UserManager.USERNAME_TAKEN:
+                    JOptionPane.showMessageDialog(null, "Username is taken!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    break;
+                case UserManager.FIELD_EMPTY:
+                    JOptionPane.showMessageDialog(null, "Both fields are mandatory!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    break;
             }
         });
     }

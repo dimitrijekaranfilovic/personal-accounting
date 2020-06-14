@@ -65,13 +65,16 @@ public class DatabaseManager {
 
                 //build 'currencies' table
                 createTables.execute("create table currencies(" +
-                        "abbreviation varchar(3) primary key" +
+                        "abbreviation varchar(3)," +
+                        "actor varchar(30)," +
+                        "constraint currPK primary key (abbreviation, actor)," +
+                        "constraint currFK foreign key (actor) references users(username)" +
                         ");");
             }
         }
     }
 
-    public boolean addUser(String username, String password) {
+    boolean addUser(String username, String password) {
         try {
             if(connection == null){
                 getConnection();
@@ -87,7 +90,7 @@ public class DatabaseManager {
         }
     }
 
-    public boolean checkLogin(String username, char[] password){
+    boolean checkLogin(String username, char[] password){
             try {
                 if(connection == null)
                     getConnection();

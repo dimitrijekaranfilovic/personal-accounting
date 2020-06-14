@@ -1,12 +1,15 @@
 package managers;
 
+import entities.ActivityVersion;
+
 import java.sql.*;
+import java.time.LocalDateTime;
 
 public class DatabaseManager {
     private Connection connection;
     private boolean hasData = false;
 
-    public void getConnection() throws ClassNotFoundException, SQLException {
+    private void getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
         String url = System.getProperty("user.home") + System.getProperty("file.separator") + "personal-accounting-database.db";
         connection = DriverManager.getConnection("jdbc:sqlite:" + url);
@@ -78,5 +81,20 @@ public class DatabaseManager {
             //e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean checkLogin(String username, char[] password){
+            try {
+                if(connection == null)
+                    getConnection();
+                PreparedStatement ps = connection.prepareStatement("select * from users where username=? and password=?;");
+                ps.setString(1, username);
+                ps.setString(2, new String(password));
+                ps.execute();
+                return ps.getResultSet().next();
+            } catch (ClassNotFoundException | SQLException e) {
+                e.printStackTrace();
+                return false;
+            }
     }
 }

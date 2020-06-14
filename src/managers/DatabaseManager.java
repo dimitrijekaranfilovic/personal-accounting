@@ -16,7 +16,7 @@ public class DatabaseManager {
     }
 
 
-
+    //test function for the database
     public ResultSet display() throws SQLException, ClassNotFoundException {
         if(connection == null){
             getConnection();
@@ -25,6 +25,7 @@ public class DatabaseManager {
         return statement.executeQuery("select * from users;");
     }
 
+    //creates tables if there are none
     private void initialize() throws SQLException {
         if(!hasData){
             hasData = true;
@@ -56,7 +57,10 @@ public class DatabaseManager {
 
                 //build 'balances' table
                 createTables.execute("create table balances(" +
-                        "time Date primary key" +
+                        "time Date primary key," +
+                        "actor varchar(30)," +
+                        "constraint balanceFK foreign key (actor) references users(username)" +
+                        "" +
                         ");");
 
                 //build 'currencies' table
@@ -79,7 +83,6 @@ public class DatabaseManager {
             return true;
 
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -94,7 +97,7 @@ public class DatabaseManager {
                 ps.execute();
                 return ps.getResultSet().next();
             } catch (ClassNotFoundException | SQLException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 return false;
             }
     }

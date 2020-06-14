@@ -2,7 +2,6 @@ package gui;
 
 import managers.DatabaseManager;
 import net.miginfocom.swing.MigLayout;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -36,7 +35,6 @@ public class CreateAccountPanel extends JPanel {
         JCheckBox showPassword = new JCheckBox("Show Password");
 
         JButton okBtn = new JButton("Ok");
-        //JButton cancelBtn = new JButton("Cancel");
 
         this.backBtn = new JButton("Back");
 
@@ -50,19 +48,9 @@ public class CreateAccountPanel extends JPanel {
         panel.add(showPassword, "wrap");
 
         panel.add(okBtn, "split 2");
-        //panel.add(cancelBtn);
         panel.add(this.backBtn);
 
-
-        //this.setLocationRelativeTo(null);
-        //this.setSize(250, 150);
         this.add(panel);
-        //this.setResizable(false);
-        //this.setTitle("Create Account");
-        //this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //this.setVisible(true);
-        System.out.println("Create account panel " + this.getWidth() + "," + this.getHeight());
-
 
         showPassword.addActionListener(ae -> {
             JCheckBox c = (JCheckBox) ae.getSource();
@@ -70,15 +58,14 @@ public class CreateAccountPanel extends JPanel {
         });
 
         okBtn.addActionListener(ae->{
-            /*if(databaseManager.checkLogin(usernameField.getText(), passwordField.getPassword())){
-                System.out.println("PRIJAVA!");
+            if(databaseManager.addUser(usernameField.getText(), new String(passwordField.getPassword()))){
+                JOptionPane.showMessageDialog(null, "Account successfully created!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                usernameField.setText("");
+                passwordField.setText("");
             }
-            else
-                JOptionPane.showMessageDialog(null, "Wrong username or password!", "Warning", JOptionPane.WARNING_MESSAGE);
-                */
-
+            else{
+                JOptionPane.showMessageDialog(null, "Username is taken!", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
         });
-
     }
-
 }

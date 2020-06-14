@@ -6,10 +6,11 @@ import gui.MainFrame;
 import managers.DatabaseManager;
 
 import javax.swing.*;
+import java.sql.SQLException;
 
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 	// write your code here
         //System.out.println("Hello world!");
         /*DatabaseManager dbm = new DatabaseManager();
@@ -31,6 +32,7 @@ public class Main {
         }
        // setUIFont(new javax.swing.plaf.FontUIResource("Serif", Font.PLAIN, 14));
         DatabaseManager dbm = new DatabaseManager();
+        //dbm.display();
         //LoginFrame lf = new LoginFrame(dbm);
         //CreateAccountPanel caf = new CreateAccountPanel(dbm);
         MainFrame mf = new MainFrame(dbm);
@@ -39,7 +41,7 @@ public class Main {
 
 
     }
-    public static void setUIFont (javax.swing.plaf.FontUIResource f){
+    /*public static void setUIFont (javax.swing.plaf.FontUIResource f){
         java.util.Enumeration keys = UIManager.getDefaults().keys();
         while (keys.hasMoreElements()) {
             Object key = keys.nextElement();
@@ -47,5 +49,5 @@ public class Main {
             if (value instanceof javax.swing.plaf.FontUIResource)
                 UIManager.put (key, f);
         }
-    }
+    }*/
 }

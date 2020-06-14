@@ -1,7 +1,6 @@
 package managers;
 
 import entities.ActivityVersion;
-
 import java.sql.*;
 import java.time.LocalDateTime;
 
@@ -55,10 +54,12 @@ public class DatabaseManager {
                         "" +
                         ");");
 
+                //build 'balances' table
                 createTables.execute("create table balances(" +
                         "time Date primary key" +
                         ");");
 
+                //build 'currencies' table
                 createTables.execute("create table currencies(" +
                         "abbreviation varchar(3) primary key" +
                         ");");
@@ -78,7 +79,7 @@ public class DatabaseManager {
             return true;
 
         } catch (SQLException | ClassNotFoundException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             return false;
         }
     }

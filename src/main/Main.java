@@ -4,6 +4,7 @@ import gui.LoginFrame;
 import managers.DatabaseManager;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -29,8 +30,18 @@ public class Main {
         } catch (Exception e) {
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }
+       // setUIFont(new javax.swing.plaf.FontUIResource("Serif", Font.PLAIN, 14));
         DatabaseManager dbm = new DatabaseManager();
         LoginFrame lf = new LoginFrame(dbm);
 
+    }
+    public static void setUIFont (javax.swing.plaf.FontUIResource f){
+        java.util.Enumeration keys = UIManager.getDefaults().keys();
+        while (keys.hasMoreElements()) {
+            Object key = keys.nextElement();
+            Object value = UIManager.get (key);
+            if (value instanceof javax.swing.plaf.FontUIResource)
+                UIManager.put (key, f);
+        }
     }
 }

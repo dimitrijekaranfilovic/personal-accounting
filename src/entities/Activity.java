@@ -6,10 +6,10 @@ public class Activity implements Comparable<Activity>{
     private String description;
     private LocalDateTime time;
     private int amount;
-    private Currency currency;
+    private String currency;
     private ActivityVersion activityVersion;
 
-    public Activity(String description, LocalDateTime time, int amount, Currency currency, ActivityVersion activityVersion) {
+    public Activity(String description, LocalDateTime time, int amount, String currency, ActivityVersion activityVersion) {
         this.description = description;
         this.time = time;
         this.amount = amount;
@@ -29,7 +29,7 @@ public class Activity implements Comparable<Activity>{
         this.amount = amount;
     }
 
-    public void setCurrency(Currency currency) {
+    public void setCurrency(String currency) {
         this.currency = currency;
     }
 
@@ -49,7 +49,7 @@ public class Activity implements Comparable<Activity>{
         return amount;
     }
 
-    public Currency getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 

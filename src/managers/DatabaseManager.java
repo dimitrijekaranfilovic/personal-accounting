@@ -63,15 +63,20 @@ public class DatabaseManager {
         }
     }
 
-    public void addUser(String username, String password) throws SQLException, ClassNotFoundException {
-        if(connection == null){
-            getConnection();
+    public boolean addUser(String username, String password) {
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("insert into users(username, password) values(?, ?);");
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.execute();
+            return true;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            //e.printStackTrace();
+            return false;
         }
-        PreparedStatement ps = connection.prepareStatement("insert into users(username, password) values(?, ?);");
-        ps.setString(1, username);
-        ps.setString(2, password);
-        ps.execute();
-
-
     }
 }

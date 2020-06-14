@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class ActivityModel extends AbstractTableModel {
     public ArrayList<Activity> activities;
-    private String[] columnNames;
+    private String[] columnNames = {"Description", "Amount", "Currency", "Date", "Version"};
 
     public ActivityModel(ArrayList<Activity> activities) {
         this.activities = activities;

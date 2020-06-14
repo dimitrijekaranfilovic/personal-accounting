@@ -1,25 +1,13 @@
 package main;
 
-import gui.CreateAccountPanel;
-import gui.LoginPanel;
 import gui.MainFrame;
 import managers.DatabaseManager;
-
 import javax.swing.*;
-import java.sql.SQLException;
 
 public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        //System.out.println("Hello world!");
-        /*DatabaseManager dbm = new DatabaseManager();
-        //dbm.addUser("dimitrije", "aaaa");
-            ResultSet rs = dbm.display();
-            while(rs.next()) {
-                System.out.println(rs.getString(1) + " " + rs.getString(2));
-                //System.out.println("TEST");
-            }*/
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -32,14 +20,14 @@ public class Main {
         }
        // setUIFont(new javax.swing.plaf.FontUIResource("Serif", Font.PLAIN, 14));
         DatabaseManager dbm = new DatabaseManager();
-        //dbm.display();
-        //LoginFrame lf = new LoginFrame(dbm);
-        //CreateAccountPanel caf = new CreateAccountPanel(dbm);
-        MainFrame mf = new MainFrame(dbm);
-        //LoginPanel lp = new LoginPanel(dbm);
-        //lp.setVisible(true);
-
-
+        /*try {
+            dbm.display();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }*/
+        new MainFrame(dbm);
     }
     /*public static void setUIFont (javax.swing.plaf.FontUIResource f){
         java.util.Enumeration keys = UIManager.getDefaults().keys();

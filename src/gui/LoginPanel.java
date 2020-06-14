@@ -1,18 +1,17 @@
 package gui;
 
 import managers.DatabaseManager;
+import managers.UserManager;
 import net.miginfocom.swing.MigLayout;
-
 import javax.swing.*;
-import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 
 public class LoginPanel extends JPanel {
-    private DatabaseManager databaseManager;
+    private UserManager userManager;
     public JButton createAccountBtn;
 
-    public LoginPanel(DatabaseManager dbm){
-        this.databaseManager = dbm;
+    public LoginPanel(UserManager um){
+        this.userManager = um;
         MigLayout mig = new MigLayout();
 
         JLabel usernameLabel = new JLabel("Username");
@@ -34,7 +33,6 @@ public class LoginPanel extends JPanel {
         usernameField.setMaximumSize(d2);
         passwordField.setMinimumSize(d2);
         passwordField.setMaximumSize(d2);
-
 
         JCheckBox showPassword = new JCheckBox("Show Password");
 
@@ -64,11 +62,15 @@ public class LoginPanel extends JPanel {
         });
 
         okBtn.addActionListener(ae->{
-            if(databaseManager.checkLogin(usernameField.getText(), passwordField.getPassword())){
-                System.out.println("PRIJAVA!");
+            switch (this.userManager.checkLogin(usernameField.getText(), passwordField.getPassword())){
+                case UserManager.OK:
+                    JOptionPane.showMessageDialog(null, "Successfully logged in!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case UserManager.WRONG:
+                    JOptionPane.showMessageDialog(null, "Wrong username or password!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    break;
             }
-            else
-                JOptionPane.showMessageDialog(null, "Wrong username or password!", "Warning", JOptionPane.WARNING_MESSAGE);
+
         });
 
         cancelBtn.addActionListener(ae-> System.exit(0));

@@ -1,5 +1,6 @@
 package main;
 
+import gui.CreateAccountFrame;
 import gui.LoginFrame;
 import managers.DatabaseManager;
 
@@ -32,7 +33,8 @@ public class Main {
         }
        // setUIFont(new javax.swing.plaf.FontUIResource("Serif", Font.PLAIN, 14));
         DatabaseManager dbm = new DatabaseManager();
-        LoginFrame lf = new LoginFrame(dbm);
+        //LoginFrame lf = new LoginFrame(dbm);
+        CreateAccountFrame caf = new CreateAccountFrame(dbm);
 
     }
     public static void setUIFont (javax.swing.plaf.FontUIResource f){

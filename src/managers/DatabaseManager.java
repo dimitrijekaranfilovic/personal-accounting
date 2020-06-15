@@ -23,7 +23,8 @@ public class DatabaseManager {
             getConnection();
         }
         Statement statement = connection.createStatement();
-        return statement.executeQuery("select * from balances;");
+        //return statement.executeQuery("select * from balances;");
+        return statement.executeQuery("select * from (select * from balances where currency='eur' order by time desc) limit 1");
     }
 
     //creates tables if there are none
@@ -72,7 +73,20 @@ public class DatabaseManager {
         }
     }
 
+    ResultSet getLatestBalance(String currency){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("select * from (select * from balances where currency=? order by time desc) limit 1");
+            ps.setString(1, currency);
+            ps.execute();
+            return ps.getResultSet();
+        } catch (SQLException | ClassNotFoundException e) {
+            return null;
+        }
 
+    }
     ResultSet getBalance(String currency){
         try {
             if(connection == null){

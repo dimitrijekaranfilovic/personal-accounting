@@ -28,4 +28,20 @@ public class BalanceManager  {
         }
     }
 
+    public int getLatestBalance(String currency){
+        ResultSet rs = this.databaseManager.getLatestBalance(currency);
+        if(rs == null)
+            return 0;
+        else{
+            int balance = 0;
+            try {
+                balance = rs.getInt("amount");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return balance;
+        }
+    }
+
 }

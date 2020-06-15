@@ -24,10 +24,11 @@ public class Main {
        // setUIFont(new javax.swing.plaf.FontUIResource("Serif", Font.PLAIN, 14));
         //DatabaseManager dbm = new DatabaseManager();
         ManagerFactory mf = new ManagerFactory();
-       /* try {
+        /*try {
             ResultSet rs = mf.databaseManager.display();
             while(rs.next()){
-                System.out.println(rs.getString("currency") + " " + rs.getInt("amount"));
+
+                System.out.println(rs.getString("currency") + " " + rs.getInt("amount") + " " + rs.getTime("time"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

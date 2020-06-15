@@ -1,6 +1,3 @@
 # Project exclude paths
 /out/
-*.iml
-.idea
-*.iml
-*.iml
+PersonalAccounting.iml

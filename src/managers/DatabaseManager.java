@@ -37,10 +37,10 @@ public class DatabaseManager {
                 Statement createTables = connection.createStatement();
 
                 //build 'users' table
-                createTables.execute("create table users(" +
+                /*createTables.execute("create table users(" +
                         "username varchar(30) primary key," +
                         "password varchar(100) not null" +
-                        ");");
+                        ");");*/
 
                 //build 'activities' table
                 createTables.execute("create table activities(" +
@@ -49,8 +49,6 @@ public class DatabaseManager {
                         "amount integer," +
                         "currency varchar(3),"+
                         "activity varchar(10)," +
-                        "actor varchar(30)," +
-                        "constraint actFK foreign key (actor) references users(username)," +
                         "constraint actPK primary key (description, amount, time)" +
                         "" +
                         "" +
@@ -58,26 +56,23 @@ public class DatabaseManager {
 
                 //build 'balances' table
                 createTables.execute("create table balances(" +
-                        "time Date primary key," +
-                        "actor varchar(30)," +
+                        "time Date," +
                         "currency varchar(3)," +
+                        "amount integer," +
                         "constraint balanceFK1 foreign key (currency) references currencies(abbreviation)," +
-                        "constraint balanceFK2 foreign key (actor) references users(username)" +
-                        "" +
+                        "primary key (time, amount, currency)" +
                         ");");
 
                 //build 'currencies' table
                 createTables.execute("create table currencies(" +
                         "abbreviation varchar(3)," +
-                        "actor varchar(30)," +
-                        "constraint currPK primary key (abbreviation, actor)," +
-                        "constraint currFK foreign key (actor) references users(username)" +
+                        "constraint currPK primary key (abbreviation)," +
                         ");");
             }
         }
     }
 
-    boolean addUser(String username, String password) {
+    /*boolean addUser(String username, String password) {
         try {
             if(connection == null){
                 getConnection();
@@ -91,9 +86,9 @@ public class DatabaseManager {
         } catch (SQLException | ClassNotFoundException e) {
             return false;
         }
-    }
+    }*/
 
-    boolean checkLogin(String username, char[] password){
+   /* boolean checkLogin(String username, char[] password){
             try {
                 if(connection == null)
                     getConnection();
@@ -106,9 +101,9 @@ public class DatabaseManager {
                 //e.printStackTrace();
                 return false;
             }
-    }
+    }*/
 
-    ResultSet fetchCurrencies(String username){
+    /*ResultSet fetchCurrencies(String username){
         try {
             if(connection == null)
                 getConnection();
@@ -121,17 +116,18 @@ public class DatabaseManager {
             //e.printStackTrace();
             return null;
         }
-    }
+    }*/
 
-    boolean addBalance(String user, String currency){
+    boolean addBalance(String currency, int amount){
         try {
             if(connection == null){
                 getConnection();
             }
-            PreparedStatement ps = connection.prepareStatement("insert into balances(time, actor, currency) values(?, ?, ?);");
+            PreparedStatement ps = connection.prepareStatement("insert into balances(time, currency, amount) values(?, ?, ?);");
             ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setString(2, user);
-            ps.setString(3, currency);
+           // ps.setString(2, user);
+            ps.setString(2, currency);
+            ps.setInt(3, amount);
             ps.execute();
 
             return true;
@@ -141,14 +137,14 @@ public class DatabaseManager {
         }
     }
 
-    boolean addCurrency(String abbreviation, String user){
+    boolean addCurrency(String abbreviation){
         try {
             if(connection == null){
                 getConnection();
             }
-            PreparedStatement ps = connection.prepareStatement("insert into currencies(abbreviation, actor) values(?, ?);");
+            PreparedStatement ps = connection.prepareStatement("insert into currencies(abbreviation) values(?);");
             ps.setString(1, abbreviation);
-            ps.setString(2, user);
+            //ps.setString(2, user);
             ps.execute();
 
             return true;

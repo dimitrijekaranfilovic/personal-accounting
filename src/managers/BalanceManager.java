@@ -44,4 +44,8 @@ public class BalanceManager  {
         }
     }
 
+    public boolean addBalance(String currency, int amount){
+        return this.databaseManager.addBalance(currency, amount);
+    }
+
 }

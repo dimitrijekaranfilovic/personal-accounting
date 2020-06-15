@@ -2,17 +2,18 @@ package entities;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Balance implements  Comparable<Balance>{
     private LocalDateTime time;
     private ArrayList<Integer> currencyBalances;
+    public HashMap<String, Integer> currencyValueMap;
+
     //TODO: treba mu se proslediti lista valuta, ili da ima uvid u staticku listu valuta
-    public Balance(LocalDateTime time) {
-        this.time = time;
+    public Balance() {
+        this.time = LocalDateTime.now();
         this.currencyBalances = new ArrayList<>();
-        /*for(int i = 0; i < Currency.values().length;i++){
-            this.currencyBalances.add(0);
-        }*/
+        this.currencyValueMap = new HashMap<>();
     }
 
     public LocalDateTime getTime() {

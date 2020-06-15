@@ -3,11 +3,14 @@ package gui;
 import managers.ManagerFactory;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 public class MainFrame extends JFrame{
     private JPanel mainPanel;
     private ManagerFactory managerFactory;
+    private HomePanel homePanel;
 
     private static MainFrame instance = null;
 
@@ -24,14 +27,14 @@ public class MainFrame extends JFrame{
 
 
         AddCurrencyBalanceFrame addCurrencyBalanceFrame = new AddCurrencyBalanceFrame(this.managerFactory);
-        HomePanel homePanel = new HomePanel(this.managerFactory);
+        this.homePanel = new HomePanel(this.managerFactory);
         AddActivityPanel addActivityPanel = new AddActivityPanel(this.managerFactory);
         ActivitiesFilterPanel activitiesFilterPanel = new ActivitiesFilterPanel(this.managerFactory);
         BalancesFilterPanel balancesFilterPanel = new BalancesFilterPanel(this.managerFactory);
 
         mainPanel = new JPanel(new CardLayout());
         mainPanel.add(addCurrencyBalanceFrame, "Add currencies");
-        mainPanel.add(homePanel, "Home");
+        mainPanel.add(this.homePanel, "Home");
         mainPanel.add(addActivityPanel, "Add activity");
         mainPanel.add(activitiesFilterPanel, "Choose filters");
         mainPanel.add(balancesFilterPanel, "Choose balances filters");
@@ -62,10 +65,20 @@ public class MainFrame extends JFrame{
             }
 
         });
-        homePanel.addCurrencyButton.addActionListener(ae->showCard("Add currencies", true));
-        homePanel.addActivityBtn.addActionListener(ae->showCard("Add activity", true));
-        homePanel.activitiesHistoryBtn.addActionListener(ae->showCard("Choose filters", true));
-        homePanel.balancesHistoryBtn.addActionListener(ae->showCard("Choose balances filters", true));
+
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for(String key : homePanel.currentBalance.currencyValueMap.keySet()){
+                    managerFactory.balanceManager.addBalance(key, homePanel.currentBalance.currencyValueMap.get(key));
+                }
+            }
+        });
+
+        this.homePanel.addCurrencyButton.addActionListener(ae->showCard("Add currencies", true));
+        this.homePanel.addActivityBtn.addActionListener(ae->showCard("Add activity", true));
+        this.homePanel.activitiesHistoryBtn.addActionListener(ae->showCard("Choose filters", true));
+        this.homePanel.balancesHistoryBtn.addActionListener(ae->showCard("Choose balances filters", true));
         addActivityPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         activitiesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         balancesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
@@ -81,7 +94,7 @@ public class MainFrame extends JFrame{
         if(name.equalsIgnoreCase("home"))
             this.setSize(370, 150);
         else if(name.equalsIgnoreCase("add activity"))
-            this.setSize(370, 240);
+            this.setSize(330, 270);
         else if(name.equalsIgnoreCase("choose filters"))
             this.setSize(270, 370);
         else if(name.equalsIgnoreCase("choose balances filters"))

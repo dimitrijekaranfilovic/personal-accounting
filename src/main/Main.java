@@ -35,7 +35,7 @@ public class Main {
             e.printStackTrace();
         }*/
         try {
-            new MainFrame(mf);
+            MainFrame.getInstance(mf);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }

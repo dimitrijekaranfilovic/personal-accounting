@@ -1,5 +1,6 @@
 package gui;
 
+import managers.CurrencyManager;
 import managers.DatabaseManager;
 import managers.UserManager;
 
@@ -9,19 +10,22 @@ import java.awt.*;
 public class MainFrame extends JFrame{
     private JPanel mainPanel;
     private UserManager userManager;
+    private CurrencyManager currencyManager;
     private DatabaseManager databaseManager;
 
     public  MainFrame(DatabaseManager dbm){
         this.databaseManager = dbm;
         this.userManager = new UserManager(this.databaseManager);
-        //this.setLayout(new MigLayout());
+        this.currencyManager = new CurrencyManager(this.databaseManager);
 
         LoginPanel loginPanel = new LoginPanel(this.userManager);
         CreateAccountPanel createAccountPanel = new CreateAccountPanel(this.userManager);
+        AddCurrencyBalanceFrame addCurrencyBalanceFrame = new AddCurrencyBalanceFrame(this.userManager, this.currencyManager);
 
         mainPanel = new JPanel(new CardLayout());
         mainPanel.add(loginPanel, "Log In");
         mainPanel.add(createAccountPanel, "Create Account");
+        mainPanel.add(addCurrencyBalanceFrame, "Add currencies and their balances");
 
         this.add(mainPanel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -29,9 +33,12 @@ public class MainFrame extends JFrame{
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setTitle("Log In");
+        this.setResizable(false);
 
         loginPanel.createAccountBtn.addActionListener(ae-> showCard("Create Account"));
         createAccountPanel.backBtn.addActionListener(ae-> showCard("Log In"));
+        addCurrencyBalanceFrame.finishBtn.addActionListener(ae-> showCard("Log In"));
+        createAccountPanel.nextBtn.addActionListener(ae-> showCard("Add currencies and their balances"));
     }
 
     private void showCard(String name){

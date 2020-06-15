@@ -59,7 +59,9 @@ public class DatabaseManager {
                 createTables.execute("create table balances(" +
                         "time Date primary key," +
                         "actor varchar(30)," +
-                        "constraint balanceFK foreign key (actor) references users(username)" +
+                        "currency varchar(3)," +
+                        "constraint balanceFK1 foreign key (currency) references currencies(abbreviation)," +
+                        "constraint balanceFK2 foreign key (actor) references users(username)" +
                         "" +
                         ");");
 
@@ -104,4 +106,39 @@ public class DatabaseManager {
                 return false;
             }
     }
+
+    ResultSet fetchCurrencies(String username){
+        try {
+            if(connection == null)
+                getConnection();
+            PreparedStatement ps = connection.prepareStatement("select * from currencies where actor=?;");
+            ps.setString(1, username);
+            //ps.setString(2, new String(password));
+            ps.execute();
+            return ps.getResultSet();
+        } catch (ClassNotFoundException | SQLException e) {
+            //e.printStackTrace();
+            return null;
+        }
+    }
+
+    /*boolean addBalance(){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("insert into balances(username, password) values(?, ?);");
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.execute();
+            return true;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    boolean addCurrency(){
+
+    }*/
 }

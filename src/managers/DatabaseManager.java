@@ -133,11 +133,9 @@ public class DatabaseManager {
             }
             PreparedStatement ps = connection.prepareStatement("insert into balances(time, currency, amount) values(?, ?, ?);");
             ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
-           // ps.setString(2, user);
             ps.setString(2, currency);
             ps.setInt(3, amount);
             ps.execute();
-
             return true;
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -152,6 +150,27 @@ public class DatabaseManager {
             }
             PreparedStatement ps = connection.prepareStatement("insert into currencies(abbreviation) values(?);");
             ps.setString(1, abbreviation);
+            //ps.setString(2, user);
+            ps.execute();
+
+            return true;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    boolean addActivity(String description, int amount, String currency, String activity, LocalDateTime date){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("insert into activities(description, amount, currency, activity, time) values(?, ?, ?, ?, ?);");
+            ps.setString(1, description);
+            ps.setInt(2, amount);
+            ps.setString(3, currency);
+            ps.setString(4, activity);
+            ps.setTimestamp(5, Timestamp.valueOf(date));
             //ps.setString(2, user);
             ps.execute();
 

@@ -1,5 +1,7 @@
 package event;
 
+import entities.Activity;
+
 import java.util.EventObject;
 
 public class UpdateEvent extends EventObject {
@@ -10,6 +12,10 @@ public class UpdateEvent extends EventObject {
      * @throws IllegalArgumentException if source is null
      */
     public UpdateEvent(Object source) {
+        super(source);
+    }
+
+    public UpdateEvent(Object source, Activity activity){
         super(source);
     }
 }

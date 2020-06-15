@@ -154,6 +154,5 @@ public class AddActivityPanel extends JPanel implements Observer {
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
         for(String s : currencies)
             this.currenciesBox.addItem(s);
-        //balanceField.setText(Display.amountDisplay(this.managerFactory.balanceManager.getBalance(this.currencies.get(0))));
     }
 }

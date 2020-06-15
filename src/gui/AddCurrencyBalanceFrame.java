@@ -10,8 +10,6 @@ import java.awt.*;
 public class AddCurrencyBalanceFrame extends JPanel {
     private ManagerFactory managerFactory;
     public JButton finishBtn;
-    boolean currencyAdded = false;
-
 
     AddCurrencyBalanceFrame(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
@@ -64,8 +62,5 @@ public class AddCurrencyBalanceFrame extends JPanel {
 
 
     }
-    /*public void setUser(String user){
-        this.user = user;
-    }*/
 
 }

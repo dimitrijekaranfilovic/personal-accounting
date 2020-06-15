@@ -2,8 +2,6 @@ package managers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.concurrent.atomic.DoubleAccumulator;
 
 public class BalanceManager  {
     private DatabaseManager databaseManager;

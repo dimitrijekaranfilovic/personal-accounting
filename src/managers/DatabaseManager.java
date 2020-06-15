@@ -1,8 +1,6 @@
 package managers;
 
-import entities.ActivityVersion;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class DatabaseManager {
@@ -23,7 +21,6 @@ public class DatabaseManager {
             getConnection();
         }
         Statement statement = connection.createStatement();
-        //return statement.executeQuery("select * from balances;");
         return statement.executeQuery("select * from (select * from balances where currency='eur' order by time desc) limit 1");
     }
 
@@ -36,12 +33,6 @@ public class DatabaseManager {
             if(!resultSet.next())
             {
                 Statement createTables = connection.createStatement();
-
-                //build 'users' table
-                /*createTables.execute("create table users(" +
-                        "username varchar(30) primary key," +
-                        "password varchar(100) not null" +
-                        ");");*/
 
                 //build 'activities' table
                 createTables.execute("create table activities(" +
@@ -150,7 +141,6 @@ public class DatabaseManager {
             }
             PreparedStatement ps = connection.prepareStatement("insert into currencies(abbreviation) values(?);");
             ps.setString(1, abbreviation);
-            //ps.setString(2, user);
             ps.execute();
 
             return true;
@@ -171,9 +161,7 @@ public class DatabaseManager {
             ps.setString(3, currency);
             ps.setString(4, activity);
             ps.setTimestamp(5, Timestamp.valueOf(date));
-            //ps.setString(2, user);
             ps.execute();
-
             return true;
 
         } catch (SQLException | ClassNotFoundException e) {

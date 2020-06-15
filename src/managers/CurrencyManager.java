@@ -1,20 +1,24 @@
 package managers;
 
+import entities.Publisher;
+import event.Observer;
+import event.UpdateEvent;
 import main.Main;
 
 import java.awt.image.WritableRenderedImage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class CurrencyManager {
+public class CurrencyManager implements Publisher {
     public static final int NUM_CHARACTERS = 0; //currency abbreviation must be exactly 3 characters
     public static final int NOT_NUMBER = 1;
     public static final int NOT_CHARACTER = 2;
     public static final int OK = 3;
     public static final int WRONG = 4;
 
-
+    private List<Observer> observers;
     private DatabaseManager databaseManager;
 
     public CurrencyManager(DatabaseManager databaseManager){
@@ -45,6 +49,7 @@ public class CurrencyManager {
             }
 
            if(this.databaseManager.addCurrency(currency) && this.databaseManager.addBalance(currency, amount)){
+               notifyObservers();
                return OK;
            }
            else{
@@ -81,5 +86,28 @@ public class CurrencyManager {
 
                 return currencies;
             }
+    }
+
+
+    @Override
+    public void addObserver(Observer observer) {
+        if (null == observers)
+            observers = new ArrayList<>();
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        if (null == observers)
+            return;
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        UpdateEvent e = new UpdateEvent(this);
+        for (Observer observer : observers) {
+            observer.updatePerformed(e);
+        }
     }
 }

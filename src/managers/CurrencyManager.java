@@ -3,6 +3,9 @@ package managers;
 import main.Main;
 
 import java.awt.image.WritableRenderedImage;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CurrencyManager {
     public static final int NUM_CHARACTERS = 0; //currency abbreviation must be exactly 3 characters
@@ -51,4 +54,32 @@ public class CurrencyManager {
 
     }
 
+    public int countCurrencies() throws SQLException {
+        ResultSet rs = this.databaseManager.countCurrencies();
+        if(rs == null)
+            return 0;
+        else{
+            return rs.getInt("num");
+        }
+
+    }
+
+    public ArrayList<String> getCurrencies() {
+            ResultSet rs = this.databaseManager.getCurrencies();
+            if(rs == null)
+                return null;
+            else{
+                ArrayList<String> currencies = new ArrayList<>();
+                try{
+                    while(rs.next()){
+                        currencies.add(rs.getString("abbreviation"));
+                    }
+                }
+                catch (SQLException e){
+                    return null;
+                }
+
+                return currencies;
+            }
+    }
 }

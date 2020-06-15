@@ -2,59 +2,54 @@ package gui;
 
 import managers.CurrencyManager;
 import managers.DatabaseManager;
+import managers.ManagerFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class MainFrame extends JFrame{
     private JPanel mainPanel;
+    private ManagerFactory managerFactory;
     //private UserManager userManager;
-    private CurrencyManager currencyManager;
-    private DatabaseManager databaseManager;
+    //private CurrencyManager currencyManager;
+    //private DatabaseManager databaseManager;
 
-    public  MainFrame(DatabaseManager dbm){
-        this.databaseManager = dbm;
-        //this.userManager = new UserManager(this.databaseManager);
-        this.currencyManager = new CurrencyManager(this.databaseManager);
-
-        //LoginPanel loginPanel = new LoginPanel(this.userManager);
-        //CreateAccountPanel createAccountPanel = new CreateAccountPanel(this.userManager);
-        AddCurrencyBalanceFrame addCurrencyBalanceFrame = new AddCurrencyBalanceFrame(this.currencyManager);
+    public  MainFrame(ManagerFactory managerFactory) throws SQLException, ClassNotFoundException {
+        //this.databaseManager = dbm;
+        //this.currencyManager = new CurrencyManager(this.databaseManager);
+        //this.databaseManager.getConnection();;
+        this.managerFactory.databaseManager.getConnection();
+        AddCurrencyBalanceFrame addCurrencyBalanceFrame = new AddCurrencyBalanceFrame(this.managerFactory);
+        HomePanel homePanel = new HomePanel(this.managerFactory);
 
         mainPanel = new JPanel(new CardLayout());
-       // mainPanel.add(loginPanel, "Log In");
-       // mainPanel.add(createAccountPanel, "Create Account");
-        mainPanel.add(addCurrencyBalanceFrame, "Add currencies and their balances");
+        mainPanel.add(addCurrencyBalanceFrame, "Add currencies");
+        mainPanel.add(homePanel, "Home");
+
+
 
         this.add(mainPanel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        this.setTitle("Log In");
         this.setResizable(false);
+        if(this.managerFactory.currencyManager.countCurrencies() > 0){
+            showCard("Home");
+            this.setTitle("Home");
+        }
+        else {
+            showCard("Add currencies");
+            this.setTitle("Initial setup");
+        }
 
-       /* loginPanel.createAccountBtn.addActionListener(ae-> showCard("Create Account"));
-        createAccountPanel.backBtn.addActionListener(ae-> showCard("Log In"));
-        addCurrencyBalanceFrame.finishBtn.addActionListener(ae-> {
-            if(addCurrencyBalanceFrame.currencyAdded){
-                showCard("Log In");
-                addCurrencyBalanceFrame.currencyAdded = false;
-            }
 
-        });*/
-        /*createAccountPanel.nextBtn.addActionListener(ae-> {
-            if(createAccountPanel.createdUser){
-                System.out.println("TREBA DA PREDJEM!");
-                showCard("Add currencies and their balances");
-                createAccountPanel.createdUser = false;
-            }
-        });*/
     }
 
     private void showCard(String name){
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
         cl.show(mainPanel, name);
-        this.setTitle(name);
+        //this.setTitle(name);
     }
 }

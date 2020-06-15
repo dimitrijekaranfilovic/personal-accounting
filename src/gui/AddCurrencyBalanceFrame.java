@@ -1,24 +1,20 @@
 package gui;
 
 import managers.CurrencyManager;
+import managers.ManagerFactory;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class AddCurrencyBalanceFrame extends JPanel {
-    //private DatabaseManager databaseManager;
-    //private UserManager userManager;
-    private CurrencyManager currencyManager;
+    private ManagerFactory managerFactory;
     public JButton finishBtn;
-    private String user = null;
     boolean currencyAdded = false;
 
 
-    AddCurrencyBalanceFrame(CurrencyManager currencyManager){
-       // this.databaseManager = databaseManager;
-        //this.userManager = userManager;
-        this.currencyManager = currencyManager;
+    AddCurrencyBalanceFrame(ManagerFactory managerFactory){
+        this.managerFactory = managerFactory;
         this.setLayout(new MigLayout());
 
         JLabel currencyLabel = new JLabel("Currency");
@@ -30,8 +26,9 @@ public class AddCurrencyBalanceFrame extends JPanel {
         Dimension d = new Dimension(70, 20);
         currencyLabel.setMinimumSize(d);
         currencyLabel.setMaximumSize(d);
-        currencyLabel.setMinimumSize(d);
-        currencyLabel.setMaximumSize(d);
+        balanceLabel.setMinimumSize(d);
+        balanceLabel.setMaximumSize(d);
+
         this.finishBtn = new JButton("Finish");
         JButton addBtn = new JButton("Add");
 
@@ -45,7 +42,7 @@ public class AddCurrencyBalanceFrame extends JPanel {
         this.add(finishBtn);
 
         addBtn.addActionListener(ae->{
-            int result = this.currencyManager.addCurrency(currencyField.getText(), balanceField.getText());
+            int result = this.managerFactory.currencyManager.addCurrency(currencyField.getText(), balanceField.getText());
             switch (result){
                 case CurrencyManager.NUM_CHARACTERS:
                     JOptionPane.showMessageDialog(null, "Currency abbreviation must be exactly 3 characters!", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -58,7 +55,6 @@ public class AddCurrencyBalanceFrame extends JPanel {
                     break;
                 case CurrencyManager.OK:
                     JOptionPane.showMessageDialog(null, "Currency successfully added!", "Information", JOptionPane.INFORMATION_MESSAGE);
-                    this.currencyAdded = true;
                     break;
                 case CurrencyManager.WRONG:
                     JOptionPane.showMessageDialog(null, "Error adding currency!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -68,8 +64,8 @@ public class AddCurrencyBalanceFrame extends JPanel {
 
 
     }
-    public void setUser(String user){
+    /*public void setUser(String user){
         this.user = user;
-    }
+    }*/
 
 }

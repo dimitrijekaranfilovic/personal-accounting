@@ -3,6 +3,7 @@ package main;
 import gui.MainFrame;
 import managers.DatabaseManager;
 import javax.swing.*;
+import java.sql.SQLException;
 
 public class Main {
 //TODO: mozda stavi da se sifre hash-uju kad se unose
@@ -29,6 +30,14 @@ public class Main {
         }*/
         new MainFrame(dbm);
         //int a = Integer.parseInt("aaa");
+    }
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
     /*public static void setUIFont (javax.swing.plaf.FontUIResource f){
         java.util.Enumeration keys = UIManager.getDefaults().keys();

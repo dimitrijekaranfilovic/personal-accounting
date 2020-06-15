@@ -2,6 +2,8 @@ package main;
 
 import gui.MainFrame;
 import managers.DatabaseManager;
+import managers.ManagerFactory;
+
 import javax.swing.*;
 import java.sql.SQLException;
 
@@ -20,7 +22,8 @@ public class Main {
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }
        // setUIFont(new javax.swing.plaf.FontUIResource("Serif", Font.PLAIN, 14));
-        DatabaseManager dbm = new DatabaseManager();
+        //DatabaseManager dbm = new DatabaseManager();
+        ManagerFactory mf = new ManagerFactory();
         /*try {
             dbm.display();
         } catch (SQLException e) {
@@ -28,7 +31,11 @@ public class Main {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }*/
-        new MainFrame(dbm);
+        try {
+            new MainFrame(mf);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         //int a = Integer.parseInt("aaa");
     }
     public static boolean isNumeric(String str) {

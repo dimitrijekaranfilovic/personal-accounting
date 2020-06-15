@@ -39,13 +39,16 @@ public class HomePanel extends JPanel implements Observer {
         this.currenciesBox = new JComboBox<>();
         for(String s : this.currencies)
             this.currenciesBox.addItem(s);
-        if(this.currencies.size() > 0)
-            balanceField.setText(Display.amountDisplay(this.managerFactory.balanceManager.getBalance(this.currencies.get(0))));
+        if(this.currencies.size() > 0){
+            balanceField.setText(Display.amountDisplay(this.managerFactory.balanceManager.getLatestBalance(this.currencies.get(0))));
+            //System.out.println("Latest balance for " + this.currencies.get(0) + " is " + this.managerFactory.balanceManager.getLatestBalance(this.currencies.get(0)));
+        }
         this.balanceField.setEditable(false);
 
         this.currenciesBox.addItemListener(ie->{
             String currency = (String)ie.getItem();
-            int balance = this.managerFactory.balanceManager.getBalance(currency);
+            int balance = this.managerFactory.balanceManager.getLatestBalance(currency);
+            //System.out.println("Latest balance for " + this.currencies.get(0) + " is " + this.managerFactory.balanceManager.getLatestBalance(this.currencies.get(0)));
             //System.out.println("Balance: " + balance);
             this.balanceField.setText(Display.amountDisplay(balance));
             //this.balanceField.setText(balance + "");
@@ -74,7 +77,8 @@ public class HomePanel extends JPanel implements Observer {
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
         for(String s : currencies)
             this.currenciesBox.addItem(s);
-        balanceField.setText(Display.amountDisplay(this.managerFactory.balanceManager.getBalance(this.currencies.get(0))));
+        balanceField.setText(Display.amountDisplay(this.managerFactory.balanceManager.getLatestBalance(this.currencies.get(0))));
+        //System.out.println("Latest balance for " + this.currencies.get(0) + " is " + this.managerFactory.balanceManager.getLatestBalance(this.currencies.get(0)));
 
     }
 }

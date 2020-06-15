@@ -27,12 +27,14 @@ public class MainFrame extends JFrame{
         HomePanel homePanel = new HomePanel(this.managerFactory);
         AddActivityPanel addActivityPanel = new AddActivityPanel(this.managerFactory);
         ActivitiesFilterPanel activitiesFilterPanel = new ActivitiesFilterPanel(this.managerFactory);
+        BalancesFilterPanel balancesFilterPanel = new BalancesFilterPanel(this.managerFactory);
 
         mainPanel = new JPanel(new CardLayout());
         mainPanel.add(addCurrencyBalanceFrame, "Add currencies");
         mainPanel.add(homePanel, "Home");
         mainPanel.add(addActivityPanel, "Add activity");
         mainPanel.add(activitiesFilterPanel, "Choose filters");
+        mainPanel.add(balancesFilterPanel, "Choose balances filters");
 
 
         this.add(mainPanel, BorderLayout.CENTER);
@@ -63,8 +65,10 @@ public class MainFrame extends JFrame{
         homePanel.addCurrencyButton.addActionListener(ae->showCard("Add currencies", true));
         homePanel.addActivityBtn.addActionListener(ae->showCard("Add activity", true));
         homePanel.activitiesHistoryBtn.addActionListener(ae->showCard("Choose filters", true));
+        homePanel.balancesHistoryBtn.addActionListener(ae->showCard("Choose balances filters", true));
         addActivityPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         activitiesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
+        balancesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
 
 
 
@@ -80,6 +84,8 @@ public class MainFrame extends JFrame{
             this.setSize(370, 240);
         else if(name.equalsIgnoreCase("choose filters"))
             this.setSize(270, 370);
+        else if(name.equalsIgnoreCase("choose balances filters"))
+            this.setSize(270, 250);
         if(title)
             this.setTitle(name);
     }

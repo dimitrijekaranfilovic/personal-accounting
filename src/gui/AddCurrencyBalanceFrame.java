@@ -39,10 +39,9 @@ public class AddCurrencyBalanceFrame extends JPanel {
         this.add(addBtn, "split 2");
         this.add(finishBtn);
 
-        addBtn.addActionListener(ae->{
-            this.currencyManager.addCurrency(currencyField.getText(), balanceField.getText());
-
-        });
+        addBtn.addActionListener(ae->
+            this.currencyManager.addCurrency(currencyField.getText(), balanceField.getText(), this.userManager.createdUser)
+        );
 
 
     }

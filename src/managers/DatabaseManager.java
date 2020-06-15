@@ -2,6 +2,7 @@ package managers;
 
 import entities.ActivityVersion;
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class DatabaseManager {
@@ -122,15 +123,17 @@ public class DatabaseManager {
         }
     }
 
-    /*boolean addBalance(){
+    boolean addBalance(String user, String currency){
         try {
             if(connection == null){
                 getConnection();
             }
-            PreparedStatement ps = connection.prepareStatement("insert into balances(username, password) values(?, ?);");
-            ps.setString(1, username);
-            ps.setString(2, password);
+            PreparedStatement ps = connection.prepareStatement("insert into balances(time, actor, currency) values(?, ?, ?);");
+            ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(2, user);
+            ps.setString(3, currency);
             ps.execute();
+
             return true;
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -138,7 +141,20 @@ public class DatabaseManager {
         }
     }
 
-    boolean addCurrency(){
+    boolean addCurrency(String abbreviation, String user){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("insert into currencies(abbreviation, actor) values(?, ?);");
+            ps.setString(1, abbreviation);
+            ps.setString(2, user);
+            ps.execute();
 
-    }*/
+            return true;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            return false;
+        }
+    }
 }

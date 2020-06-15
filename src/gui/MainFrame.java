@@ -12,6 +12,7 @@ public class MainFrame extends JFrame{
     public  MainFrame(ManagerFactory managerFactory) throws SQLException, ClassNotFoundException {
         this.managerFactory = managerFactory;
         this.managerFactory.databaseManager.getConnection();
+
         AddCurrencyBalanceFrame addCurrencyBalanceFrame = new AddCurrencyBalanceFrame(this.managerFactory);
         HomePanel homePanel = new HomePanel(this.managerFactory);
 
@@ -27,20 +28,33 @@ public class MainFrame extends JFrame{
         this.setVisible(true);
         this.setResizable(false);
         if(this.managerFactory.currencyManager.countCurrencies() > 0){
-            showCard("Home");
-            this.setTitle("Home");
+            showCard("Home", true);
         }
         else {
-            showCard("Add currencies");
+            showCard("Add currencies", false);
             this.setTitle("Initial setup");
         }
+        addCurrencyBalanceFrame.finishBtn.addActionListener(ae->{
+            try {
+                if(this.managerFactory.currencyManager.countCurrencies() == 0)
+                    JOptionPane.showMessageDialog(null, "You have to enter at least one currency!", "Warning", JOptionPane.WARNING_MESSAGE);
+                else
+                    showCard("Home", true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        });
+        homePanel.addCurrencyButton.addActionListener(ae->showCard("Add currencies", true));
+
 
 
     }
 
-    private void showCard(String name){
+    private void showCard(String name, boolean title){
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
         cl.show(mainPanel, name);
-        //this.setTitle(name);
+        if(title)
+            this.setTitle(name);
     }
 }

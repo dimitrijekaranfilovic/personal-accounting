@@ -5,7 +5,7 @@ import managers.DatabaseManager;
 import javax.swing.*;
 
 public class Main {
-
+//TODO: mozda stavi da se sifre hash-uju kad se unose
     public static void main(String[] args) {
 	// write your code here
         try {
@@ -28,6 +28,7 @@ public class Main {
             e.printStackTrace();
         }*/
         new MainFrame(dbm);
+        //int a = Integer.parseInt("aaa");
     }
     /*public static void setUIFont (javax.swing.plaf.FontUIResource f){
         java.util.Enumeration keys = UIManager.getDefaults().keys();

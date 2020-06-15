@@ -2,6 +2,7 @@ package managers;
 
 public class UserManager {
     private DatabaseManager databaseManager;
+    public String createdUser;
     public static final int USERNAME_TAKEN = 0;
     public static final int FIELD_EMPTY = 1;
     public static final int OK = 2;
@@ -15,6 +16,7 @@ public class UserManager {
     public int addUser(String username, char[] password){
         if(checkCredentials(username, password)) {
             if (this.databaseManager.addUser(username, new String(password))) {
+                this.createdUser = username;
                 return OK;
             }
             else {
@@ -36,6 +38,6 @@ public class UserManager {
     }
 
     private  boolean checkCredentials(String username, char[] password){
-        return !username.equalsIgnoreCase("") || password.length == 0;
+        return !(username.equalsIgnoreCase("") || password.length == 0);
     }
 }

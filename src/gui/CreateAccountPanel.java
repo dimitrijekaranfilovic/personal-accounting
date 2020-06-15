@@ -9,7 +9,9 @@ import java.awt.*;
 public class CreateAccountPanel extends JPanel {
     //private DatabaseManager databaseManager;
     private UserManager userManager;
-    JButton backBtn;
+    public JButton backBtn;
+    public JButton nextBtn;
+    //public String createdUser;
 
     public CreateAccountPanel(UserManager um){
         this.userManager = um;
@@ -36,7 +38,7 @@ public class CreateAccountPanel extends JPanel {
         passwordField.setMaximumSize(d2);
         JCheckBox showPassword = new JCheckBox("Show Password");
 
-        JButton okBtn = new JButton("Ok");
+        this.nextBtn = new JButton("Next");
 
         this.backBtn = new JButton("Back");
 
@@ -49,7 +51,7 @@ public class CreateAccountPanel extends JPanel {
 
         panel.add(showPassword, "wrap");
 
-        panel.add(okBtn, "split 2");
+        panel.add(nextBtn, "split 2");
         panel.add(this.backBtn);
 
         this.add(panel);
@@ -59,12 +61,13 @@ public class CreateAccountPanel extends JPanel {
             passwordField.setEchoChar(c.isSelected() ? '\u0000' : '*');
         });
 
-        okBtn.addActionListener(ae->{
+        this.nextBtn.addActionListener(ae->{
             switch (userManager.addUser(usernameField.getText(), passwordField.getPassword()))
             {
-                case UserManager.OK:
-                    JOptionPane.showMessageDialog(null, "Account successfully created!", "Information", JOptionPane.INFORMATION_MESSAGE);
-                    break;
+                //case UserManager.OK:
+                    //JOptionPane.showMessageDialog(null, "Account successfully created!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    //this.createdUser = usernameField.getText();
+                    //break;
                 case UserManager.USERNAME_TAKEN:
                     JOptionPane.showMessageDialog(null, "Username is taken!", "Warning", JOptionPane.WARNING_MESSAGE);
                     break;

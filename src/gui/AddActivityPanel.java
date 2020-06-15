@@ -44,7 +44,7 @@ public class AddActivityPanel extends JPanel implements Observer {
         JLabel dateLabel = new JLabel("Date");
         JLabel timeLabel = new JLabel("Time");
 
-        Dimension d = new Dimension(70, 28);
+        Dimension d = new Dimension(70, 25);
         descriptionLabel.setMinimumSize(d);
         descriptionLabel.setMaximumSize(d);
 
@@ -85,23 +85,72 @@ public class AddActivityPanel extends JPanel implements Observer {
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
+
 
         this.setLayout(new MigLayout());
         this.add(descriptionLabel, "split 2");
         this.add(descriptionField, "wrap");
+
         this.add(amountLabel, "split 2");
         this.add(amountField, "wrap");
+
         this.add(currencyLabel, "split 2");
         this.add(this.currenciesBox, "wrap");
+
         this.add(dateLabel, "split 2");
         this.add(datePicker, "wrap");
+
         this.add(timeLabel, "split 5");
         this.add(hourSpinner);
         this.add(new JLabel("h"));
         this.add(minuteSpinner);
         this.add(new JLabel("min"), "wrap");
+
         this.add(this.okBtn, "split 2");
         this.add(this.cancelBtn);
+
+        /*JPanel panel1 = new JPanel(new MigLayout());
+        panel1.add(descriptionLabel, "split 2");
+        panel1.add(descriptionField, "wrap");
+
+        JPanel panel2 = new JPanel(new MigLayout());
+        panel2.add(amountLabel, "split 2");
+        panel2.add(amountField, "wrap");
+
+        JPanel panel3 = new JPanel(new MigLayout());
+        panel3.add(currencyLabel, "split 2");
+        panel3.add(this.currenciesBox, "wrap");
+
+        JPanel panel4 = new JPanel(new MigLayout());
+        panel4.add(dateLabel, "split 2");
+        panel4.add(datePicker, "wrap");
+
+        JPanel panel5 = new JPanel(new MigLayout());
+        panel5.add(timeLabel, "split 5");
+        panel5.add(hourSpinner);
+        panel5.add(new JLabel("h"));
+        panel5.add(minuteSpinner);
+        panel5.add(new JLabel("min"), "wrap");
+
+        JPanel panel6 = new JPanel(new MigLayout());
+        panel6.add(this.okBtn, "split 2");
+        panel6.add(this.cancelBtn);
+
+        mainPanel.add(panel1);
+        mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+        mainPanel.add(panel2);
+        mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+        mainPanel.add(panel3);
+        mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+        mainPanel.add(panel4);
+        mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+        mainPanel.add(panel5);
+        mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
+        mainPanel.add(panel6);
+
+        this.add(mainPanel, BorderLayout.CENTER);*/
 
     }
 

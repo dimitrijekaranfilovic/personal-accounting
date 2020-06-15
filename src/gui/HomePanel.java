@@ -6,9 +6,7 @@ import managers.ManagerFactory;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
-import javax.swing.plaf.FontUIResource;
 import java.awt.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class HomePanel extends JPanel implements Observer {

@@ -9,16 +9,28 @@ public class MainFrame extends JFrame{
     private JPanel mainPanel;
     private ManagerFactory managerFactory;
 
-    public  MainFrame(ManagerFactory managerFactory) throws SQLException, ClassNotFoundException {
+    private static MainFrame instance = null;
+
+    public static MainFrame getInstance(ManagerFactory managerFactory) throws SQLException, ClassNotFoundException {
+        if(instance == null)
+            instance = new MainFrame(managerFactory);
+        return instance;
+    }
+    private  MainFrame(ManagerFactory managerFactory) throws SQLException, ClassNotFoundException {
         this.managerFactory = managerFactory;
+
         this.managerFactory.databaseManager.getConnection();
+
+
 
         AddCurrencyBalanceFrame addCurrencyBalanceFrame = new AddCurrencyBalanceFrame(this.managerFactory);
         HomePanel homePanel = new HomePanel(this.managerFactory);
+        AddActivityPanel addActivityPanel = new AddActivityPanel(this.managerFactory);
 
         mainPanel = new JPanel(new CardLayout());
         mainPanel.add(addCurrencyBalanceFrame, "Add currencies");
         mainPanel.add(homePanel, "Home");
+        mainPanel.add(addActivityPanel, "Add activity");
 
 
         this.add(mainPanel, BorderLayout.CENTER);
@@ -46,7 +58,8 @@ public class MainFrame extends JFrame{
 
         });
         homePanel.addCurrencyButton.addActionListener(ae->showCard("Add currencies", true));
-
+        homePanel.addActivityBtn.addActionListener(ae->showCard("Add activity", true));
+        addActivityPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
 
 
     }
@@ -54,6 +67,11 @@ public class MainFrame extends JFrame{
     private void showCard(String name, boolean title){
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
         cl.show(mainPanel, name);
+        //this.setSize(width, height);
+        if(name.equalsIgnoreCase("home"))
+            this.setSize(370, 150);
+        else if(name.equalsIgnoreCase("add activity"))
+            this.setSize(370, 240);
         if(title)
             this.setTitle(name);
     }

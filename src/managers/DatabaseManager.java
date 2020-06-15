@@ -23,7 +23,7 @@ public class DatabaseManager {
             getConnection();
         }
         Statement statement = connection.createStatement();
-        return statement.executeQuery("select * from users;");
+        return statement.executeQuery("select * from balances;");
     }
 
     //creates tables if there are none

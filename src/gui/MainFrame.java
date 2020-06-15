@@ -1,9 +1,6 @@
 package gui;
 
-import managers.CurrencyManager;
-import managers.DatabaseManager;
 import managers.ManagerFactory;
-
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
@@ -11,14 +8,9 @@ import java.sql.SQLException;
 public class MainFrame extends JFrame{
     private JPanel mainPanel;
     private ManagerFactory managerFactory;
-    //private UserManager userManager;
-    //private CurrencyManager currencyManager;
-    //private DatabaseManager databaseManager;
 
     public  MainFrame(ManagerFactory managerFactory) throws SQLException, ClassNotFoundException {
-        //this.databaseManager = dbm;
-        //this.currencyManager = new CurrencyManager(this.databaseManager);
-        //this.databaseManager.getConnection();;
+        this.managerFactory = managerFactory;
         this.managerFactory.databaseManager.getConnection();
         AddCurrencyBalanceFrame addCurrencyBalanceFrame = new AddCurrencyBalanceFrame(this.managerFactory);
         HomePanel homePanel = new HomePanel(this.managerFactory);
@@ -26,7 +18,6 @@ public class MainFrame extends JFrame{
         mainPanel = new JPanel(new CardLayout());
         mainPanel.add(addCurrencyBalanceFrame, "Add currencies");
         mainPanel.add(homePanel, "Home");
-
 
 
         this.add(mainPanel, BorderLayout.CENTER);

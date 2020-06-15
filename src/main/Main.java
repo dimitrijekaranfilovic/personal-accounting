@@ -5,10 +5,10 @@ import managers.DatabaseManager;
 import managers.ManagerFactory;
 
 import javax.swing.*;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Main {
-//TODO: mozda stavi da se sifre hash-uju kad se unose
     public static void main(String[] args) {
 	// write your code here
         try {
@@ -24,8 +24,11 @@ public class Main {
        // setUIFont(new javax.swing.plaf.FontUIResource("Serif", Font.PLAIN, 14));
         //DatabaseManager dbm = new DatabaseManager();
         ManagerFactory mf = new ManagerFactory();
-        /*try {
-            dbm.display();
+       /* try {
+            ResultSet rs = mf.databaseManager.display();
+            while(rs.next()){
+                System.out.println(rs.getString("currency") + " " + rs.getInt("amount"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -36,7 +39,6 @@ public class Main {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-        //int a = Integer.parseInt("aaa");
     }
     public static boolean isNumeric(String str) {
         try {

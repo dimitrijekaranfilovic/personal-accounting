@@ -8,11 +8,9 @@ import managers.CurrencyManager;
 import managers.ManagerFactory;
 import net.miginfocom.swing.MigLayout;
 
-import javax.print.DocFlavor;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class HomePanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;

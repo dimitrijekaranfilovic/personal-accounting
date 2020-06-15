@@ -5,10 +5,7 @@ import managers.DatabaseManager;
 import managers.ManagerFactory;
 
 import javax.swing.*;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,8 +20,6 @@ public class Main {
         } catch (Exception e) {
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }
-       // setUIFont(new javax.swing.plaf.FontUIResource("Serif", Font.PLAIN, 14));
-        //DatabaseManager dbm = new DatabaseManager();
         ManagerFactory mf = new ManagerFactory();
         /*try {
             ResultSet rs = mf.databaseManager.display();
@@ -43,10 +38,6 @@ public class Main {
             e.printStackTrace();
         }
 
-       /* String str = "08.04.1986. 01:30";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(str, formatter);
-        System.out.println(dateTime);*/
     }
     public static boolean isNumeric(String str) {
         try {

@@ -5,7 +5,6 @@ import event.Observer;
 import event.UpdateEvent;
 import main.Main;
 
-import java.awt.image.WritableRenderedImage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;

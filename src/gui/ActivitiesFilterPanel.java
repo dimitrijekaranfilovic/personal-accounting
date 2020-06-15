@@ -1,8 +1,6 @@
 package gui;
 
 import display.DateLabelFormatter;
-import display.Display;
-import entities.Activity;
 import event.Observer;
 import event.UpdateEvent;
 import managers.ManagerFactory;
@@ -120,10 +118,7 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
 
 
         this.add(mainPanel, BorderLayout.CENTER);
-
-
     }
-
 
     @Override
     public void updatePerformed(UpdateEvent e) {

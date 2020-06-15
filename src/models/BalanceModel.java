@@ -1,7 +1,6 @@
 package models;
 
 import entities.Balance;
-import entities.Currency;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
@@ -14,9 +13,6 @@ public class BalanceModel extends AbstractTableModel {
     public BalanceModel(ArrayList<Balance> balances) {
         this.balances = balances;
         this.columnNames = new ArrayList<>();
-        for(Currency c: Currency.values()){
-            columnNames.add(c.toString());
-        }
         columnNames.add("Date");
     }
 
@@ -42,11 +38,7 @@ public class BalanceModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Balance b = this.balances.get(rowIndex);
-        if(columnIndex < Currency.values().length)
-            return b.getCurrencyBalances().get(columnIndex);
-        else
-            return b.getTime();
-        //return null;
+        return null;
     }
 
     @Override

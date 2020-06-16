@@ -31,26 +31,32 @@ public class MainFrame extends JFrame{
         AddActivityPanel addActivityPanel = new AddActivityPanel(this.managerFactory);
         ActivitiesFilterPanel activitiesFilterPanel = new ActivitiesFilterPanel(this.managerFactory);
         BalancesFilterPanel balancesFilterPanel = new BalancesFilterPanel(this.managerFactory);
+        //DisplayActivitiesPanel displayActivitiesPanel = new DisplayActivitiesPanel(this.managerFactory);
+
 
         mainPanel = new JPanel(new CardLayout());
-        mainPanel.add(addCurrencyBalanceFrame, "Add currencies");
         mainPanel.add(this.homePanel, "Home");
+        mainPanel.add(addCurrencyBalanceFrame, "Add currencies");
         mainPanel.add(addActivityPanel, "Add activity");
         mainPanel.add(activitiesFilterPanel, "Choose filters");
         mainPanel.add(balancesFilterPanel, "Choose balances filters");
+        //mainPanel.add(displayActivitiesPanel, "Display activities");
 
 
+        //showCard("Home", true);
         this.add(mainPanel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setResizable(false);
+        //this.setSize(370, 150);
 
         if(this.managerFactory.currencyManager.countCurrencies() > 0){
             showCard("Home", true);
         }
         else {
+            //System.out.println("NEMA VALUTA!");
             showCard("Add currencies", false);
             this.setTitle("Initial setup");
         }
@@ -71,6 +77,7 @@ public class MainFrame extends JFrame{
             public void windowClosing(WindowEvent e) {
                 for(String key : homePanel.currentBalance.currencyValueMap.keySet()){
                     managerFactory.balanceManager.addBalance(key, homePanel.currentBalance.currencyValueMap.get(key));
+                    managerFactory.balanceManager.updateCurrentBalance(key, homePanel.currentBalance.currencyValueMap.get(key));
                 }
             }
         });
@@ -82,8 +89,8 @@ public class MainFrame extends JFrame{
         addActivityPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         activitiesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         balancesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
-
-
+        //activitiesFilterPanel.okBtn.addActionListener(ae->showCard("Display activities", true)); //TODO: treba dobaviti aktivnosti u zavisnosti od filtera
+        //displayActivitiesPanel.backBtn.addActionListener(ae->showCard("Choose filters", true));
 
     }
 
@@ -99,6 +106,10 @@ public class MainFrame extends JFrame{
             this.setSize(270, 370);
         else if(name.equalsIgnoreCase("choose balances filters"))
             this.setSize(270, 250);
+        else if(name.equalsIgnoreCase("display activities"))
+            this.setSize(350, 300);
+        else if(name.equalsIgnoreCase("add currencies"))
+            this.setSize(370, 150);
         if(title)
             this.setTitle(name);
     }

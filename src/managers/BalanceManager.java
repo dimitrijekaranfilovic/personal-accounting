@@ -10,7 +10,7 @@ public class BalanceManager  {
         this.databaseManager = databaseManager;
     }
 
-    public int getBalance(String currency){
+    /*public int getBalance(String currency){
         ResultSet rs = this.databaseManager.getBalance(currency);
         if(rs == null)
             return 0;
@@ -24,7 +24,7 @@ public class BalanceManager  {
 
             return balance;
         }
-    }
+    }*/
 
     public int getLatestBalance(String currency){
         ResultSet rs = this.databaseManager.getLatestBalance(currency);
@@ -44,6 +44,10 @@ public class BalanceManager  {
 
     public boolean addBalance(String currency, int amount){
         return this.databaseManager.addBalance(currency, amount);
+    }
+
+    public boolean updateCurrentBalance(String currency, int amount){
+        return this.databaseManager.updateCurrentBalance(currency, amount);
     }
 
 }

@@ -47,7 +47,8 @@ public class CurrencyManager implements Publisher {
                 }
             }
 
-           if(this.databaseManager.addCurrency(currency) && this.databaseManager.addBalance(currency, amount)){
+           if(this.databaseManager.addCurrency(currency) && this.databaseManager.addBalance(currency, amount) && this.databaseManager.addCurrentBalance(currency, amount)){
+               //System.out.println("DODATA VALUTA!");
                notifyObservers();
                return OK;
            }

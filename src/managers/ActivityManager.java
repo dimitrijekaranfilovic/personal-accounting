@@ -7,6 +7,8 @@ import event.UpdateEvent;
 import gui.HomePanel;
 import main.Main;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -67,6 +69,25 @@ public class ActivityManager implements Publisher {
     public ArrayList<Activity> getActivities(String activity, String fromDate, String toDate, String currency, String description)
     {
         ArrayList<Activity> activities = new ArrayList<>();
+        //LocalDateTime from =
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm");
+        LocalDateTime from = LocalDateTime.parse(fromDate + " 00:01", dateTimeFormatter);
+        LocalDateTime to = LocalDateTime.parse(toDate + " 23:59", dateTimeFormatter);
+        if(fromDate.equalsIgnoreCase("") || toDate.equalsIgnoreCase(""))
+            return null;
+        ResultSet rs = this.databaseManager.getActivities(activity, from, to, currency, description);
+        try{
+            while(rs.next()){
+                //activities.add(new Activity(resultSet.getString("description"), resultSet.getString("time"), resultSet.get))
+                activities.add(new Activity(rs.getString("description"), rs.getTimestamp("time").toLocalDateTime(), rs.getInt("amount"), rs.getString("currency"), rs.getString("activity")));
+                //System.out.println(rs.getTimestamp("time"));
+            }
+        }
+        catch (SQLException se){
+            return null;
+        }
+
+
         return activities;
     }
 

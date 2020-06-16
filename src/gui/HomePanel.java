@@ -55,10 +55,12 @@ public class HomePanel extends JPanel implements Observer {
         this.balanceField.setEditable(false);
 
         this.currenciesBox.addItemListener(ie->{
+            //System.out.println("USAO SAM U LISTENER!");
             String currency = (String)ie.getItem();
             //int balance = this.managerFactory.balanceManager.getLatestBalance(currency);
-            int balance = this.currentBalance.currencyValueMap.get(currency);
-            this.balanceField.setText(Display.amountDisplay(balance));
+            //int balance = this.currentBalance.currencyValueMap.get(currency);
+            //System.out.println("Balance: " + this.currentBalance.currencyValueMap.get(currency));
+            this.balanceField.setText(Display.amountDisplay(this.currentBalance.currencyValueMap.get(currency)));
         });
 
         //this.add(new JLabel("Current balance"), "split 3");
@@ -81,12 +83,16 @@ public class HomePanel extends JPanel implements Observer {
     @Override
     public void updatePerformed(UpdateEvent e) {
         if(e.getSource() instanceof CurrencyManager){
+            //System.out.println("REAGUJEM NA DODAVANJE VALUTE!");
+            //System.out.println("MICEM IZ COMBO BOX-A");
             this.currenciesBox.removeAllItems();
             this.currencies = this.managerFactory.currencyManager.getCurrencies();
+            //System.out.println("BROJ VALUTA: " + this.managerFactory.currencyManager.getCurrencies().size());
             for(String s : currencies){
+                this.currentBalance.currencyValueMap.put(s, this.managerFactory.balanceManager.getLatestBalance(s));
                 this.currenciesBox.addItem(s);
-                if(!currentBalance.currencyValueMap.containsKey(s))
-                    this.currentBalance.currencyValueMap.put(s, this.managerFactory.balanceManager.getLatestBalance(s));
+                //if(!currentBalance.currencyValueMap.containsKey(s))
+                //System.out.println("DODAJEM VALUTU " + s + " SA VRIJEDNOSCU " + this.managerFactory.balanceManager.getLatestBalance(s) + " U MAPU");
             }
             balanceField.setText(Display.amountDisplay(this.managerFactory.balanceManager.getLatestBalance(this.currencies.get(0))));
         }

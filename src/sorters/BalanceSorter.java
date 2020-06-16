@@ -1,24 +1,23 @@
 package sorters;
 
 import entities.Balance;
-import entities.SortingDirection;
 
 import java.util.Comparator;
 
 public class BalanceSorter implements Comparator<Balance> {
-    private SortingDirection sortingDirection;
+    private int sortingDirection;
     private String criteria;
 
-    public BalanceSorter(SortingDirection sortingDirection, String criteria) {
+    public BalanceSorter(int sortingDirection, String criteria) {
         this.sortingDirection = sortingDirection;
         this.criteria = criteria;
     }
 
-    public SortingDirection getSortingDirection() {
+    public int getSortingDirection() {
         return sortingDirection;
     }
 
-    public void setSortingDirection(SortingDirection sortingDirection) {
+    public void setSortingDirection(int sortingDirection) {
         this.sortingDirection = sortingDirection;
     }
 
@@ -32,6 +31,14 @@ public class BalanceSorter implements Comparator<Balance> {
 
     @Override
     public int compare(Balance o1, Balance o2) {
-        return 0;
+        int retval = 0;
+        if(criteria.equalsIgnoreCase("amount"))
+            retval = o1.getAmount() - o2.getAmount();
+        else if(criteria.equalsIgnoreCase("date"))
+            retval = o1.getDateTime().compareTo(o2.getDateTime());
+        else if(criteria.equalsIgnoreCase("currency"))
+            retval = o1.getCurrency().compareTo(o2.getCurrency());
+
+        return retval * this.sortingDirection;
     }
 }

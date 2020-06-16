@@ -1,7 +1,5 @@
 package managers;
 
-import org.jdatepicker.impl.UtilDateModel;
-
 import java.sql.*;
 import java.time.LocalDateTime;
 
@@ -156,6 +154,32 @@ public class DatabaseManager {
             return false;
         }
     }
+
+    ResultSet getBalances(String currency, LocalDateTime from, LocalDateTime to){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("select * from balances where time between ? and ? and currency like ? escape '!';");
+            currency = currency
+                    .replace("!", "!!")
+                    .replace("%", "%%")
+                    .replace("_", "!_")
+                    .replace("[", "![");
+            //Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
+            //ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setTimestamp(1, Timestamp.valueOf(from));
+            ps.setTimestamp(2, Timestamp.valueOf(to));
+            ps.setString(3, "%" + currency + "%");
+            ps.execute();
+            return ps.getResultSet();
+            //System.out.println("DODAJEM BALANCE " + currency + " " + amount + " " + ts);
+            //return true;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            return null;
+        }
+    }
     /*ResultSet getBalance(String currency){
         try {
             if(connection == null){
@@ -238,12 +262,7 @@ public class DatabaseManager {
             if(connection == null){
                 getConnection();
             }
-            //PreparedStatement ps = connection.prepareStatement("select * from activities where time between ? and ? and activity=? and currency like '%?%' and description like '%?%';");
             PreparedStatement ps = connection.prepareStatement("select * from activities where time between ? and ? and activity like ? escape '!' and currency like ? escape '!' and description like ? escape '!';");
-            //ps.setTimestamp(1, Timestamp.valueOf(from));
-           // ps.setTimestamp(2, Timestamp.valueOf(to));
-            //ps.setDate(1, Date.valueOf(from.toLocalDate()));
-            //ps.setDate(2, Date.valueOf(to.toLocalDate()));
             activity = activity
                     .replace("!", "!!")
                     .replace("%", "%%")

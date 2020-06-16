@@ -1,5 +1,7 @@
 package managers;
 
+//import entities.Balance;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -49,5 +51,30 @@ public class BalanceManager  {
     public boolean updateCurrentBalance(String currency, int amount){
         return this.databaseManager.updateCurrentBalance(currency, amount);
     }
+
+    /*public ArrayList<Balance> getBalances(String currency, String fromDate, String toDate){
+        ArrayList<Balance> balances = new ArrayList<>();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm");
+        LocalDateTime from = LocalDateTime.parse(fromDate + " 00:01", dateTimeFormatter);
+        LocalDateTime to = LocalDateTime.parse(toDate + " 23:59", dateTimeFormatter);
+
+        ResultSet resultSet = this.databaseManager.getBalances(currency, from, to);
+        if(resultSet == null)
+            return null;
+        else{
+            try{
+                while(resultSet.next()){
+                    //balances.add(new Balance())
+                }
+            }
+            catch (SQLException e) {
+                return null;
+            }
+
+
+        }
+        return balances;
+
+    }*/
 
 }

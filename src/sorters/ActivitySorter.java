@@ -1,24 +1,23 @@
 package sorters;
 
 import entities.Activity;
-import entities.SortingDirection;
 
 import java.util.Comparator;
 
 public class ActivitySorter implements Comparator<Activity> {
-    private SortingDirection sortingDirection;
+    private int sortingDirection;
     private String criteria;
 
-    public ActivitySorter(SortingDirection sortingDirection, String criteria) {
+    public ActivitySorter(int sortingDirection, String criteria) {
         this.sortingDirection = sortingDirection;
         this.criteria = criteria;
     }
 
-    public SortingDirection getSortingDirection() {
+    public int getSortingDirection() {
         return sortingDirection;
     }
 
-    public void setSortingDirection(SortingDirection sortingDirection) {
+    public void setSortingDirection(int sortingDirection) {
         this.sortingDirection = sortingDirection;
     }
 
@@ -55,6 +54,6 @@ public class ActivitySorter implements Comparator<Activity> {
                 break;
         }
 
-        return retval * this.sortingDirection.value;//
+        return retval * this.sortingDirection;//
     }
 }

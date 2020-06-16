@@ -1,6 +1,7 @@
 package gui;
 
 import managers.ManagerFactory;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -71,9 +72,9 @@ public class MainFrame extends JFrame{
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                for(String key : homePanel.currentBalance.currencyValueMap.keySet()){
-                    managerFactory.balanceManager.addBalance(key, homePanel.currentBalance.currencyValueMap.get(key));
-                    managerFactory.balanceManager.updateCurrentBalance(key, homePanel.currentBalance.currencyValueMap.get(key));
+                for(String key : homePanel.currencyValueMap.keySet()){
+                    managerFactory.balanceManager.addBalance(key, homePanel.currencyValueMap.get(key));
+                    managerFactory.balanceManager.updateCurrentBalance(key, homePanel.currencyValueMap.get(key));
                 }
             }
         });

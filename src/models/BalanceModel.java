@@ -7,13 +7,11 @@ import java.util.ArrayList;
 
 public class BalanceModel extends AbstractTableModel {
     public ArrayList<Balance> balances;
-    private ArrayList<String> columnNames;
+    private String[] columnNames = {"Amount", "Currency", "Date"};
 
     //TODO: mora se voditi racuna o tome da se mogu dodavati valute
     public BalanceModel(ArrayList<Balance> balances) {
         this.balances = balances;
-        this.columnNames = new ArrayList<>();
-        columnNames.add("Date");
     }
 
 
@@ -32,12 +30,20 @@ public class BalanceModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return this.columnNames.size();
+        return this.columnNames.length;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Balance b = this.balances.get(rowIndex);
+        Balance balance = this.balances.get(rowIndex);
+        switch (columnIndex){
+            case 0:
+                return balance.getAmount();
+            case 1:
+                return balance.getCurrency();
+            case 2:
+                return balance.getDateTime();
+        }
         return null;
     }
 
@@ -48,6 +54,7 @@ public class BalanceModel extends AbstractTableModel {
 
     @Override
     public String getColumnName(int column) {
-        return columnNames.get(column);
+        return columnNames[column];
     }
+
 }

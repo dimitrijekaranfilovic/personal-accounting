@@ -237,6 +237,20 @@ public class DatabaseManager {
         }
     }
 
+    ResultSet getActivitiesDescriptions(){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("select description from activities;");
+            ps.execute();
+            return ps.getResultSet();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            return null;
+        }
+    }
+
     boolean addActivity(String description, int amount, String currency, String activity, LocalDateTime date){
         try {
             if(connection == null){

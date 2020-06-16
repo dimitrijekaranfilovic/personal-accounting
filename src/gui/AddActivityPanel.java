@@ -1,7 +1,6 @@
 package gui;
 
 import display.DateLabelFormatter;
-import display.Display;
 import event.Observer;
 import event.UpdateEvent;
 import managers.ManagerFactory;
@@ -9,6 +8,7 @@ import net.miginfocom.swing.MigLayout;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,6 +43,7 @@ public class AddActivityPanel extends JPanel implements Observer {
 
         JLabel descriptionLabel = new JLabel("Description");
         this.descriptionField = new JTextField(20);
+        AutoCompleteDecorator.decorate(this.descriptionField, this.managerFactory.activityManager.getActivitiesDescriptions(), false);
 
         JLabel amountLabel = new JLabel("Amount");
         this.amountField = new JTextField(20);

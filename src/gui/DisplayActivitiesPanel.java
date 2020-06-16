@@ -1,7 +1,6 @@
 package gui;
 
 import entities.Activity;
-import entities.SortingDirection;
 import managers.ManagerFactory;
 import models.ActivityModel;
 import net.miginfocom.swing.MigLayout;

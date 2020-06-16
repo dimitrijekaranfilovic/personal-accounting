@@ -66,8 +66,7 @@ public class ActivityManager implements Publisher {
 
     }
 
-    public ArrayList<Activity> getActivities(String activity, String fromDate, String toDate, String currency, String description)
-    {
+    public ArrayList<Activity> getActivities(String activity, String fromDate, String toDate, String currency, String description) {
         ArrayList<Activity> activities = new ArrayList<>();
         //LocalDateTime from =
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm");
@@ -89,6 +88,20 @@ public class ActivityManager implements Publisher {
 
 
         return activities;
+    }
+
+    public ArrayList<String> getActivitiesDescriptions(){
+        ArrayList<String> descriptions = new ArrayList<>();
+        ResultSet rs = this.databaseManager.getActivitiesDescriptions();
+        try{
+            while(rs.next()){
+                descriptions.add(rs.getString("description"));
+            }
+        }
+        catch (SQLException se){
+            return null;
+        }
+        return descriptions;
     }
 
 

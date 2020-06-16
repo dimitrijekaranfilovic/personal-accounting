@@ -55,9 +55,6 @@ public class ActivitySorter implements Comparator<Activity> {
                 break;
         }
 
-        if(this.sortingDirection == SortingDirection.ASCENDING)
-            return retval;
-        return retval * -1;
-
+        return retval * this.sortingDirection.value;//
     }
 }

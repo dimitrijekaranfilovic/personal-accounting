@@ -1,5 +1,6 @@
 package models;
 
+import display.Display;
 import entities.Activity;
 
 import javax.swing.table.AbstractTableModel;
@@ -38,13 +39,13 @@ public class ActivityModel extends AbstractTableModel {
             case 0:
                 return  activity.getDescription();
             case 1:
-                return  activity.getAmount();
+                return Display.amountDisplay(activity.getAmount());
             case 2:
-                return activity.getCurrency().toString();
+                return activity.getCurrency();
             case 3:
-                return activity.getTime();
+                return Display.dateDisplay(activity.getTime());
             case 4:
-                return activity.getActivityVersion().toString();
+                return activity.getActivityVersion();
             default:
                 break;
         }

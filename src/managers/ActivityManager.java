@@ -64,6 +64,13 @@ public class ActivityManager implements Publisher {
 
     }
 
+    public ArrayList<Activity> getActivities(String activity, String fromDate, String toDate, String currency, String description)
+    {
+        ArrayList<Activity> activities = new ArrayList<>();
+        return activities;
+    }
+
+
     @Override
     public void addObserver(Observer observer) {
         if (null == observers)

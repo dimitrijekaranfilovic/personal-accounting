@@ -29,6 +29,7 @@ public class MainFrame extends JFrame{
         ActivitiesFilterPanel activitiesFilterPanel = new ActivitiesFilterPanel(this.managerFactory);
         BalancesFilterPanel balancesFilterPanel = new BalancesFilterPanel(this.managerFactory);
         //DisplayActivitiesPanel displayActivitiesPanel = new DisplayActivitiesPanel(this.managerFactory);
+        DisplayBalancesPanel displayBalancesPanel = new DisplayBalancesPanel(this.managerFactory);
 
 
         mainPanel = new JPanel(new CardLayout());
@@ -38,22 +39,20 @@ public class MainFrame extends JFrame{
         mainPanel.add(activitiesFilterPanel, "Choose filters");
         mainPanel.add(balancesFilterPanel, "Choose balances filters");
         //mainPanel.add(displayActivitiesPanel, "Display activities");
+        //mainPanel.add(displayBalancesPanel, "Display balances");
 
 
-        //showCard("Home", true);
         this.add(mainPanel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setResizable(false);
-        //this.setSize(370, 150);
 
         if(this.managerFactory.currencyManager.countCurrencies() > 0){
             showCard("Home", true);
         }
         else {
-            //System.out.println("NEMA VALUTA!");
             showCard("Add currencies", false);
             this.setTitle("Initial setup");
         }
@@ -88,13 +87,14 @@ public class MainFrame extends JFrame{
         balancesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         //activitiesFilterPanel.okBtn.addActionListener(ae->showCard("Display activities", true)); //TODO: treba dobaviti aktivnosti u zavisnosti od filtera
         //displayActivitiesPanel.backBtn.addActionListener(ae->showCard("Choose filters", true));
+        //balancesFilterPanel.okBtn.addActionListener(ae->showCard("Display balances", true)); //TODO: treba dobaviti stanja u zavisnosti od filtera
+        //displayBalancesPanel.backBtn.addActionListener(ae->showCard("Choose balances filters", true));
 
     }
 
     private void showCard(String name, boolean title){
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
         cl.show(mainPanel, name);
-        //this.setSize(width, height);
         if(name.equalsIgnoreCase("home"))
             this.setSize(370, 150);
         else if(name.equalsIgnoreCase("add activity"))

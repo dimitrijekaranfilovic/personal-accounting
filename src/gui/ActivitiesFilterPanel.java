@@ -1,6 +1,7 @@
 package gui;
 
 import display.DateLabelFormatter;
+import entities.Activity;
 import event.Observer;
 import event.UpdateEvent;
 import managers.ManagerFactory;
@@ -118,6 +119,19 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
 
 
         this.add(mainPanel, BorderLayout.CENTER);
+
+        this.okBtn.addActionListener(ae->{
+            ArrayList<Activity> activities = this.managerFactory.activityManager.getActivities((String)activitiesBox.getSelectedItem(), datePicker.getJFormattedTextField().getText(), datePicker1.getJFormattedTextField().getText(), (String)currenciesBox.getSelectedItem(), searchField.getText());
+            if(activities == null)
+                System.out.println("Greska!");
+            else if(activities.size() == 0)
+                System.out.println("Nema rezultata");
+            else{
+                System.out.println("Nasli smo " + activities.size() + " rezultata!");
+                for(Activity a : activities)
+                    System.out.println(a.getDescription() + " " + a.getAmount() + " " + a.getCurrency() + " " + a.getTime());
+            }
+        });
     }
 
     @Override

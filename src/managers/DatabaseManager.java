@@ -1,5 +1,7 @@
 package managers;
 
+import org.jdatepicker.impl.UtilDateModel;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 
@@ -21,7 +23,7 @@ public class DatabaseManager {
             getConnection();
         }
         Statement statement = connection.createStatement();
-        return statement.executeQuery("select * from (select * from balances where currency='eur' order by time desc) limit 1");
+        return statement.executeQuery("select * from balances;");
     }
 
     //creates tables if there are none
@@ -35,7 +37,7 @@ public class DatabaseManager {
                 Statement createTables = connection.createStatement();
 
                 //build 'activities' table
-                createTables.execute("create table activities(" +
+                /*createTables.execute("create table activities(" +
                         "description varchar(40)," +
                         "time Date," +
                         "amount integer," +
@@ -44,7 +46,18 @@ public class DatabaseManager {
                         "constraint actPK primary key (description, amount, time)," +
                         "constraint actFK foreign key (currency) references currency(abbreviation)" +
                         "" +
+                        ");");*/
+
+                createTables.execute("create table activities(" +
+                        "description varchar(40)," +
+                        "time Date," +
+                        "amount integer," +
+                        "currency varchar(3),"+
+                        "activity varchar(10)," +
+                        "constraint actFK foreign key (currency) references currency(abbreviation)" +
+                        "" +
                         ");");
+
 
                 //build 'balances' table
                 createTables.execute("create table balances(" +
@@ -60,6 +73,13 @@ public class DatabaseManager {
                         "abbreviation varchar(3)," +
                         "constraint currPK primary key (abbreviation)" +
                         ");");
+
+                //build the table that holds current balances
+                createTables.execute("create table currentBalances(" +
+                        "currency varchar(3) primary key," +
+                        "amount integer," +
+                        "constraint cbFK foreign key(currency) references currency(abbreviation)" +
+                        ");");
             }
         }
     }
@@ -69,7 +89,8 @@ public class DatabaseManager {
             if(connection == null){
                 getConnection();
             }
-            PreparedStatement ps = connection.prepareStatement("select * from (select * from balances where currency=? order by time desc) limit 1");
+            //PreparedStatement ps = connection.prepareStatement("select * from (select * from balances where currency=? order by time desc) limit 1");
+            PreparedStatement ps = connection.prepareStatement("select amount from currentBalances where currency=?");
             ps.setString(1, currency);
             ps.execute();
             return ps.getResultSet();
@@ -78,7 +99,64 @@ public class DatabaseManager {
         }
 
     }
-    ResultSet getBalance(String currency){
+    boolean addBalance(String currency, int amount){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("insert into currentBalances(currency, amount) values(?, ?);");
+            Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
+            //ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(1, currency);
+            ps.setInt(2, amount);
+            ps.execute();
+            //System.out.println("DODAJEM BALANCE " + currency + " " + amount + " " + ts);
+            return true;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    boolean addCurrentBalance(String currency, int amount){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("insert into balances(time, currency, amount) values(?, ?, ?);");
+            Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
+            ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(2, currency);
+            ps.setInt(3, amount);
+            ps.execute();
+            //System.out.println("DODAJEM BALANCE " + currency + " " + amount + " " + ts);
+            return true;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            return false;
+        }
+
+    }
+
+    boolean updateCurrentBalance(String currency, int amount){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("update currentBalances set amount=? where currency=?;");
+            Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
+            //ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setInt(1, amount);
+            ps.setString(2, currency);
+            ps.execute();
+            //System.out.println("DODAJEM BALANCE " + currency + " " + amount + " " + ts);
+            return true;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            return false;
+        }
+    }
+    /*ResultSet getBalance(String currency){
         try {
             if(connection == null){
                 getConnection();
@@ -90,7 +168,7 @@ public class DatabaseManager {
         } catch (SQLException | ClassNotFoundException e) {
             return null;
         }
-    }
+    }*/
 
 
     ResultSet getCurrencies(){
@@ -117,22 +195,7 @@ public class DatabaseManager {
         }
     }
 
-    boolean addBalance(String currency, int amount){
-        try {
-            if(connection == null){
-                getConnection();
-            }
-            PreparedStatement ps = connection.prepareStatement("insert into balances(time, currency, amount) values(?, ?, ?);");
-            ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setString(2, currency);
-            ps.setInt(3, amount);
-            ps.execute();
-            return true;
 
-        } catch (SQLException | ClassNotFoundException e) {
-            return false;
-        }
-    }
 
     boolean addCurrency(String abbreviation){
         try {
@@ -160,12 +223,35 @@ public class DatabaseManager {
             ps.setInt(2, amount);
             ps.setString(3, currency);
             ps.setString(4, activity);
-            ps.setTimestamp(5, Timestamp.valueOf(date));
+            //ps.setTimestamp(5, Timestamp.valueOf(date));
+            ps.setDate(5, Date.valueOf(date.toLocalDate()));
             ps.execute();
             return true;
 
         } catch (SQLException | ClassNotFoundException e) {
             return false;
+        }
+    }
+
+    ResultSet getActivities(String activity, LocalDateTime from, LocalDateTime to, String currency, String description){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            //PreparedStatement ps = connection.prepareStatement("select * from activities where time between ? and ? and activity=? and currency like '%?%' and description like '%?%';");
+            PreparedStatement ps = connection.prepareStatement("select * from activities where time between ? and ? and activity=? and currency=? and description=?;");
+            //ps.setTimestamp(1, Timestamp.valueOf(from));
+           // ps.setTimestamp(2, Timestamp.valueOf(to));
+            ps.setDate(1, Date.valueOf(from.toLocalDate()));
+            ps.setDate(2, Date.valueOf(to.toLocalDate()));
+            ps.setString(3, activity);
+            ps.setString(4, currency);
+            ps.setString(5, description);
+            ps.execute();
+            return ps.getResultSet();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            return null;
         }
     }
 }

@@ -239,14 +239,35 @@ public class DatabaseManager {
                 getConnection();
             }
             //PreparedStatement ps = connection.prepareStatement("select * from activities where time between ? and ? and activity=? and currency like '%?%' and description like '%?%';");
-            PreparedStatement ps = connection.prepareStatement("select * from activities where time between ? and ? and activity=? and currency=? and description=?;");
+            PreparedStatement ps = connection.prepareStatement("select * from activities where time between ? and ? and activity like ? escape '!' and currency like ? escape '!' and description like ? escape '!';");
             //ps.setTimestamp(1, Timestamp.valueOf(from));
            // ps.setTimestamp(2, Timestamp.valueOf(to));
-            ps.setDate(1, Date.valueOf(from.toLocalDate()));
-            ps.setDate(2, Date.valueOf(to.toLocalDate()));
-            ps.setString(3, activity);
-            ps.setString(4, currency);
-            ps.setString(5, description);
+            //ps.setDate(1, Date.valueOf(from.toLocalDate()));
+            //ps.setDate(2, Date.valueOf(to.toLocalDate()));
+            activity = activity
+                    .replace("!", "!!")
+                    .replace("%", "%%")
+                    .replace("_", "!_")
+                    .replace("[", "![");
+
+            currency = currency
+                    .replace("!", "!!")
+                    .replace("%", "%%")
+                    .replace("_", "!_")
+                    .replace("[", "![");
+
+            description = description
+                    .replace("!", "!!")
+                    .replace("%", "%%")
+                    .replace("_", "!_")
+                    .replace("[", "![");
+
+
+            ps.setTimestamp(1, Timestamp.valueOf(from));
+            ps.setTimestamp(2, Timestamp.valueOf(to));
+            ps.setString(3, "%" + activity + "%");
+            ps.setString(4, "%" + currency + "%");
+            ps.setString(5, "%" + description + "%");
             ps.execute();
             return ps.getResultSet();
 

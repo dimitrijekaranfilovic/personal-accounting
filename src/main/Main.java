@@ -10,7 +10,6 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
-	// write your code here
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -21,7 +20,12 @@ public class Main {
         } catch (Exception e) {
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }
-        ManagerFactory mf = new ManagerFactory();
+        try {
+            ManagerFactory mf = new ManagerFactory();
+            MainFrame.getInstance(mf);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         /*try {
             ResultSet rs = mf.databaseManager.display();
             while(rs.next()){
@@ -33,12 +37,6 @@ public class Main {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }*/
-        try {
-            MainFrame.getInstance(mf);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
     }
     public static boolean isNumeric(String str) {
         try {

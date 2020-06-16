@@ -1,6 +1,6 @@
 package gui;
+
 import display.Display;
-import entities.Balance;
 import event.Observer;
 import event.UpdateEvent;
 import managers.ActivityManager;
@@ -11,6 +11,9 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+//import entities.Balance;
 
 public class HomePanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
@@ -21,13 +24,14 @@ public class HomePanel extends JPanel implements Observer {
     public JButton addCurrencyButton;
     public JComboBox<String> currenciesBox;
     public JTextField balanceField;
-    public Balance currentBalance;
-    //private HashMap<String, Integer> currentBalanceValues;
+    //public Balance currentBalance;
+    public HashMap<String, Integer> currencyValueMap;
 
 
 
     public HomePanel(ManagerFactory managerFactory){
-        this.currentBalance = new Balance();
+        //this.currentBalance = new Balance();
+        this.currencyValueMap = new HashMap<>();
         this.managerFactory = managerFactory;
         this.addActivityBtn = new JButton("Add activity");
         this.balancesHistoryBtn = new JButton("Balances history");
@@ -47,7 +51,8 @@ public class HomePanel extends JPanel implements Observer {
         this.currenciesBox = new JComboBox<>();
         for(String s : this.currencies){
             this.currenciesBox.addItem(s);
-            this.currentBalance.currencyValueMap.put(s, this.managerFactory.balanceManager.getLatestBalance(s));
+            //this.currentBalance.currencyValueMap.put(s, this.managerFactory.balanceManager.getLatestBalance(s));
+            this.currencyValueMap.put(s, this.managerFactory.balanceManager.getLatestBalance(s));
         }
         if(this.currencies.size() > 0){
             balanceField.setText(Display.amountDisplay(this.managerFactory.balanceManager.getLatestBalance(this.currencies.get(0))));
@@ -60,7 +65,9 @@ public class HomePanel extends JPanel implements Observer {
             //int balance = this.managerFactory.balanceManager.getLatestBalance(currency);
             //int balance = this.currentBalance.currencyValueMap.get(currency);
             //System.out.println("Balance: " + this.currentBalance.currencyValueMap.get(currency));
-            this.balanceField.setText(Display.amountDisplay(this.currentBalance.currencyValueMap.get(currency)));
+            //this.balanceField.setText(Display.amountDisplay(this.currentBalance.currencyValueMap.get(currency)));
+            this.balanceField.setText(Display.amountDisplay(this.currencyValueMap.get(currency)));
+
         });
 
         //this.add(new JLabel("Current balance"), "split 3");
@@ -89,7 +96,9 @@ public class HomePanel extends JPanel implements Observer {
             this.currencies = this.managerFactory.currencyManager.getCurrencies();
             //System.out.println("BROJ VALUTA: " + this.managerFactory.currencyManager.getCurrencies().size());
             for(String s : currencies){
-                this.currentBalance.currencyValueMap.put(s, this.managerFactory.balanceManager.getLatestBalance(s));
+                //this.currentBalance.currencyValueMap.put(s, this.managerFactory.balanceManager.getLatestBalance(s));
+                this.currencyValueMap.put(s, this.managerFactory.balanceManager.getLatestBalance(s));
+
                 this.currenciesBox.addItem(s);
                 //if(!currentBalance.currencyValueMap.containsKey(s))
                 //System.out.println("DODAJEM VALUTU " + s + " SA VRIJEDNOSCU " + this.managerFactory.balanceManager.getLatestBalance(s) + " U MAPU");
@@ -99,12 +108,19 @@ public class HomePanel extends JPanel implements Observer {
         else if(e.getSource() instanceof ActivityManager){
                 ActivityManager am = (ActivityManager)e.getSource();
                 int newValue = 0;
-                if(am.activity.getActivityVersion().equalsIgnoreCase("expense"))
-                    newValue = this.currentBalance.currencyValueMap.get(am.activity.getCurrency()) - am.activity.getAmount();
-                else if(am.activity.getActivityVersion().equalsIgnoreCase("income"))
-                    newValue = this.currentBalance.currencyValueMap.get(am.activity.getCurrency()) + am.activity.getAmount();
-                this.currentBalance.currencyValueMap.put(am.activity.getCurrency(), newValue);
-                int balance = this.currentBalance.currencyValueMap.get((String)currenciesBox.getSelectedItem());
+                if(am.activity.getActivityVersion().equalsIgnoreCase("expense")){
+                    //newValue = this.currentBalance.currencyValueMap.get(am.activity.getCurrency()) - am.activity.getAmount();
+                    newValue = this.currencyValueMap.get(am.activity.getCurrency()) - am.activity.getAmount();
+
+                }
+                else if(am.activity.getActivityVersion().equalsIgnoreCase("income")){
+                    //newValue = this.currentBalance.currencyValueMap.get(am.activity.getCurrency()) + am.activity.getAmount();
+                    newValue = this.currencyValueMap.get(am.activity.getCurrency()) + am.activity.getAmount();
+                }
+                //this.currentBalance.currencyValueMap.put(am.activity.getCurrency(), newValue);
+                this.currencyValueMap.put(am.activity.getCurrency(), newValue);
+                //int balance = this.currentBalance.currencyValueMap.get((String)currenciesBox.getSelectedItem());
+                int balance = this.currencyValueMap.get((String)currenciesBox.getSelectedItem());
                 this.balanceField.setText(Display.amountDisplay(balance));
         }
     }

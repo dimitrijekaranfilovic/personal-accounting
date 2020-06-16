@@ -14,18 +14,14 @@ public class MainFrame extends JFrame{
 
     private static MainFrame instance = null;
 
-    public static MainFrame getInstance(ManagerFactory managerFactory) throws SQLException, ClassNotFoundException {
+    public static MainFrame getInstance(ManagerFactory managerFactory) throws SQLException {
         if(instance == null)
             instance = new MainFrame(managerFactory);
         return instance;
     }
-    private  MainFrame(ManagerFactory managerFactory) throws SQLException, ClassNotFoundException {
+    private  MainFrame(ManagerFactory managerFactory) throws SQLException {
         this.managerFactory = managerFactory;
-
-        this.managerFactory.databaseManager.getConnection();
-
-
-
+        //this.managerFactory.databaseManager.getConnection();
         AddCurrencyBalanceFrame addCurrencyBalanceFrame = new AddCurrencyBalanceFrame(this.managerFactory);
         this.homePanel = new HomePanel(this.managerFactory);
         AddActivityPanel addActivityPanel = new AddActivityPanel(this.managerFactory);

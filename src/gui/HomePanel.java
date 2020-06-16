@@ -40,7 +40,7 @@ public class HomePanel extends JPanel implements Observer {
 
         JButton helpBtn = new JButton("Help");
         this.balanceField = new JTextField(36);
-        Dimension d = new Dimension(150, 30);
+        Dimension d = new Dimension(280, 30);
         this.balanceField.setMinimumSize(d);
         this.balanceField.setMaximumSize(d);
 

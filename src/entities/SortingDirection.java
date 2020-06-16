@@ -1,6 +1,11 @@
 package entities;
 
 public enum SortingDirection {
-    ASCENDING,
-    DESCENDING
+    ASCENDING(1),
+    DESCENDING(-1);
+
+    public final int value;
+    private SortingDirection(int value){
+        this.value = value;
+    }
 }

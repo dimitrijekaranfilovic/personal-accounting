@@ -25,7 +25,7 @@ public class Display {
     }
 
     public static String dateDisplay(LocalDateTime time){
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm");
         return time.format(formatter);
     }
 }

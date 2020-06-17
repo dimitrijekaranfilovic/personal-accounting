@@ -87,7 +87,6 @@ public class DatabaseManager {
             if(connection == null){
                 getConnection();
             }
-            //PreparedStatement ps = connection.prepareStatement("select * from (select * from balances where currency=? order by time desc) limit 1");
             PreparedStatement ps = connection.prepareStatement("select amount from currentBalances where currency=?");
             ps.setString(1, currency);
             ps.execute();
@@ -104,11 +103,9 @@ public class DatabaseManager {
             }
             PreparedStatement ps = connection.prepareStatement("insert into currentBalances(currency, amount) values(?, ?);");
             Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
-            //ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             ps.setString(1, currency);
             ps.setInt(2, amount);
             ps.execute();
-            //System.out.println("DODAJEM BALANCE " + currency + " " + amount + " " + ts);
             return true;
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -127,7 +124,6 @@ public class DatabaseManager {
             ps.setString(2, currency);
             ps.setInt(3, amount);
             ps.execute();
-            //System.out.println("DODAJEM BALANCE " + currency + " " + amount + " " + ts);
             return true;
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -143,11 +139,9 @@ public class DatabaseManager {
             }
             PreparedStatement ps = connection.prepareStatement("update currentBalances set amount=? where currency=?;");
             Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
-            //ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             ps.setInt(1, amount);
             ps.setString(2, currency);
             ps.execute();
-            //System.out.println("DODAJEM BALANCE " + currency + " " + amount + " " + ts);
             return true;
 
         } catch (SQLException | ClassNotFoundException e) {
@@ -166,34 +160,17 @@ public class DatabaseManager {
                     .replace("%", "%%")
                     .replace("_", "!_")
                     .replace("[", "![");
-            //Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
-            //ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+
             ps.setTimestamp(1, Timestamp.valueOf(from));
             ps.setTimestamp(2, Timestamp.valueOf(to));
             ps.setString(3, "%" + currency + "%");
             ps.execute();
             return ps.getResultSet();
-            //System.out.println("DODAJEM BALANCE " + currency + " " + amount + " " + ts);
-            //return true;
 
         } catch (SQLException | ClassNotFoundException e) {
             return null;
         }
     }
-    /*ResultSet getBalance(String currency){
-        try {
-            if(connection == null){
-                getConnection();
-            }
-            PreparedStatement ps = connection.prepareStatement("select amount from balances where currency=?;");
-            ps.setString(1, currency);
-            ps.execute();
-            return ps.getResultSet();
-        } catch (SQLException | ClassNotFoundException e) {
-            return null;
-        }
-    }*/
-
 
     ResultSet getCurrencies(){
         try {
@@ -261,13 +238,50 @@ public class DatabaseManager {
             ps.setInt(2, amount);
             ps.setString(3, currency);
             ps.setString(4, activity);
-            //ps.setTimestamp(5, Timestamp.valueOf(date));
-            ps.setDate(5, Date.valueOf(date.toLocalDate()));
+            ps.setTimestamp(5, Timestamp.valueOf(date));
             ps.execute();
             return true;
 
         } catch (SQLException | ClassNotFoundException e) {
             return false;
+        }
+    }
+
+    ResultSet getActivitiesSum(String activity, LocalDateTime from, LocalDateTime to, String currency, String description){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("select sum(amount) as total from activities where time between ? and ? and activity like ? escape '!' and currency like ? escape '!' and description like ? escape '!';");
+            activity = activity
+                    .replace("!", "!!")
+                    .replace("%", "%%")
+                    .replace("_", "!_")
+                    .replace("[", "![");
+
+            currency = currency
+                    .replace("!", "!!")
+                    .replace("%", "%%")
+                    .replace("_", "!_")
+                    .replace("[", "![");
+
+            description = description
+                    .replace("!", "!!")
+                    .replace("%", "%%")
+                    .replace("_", "!_")
+                    .replace("[", "![");
+
+
+            ps.setTimestamp(1, Timestamp.valueOf(from));
+            ps.setTimestamp(2, Timestamp.valueOf(to));
+            ps.setString(3, "%" + activity + "%");
+            ps.setString(4, "%" + currency + "%");
+            ps.setString(5, "%" + description + "%");
+            ps.execute();
+            return ps.getResultSet();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            return null;
         }
     }
 

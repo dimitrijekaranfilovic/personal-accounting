@@ -22,7 +22,6 @@ public class MainFrame extends JFrame{
     }
     private  MainFrame(ManagerFactory managerFactory) throws SQLException {
         this.managerFactory = managerFactory;
-        //this.managerFactory.databaseManager.getConnection();
         AddCurrencyBalanceFrame addCurrencyBalanceFrame = new AddCurrencyBalanceFrame(this.managerFactory);
         this.homePanel = new HomePanel(this.managerFactory);
         AddActivityPanel addActivityPanel = new AddActivityPanel(this.managerFactory);
@@ -85,10 +84,8 @@ public class MainFrame extends JFrame{
         addActivityPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         activitiesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         balancesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
-        //activitiesFilterPanel.okBtn.addActionListener(ae->showCard("Display activities", true)); //TODO: treba dobaviti aktivnosti u zavisnosti od filtera
         displayActivitiesPanel.backBtn.addActionListener(ae->showCard("Choose filters", true));
-        //balancesFilterPanel.okBtn.addActionListener(ae->showCard("Display balances", true)); //TODO: treba dobaviti stanja u zavisnosti od filtera
-        //displayBalancesPanel.backBtn.addActionListener(ae->showCard("Choose balances filters", true));
+        displayBalancesPanel.backBtn.addActionListener(ae->showCard("Choose balances filters", true));
 
         activitiesFilterPanel.okBtn.addActionListener(ae->{
             activitiesFilterPanel.search();
@@ -102,6 +99,19 @@ public class MainFrame extends JFrame{
             }
 
         });
+
+        balancesFilterPanel.okBtn.addActionListener(ae->{
+            balancesFilterPanel.search();
+            if(balancesFilterPanel.balances == null)
+                JOptionPane.showMessageDialog(null, "Error: Check parameters.", "Error", JOptionPane.ERROR_MESSAGE);
+            else if(balancesFilterPanel.balances.size() == 0)
+                JOptionPane.showMessageDialog(null, "No results.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            else{
+                displayBalancesPanel.setBalances(balancesFilterPanel.balances);
+                showCard("Display balances", true);
+            }
+        });
+
 
     }
 
@@ -120,6 +130,8 @@ public class MainFrame extends JFrame{
             this.setSize(500, 400);
         else if(name.equalsIgnoreCase("add currencies"))
             this.setSize(370, 150);
+        else if(name.equalsIgnoreCase("display balances"))
+            this.setSize(400, 300);
         if(title)
             this.setTitle(name);
     }

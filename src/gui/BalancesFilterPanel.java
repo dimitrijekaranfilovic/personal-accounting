@@ -1,6 +1,7 @@
 package gui;
 
 import display.DateLabelFormatter;
+import entities.Balance;
 import event.Observer;
 import event.UpdateEvent;
 import managers.ManagerFactory;
@@ -20,12 +21,15 @@ public class BalancesFilterPanel extends JPanel implements Observer {
     private ArrayList<String> currencies;
     public JButton okBtn;
     public JButton cancelBtn;
+    public ArrayList<Balance> balances;
+    private JDatePickerImpl datePicker;
+    private JDatePickerImpl datePicker1;
 
     public BalancesFilterPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
         this.currenciesBox = new JComboBox<>();
         this.okBtn = new JButton("Ok");
-        this.cancelBtn = new JButton("Cancel");
+        this.cancelBtn = new JButton("Back");
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
         for(String s : this.currencies)
             this.currenciesBox.addItem(s);
@@ -37,7 +41,7 @@ public class BalancesFilterPanel extends JPanel implements Observer {
         p.put("text.month", "Month");
         p.put("text.year", "Year");
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+        this.datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
         UtilDateModel model1 = new UtilDateModel();
         Properties p1 = new Properties();
@@ -45,7 +49,7 @@ public class BalancesFilterPanel extends JPanel implements Observer {
         p1.put("text.month", "Month");
         p1.put("text.year", "Year");
         JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p1);
-        JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
+        this.datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -67,9 +71,9 @@ public class BalancesFilterPanel extends JPanel implements Observer {
         JPanel panel2 = new JPanel(new MigLayout());
         panel2.add(new JLabel("Time"), "wrap");
         panel2.add(fromLabel, "split");
-        panel2.add(datePicker, "wrap");
+        panel2.add(this.datePicker, "wrap");
         panel2.add(toLabel, "split 2");
-        panel2.add(datePicker1, "wrap");
+        panel2.add(this.datePicker1, "wrap");
 
         JPanel panel3 = new JPanel(new MigLayout());
         panel3.add(this.okBtn, "split 2");
@@ -83,6 +87,11 @@ public class BalancesFilterPanel extends JPanel implements Observer {
 
         this.add(mainPanel, BorderLayout.CENTER);
 
+    }
+
+    public void search()
+    {
+        this.balances = this.managerFactory.balanceManager.getBalances((String)currenciesBox.getSelectedItem(), this.datePicker.getJFormattedTextField().getText(), this.datePicker1.getJFormattedTextField().getText());
     }
 
     @Override

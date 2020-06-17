@@ -1,5 +1,6 @@
 package models;
 
+import display.Display;
 import entities.Balance;
 
 import javax.swing.table.AbstractTableModel;
@@ -38,11 +39,11 @@ public class BalanceModel extends AbstractTableModel {
         Balance balance = this.balances.get(rowIndex);
         switch (columnIndex){
             case 0:
-                return balance.getAmount();
+                return Display.amountDisplay(balance.getAmount());
             case 1:
                 return balance.getCurrency();
             case 2:
-                return balance.getDateTime();
+                return Display.dateDisplay(balance.getDateTime());
         }
         return null;
     }

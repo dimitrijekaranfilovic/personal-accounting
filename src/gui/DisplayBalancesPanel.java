@@ -6,6 +6,7 @@ import models.BalanceModel;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -41,6 +42,10 @@ public class DisplayBalancesPanel extends JPanel {
     public void setBalances(ArrayList<Balance> balances){
         this.balances = balances;
         this.table.setModel(new BalanceModel(this.balances));
+        BalanceModel bm = new BalanceModel(this.balances);
+        TableRowSorter<BalanceModel> sorter = new TableRowSorter<>(bm);
+        this.table.setRowSorter(sorter);
+        this.table.setModel(bm);
     }
 
     private void refresh(){

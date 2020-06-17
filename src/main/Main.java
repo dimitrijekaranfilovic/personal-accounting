@@ -1,11 +1,9 @@
 package main;
 
 import gui.MainFrame;
-import managers.DatabaseManager;
 import managers.ManagerFactory;
 
 import javax.swing.*;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Main {
@@ -27,10 +25,11 @@ public class Main {
             e.printStackTrace();
         }
         /*try {
+            ManagerFactory mf = new ManagerFactory();
             ResultSet rs = mf.databaseManager.display();
             while(rs.next()){
 
-                System.out.println(rs.getString("currency") + " " + rs.getInt("amount") + " " + rs.getTimestamp("time"));
+                System.out.println(rs.getString("currency") + " " + rs.getInt("amount") + " " + rs.getTimestamp("time").toLocalDateTime());
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -2,8 +2,13 @@ package managers;
 
 //import entities.Balance;
 
+import entities.Balance;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class BalanceManager  {
     private DatabaseManager databaseManager;
@@ -52,29 +57,24 @@ public class BalanceManager  {
         return this.databaseManager.updateCurrentBalance(currency, amount);
     }
 
-    /*public ArrayList<Balance> getBalances(String currency, String fromDate, String toDate){
+    public ArrayList<Balance> getBalances(String currency, String fromDate, String toDate){
         ArrayList<Balance> balances = new ArrayList<>();
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm");
         LocalDateTime from = LocalDateTime.parse(fromDate + " 00:01", dateTimeFormatter);
         LocalDateTime to = LocalDateTime.parse(toDate + " 23:59", dateTimeFormatter);
-
         ResultSet resultSet = this.databaseManager.getBalances(currency, from, to);
         if(resultSet == null)
             return null;
         else{
             try{
                 while(resultSet.next()){
-                    //balances.add(new Balance())
+                    balances.add(new Balance(resultSet.getTimestamp("time").toLocalDateTime(), resultSet.getString("currency"), resultSet.getInt("amount")));
                 }
             }
             catch (SQLException e) {
                 return null;
             }
-
-
         }
         return balances;
-
-    }*/
-
+    }
 }

@@ -101,10 +101,11 @@ public class DatabaseManager {
             if(connection == null){
                 getConnection();
             }
-            PreparedStatement ps = connection.prepareStatement("insert into currentBalances(currency, amount) values(?, ?);");
+            PreparedStatement ps = connection.prepareStatement("insert into balances(time, currency, amount) values(?, ?, ?);");
             Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
-            ps.setString(1, currency);
-            ps.setInt(2, amount);
+            ps.setTimestamp(1, ts);
+            ps.setString(2, currency);
+            ps.setInt(3, amount);
             ps.execute();
             return true;
 
@@ -118,11 +119,11 @@ public class DatabaseManager {
             if(connection == null){
                 getConnection();
             }
-            PreparedStatement ps = connection.prepareStatement("insert into balances(time, currency, amount) values(?, ?, ?);");
+            PreparedStatement ps = connection.prepareStatement("insert into currentBalances(currency, amount) values(?, ?);");
             Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
-            ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
-            ps.setString(2, currency);
-            ps.setInt(3, amount);
+            //ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(1, currency);
+            ps.setInt(2, amount);
             ps.execute();
             return true;
 

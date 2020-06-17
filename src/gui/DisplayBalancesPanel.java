@@ -14,6 +14,7 @@ public class DisplayBalancesPanel extends JPanel {
     private JTable table;
     private ManagerFactory managerFactory;
     public JButton backBtn;
+    private int[] sortingDIrections = {1, 1, 1, 1, 1};
 
     DisplayBalancesPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;

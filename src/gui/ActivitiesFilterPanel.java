@@ -22,17 +22,23 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
     private JComboBox<String> currenciesBox;
     public JButton cancelBtn;
     public JButton okBtn;
+    public JDatePickerImpl datePicker;
+    public JDatePickerImpl datePicker1;
+    public JTextField searchField;
+    public ArrayList<Activity> activities;
+    //private int[] sortingDirections = {1, 1, 1, 1, 1};
 
 
-    public ActivitiesFilterPanel(ManagerFactory managerFactory){
+    public ActivitiesFilterPanel(ManagerFactory managerFactory) {
         super();
         this.managerFactory = managerFactory;
         this.setLayout(new MigLayout());
         this.managerFactory.currencyManager.addObserver(this);
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
+        this.activities = new ArrayList<>();
         this.currenciesBox = new JComboBox<>();
         this.activitiesBox = new JComboBox<>();
-        for(String s : this.currencies)
+        for (String s : this.currencies)
             this.currenciesBox.addItem(s);
         this.currenciesBox.addItem("");
 
@@ -47,7 +53,7 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
         p.put("text.month", "Month");
         p.put("text.year", "Year");
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+        this.datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
         UtilDateModel model1 = new UtilDateModel();
         Properties p1 = new Properties();
@@ -55,13 +61,13 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
         p1.put("text.month", "Month");
         p1.put("text.year", "Year");
         JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p1);
-        JDatePickerImpl datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
+        this.datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
 
 
         this.okBtn = new JButton("Ok");
         this.cancelBtn = new JButton("Back");
 
-        JTextField searchField = new JTextField(20);
+        this.searchField = new JTextField(20);
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -117,29 +123,30 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
         mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
         mainPanel.add(panel5);
 
-
         this.add(mainPanel, BorderLayout.CENTER);
 
-        this.okBtn.addActionListener(ae->{
-            ArrayList<Activity> activities = this.managerFactory.activityManager.getActivities((String)activitiesBox.getSelectedItem(), datePicker.getJFormattedTextField().getText(), datePicker1.getJFormattedTextField().getText(), (String)currenciesBox.getSelectedItem(), searchField.getText());
-            if(activities == null)
-                System.out.println("Greska!");
-            else if(activities.size() == 0)
-                System.out.println("Nema rezultata");
-            else{
-                System.out.println("Nasli smo " + activities.size() + " rezultata!");
-                for(Activity a : activities)
-                    System.out.println(a.getDescription() + " " + a.getAmount() + " " + a.getCurrency() + " " + a.getTime());
-            }
-        });
     }
 
     @Override
     public void updatePerformed(UpdateEvent e) {
         this.currenciesBox.removeAllItems();
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
-        for(String s : currencies)
+        for (String s : currencies)
             this.currenciesBox.addItem(s);
         this.currenciesBox.addItem("");
+    }
+
+    public void search() {
+        this.activities = this.managerFactory.activityManager.getActivities((String) activitiesBox.getSelectedItem(), this.datePicker.getJFormattedTextField().getText(), this.datePicker1.getJFormattedTextField().getText(), (String) currenciesBox.getSelectedItem(), this.searchField.getText());
+        /*if (this.activities == null)
+            System.out.println("Greska!");
+        else if (this.activities.size() == 0)
+            System.out.println("Nema rezultata");
+        else {
+            System.out.println("Nasli smo " + activities.size() + " rezultata!");
+            for (Activity a : activities)
+                System.out.println(a.getDescription() + " " + a.getAmount() + " " + a.getCurrency() + " " + a.getTime());
+
+        }*/
     }
 }

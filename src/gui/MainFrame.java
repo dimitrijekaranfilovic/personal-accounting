@@ -28,7 +28,7 @@ public class MainFrame extends JFrame{
         AddActivityPanel addActivityPanel = new AddActivityPanel(this.managerFactory);
         ActivitiesFilterPanel activitiesFilterPanel = new ActivitiesFilterPanel(this.managerFactory);
         BalancesFilterPanel balancesFilterPanel = new BalancesFilterPanel(this.managerFactory);
-        //DisplayActivitiesPanel displayActivitiesPanel = new DisplayActivitiesPanel(this.managerFactory);
+        DisplayActivitiesPanel displayActivitiesPanel = new DisplayActivitiesPanel(this.managerFactory);
         DisplayBalancesPanel displayBalancesPanel = new DisplayBalancesPanel(this.managerFactory);
 
 
@@ -38,8 +38,8 @@ public class MainFrame extends JFrame{
         mainPanel.add(addActivityPanel, "Add activity");
         mainPanel.add(activitiesFilterPanel, "Choose filters");
         mainPanel.add(balancesFilterPanel, "Choose balances filters");
-        //mainPanel.add(displayActivitiesPanel, "Display activities");
-        //mainPanel.add(displayBalancesPanel, "Display balances");
+        mainPanel.add(displayActivitiesPanel, "Display activities");
+        mainPanel.add(displayBalancesPanel, "Display balances");
 
 
         this.add(mainPanel, BorderLayout.CENTER);
@@ -86,9 +86,22 @@ public class MainFrame extends JFrame{
         activitiesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         balancesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         //activitiesFilterPanel.okBtn.addActionListener(ae->showCard("Display activities", true)); //TODO: treba dobaviti aktivnosti u zavisnosti od filtera
-        //displayActivitiesPanel.backBtn.addActionListener(ae->showCard("Choose filters", true));
+        displayActivitiesPanel.backBtn.addActionListener(ae->showCard("Choose filters", true));
         //balancesFilterPanel.okBtn.addActionListener(ae->showCard("Display balances", true)); //TODO: treba dobaviti stanja u zavisnosti od filtera
         //displayBalancesPanel.backBtn.addActionListener(ae->showCard("Choose balances filters", true));
+
+        activitiesFilterPanel.okBtn.addActionListener(ae->{
+            activitiesFilterPanel.search();
+            if(activitiesFilterPanel.activities == null)
+                JOptionPane.showMessageDialog(null, "Error: Check parameters.", "Error", JOptionPane.ERROR_MESSAGE);
+            else if(activitiesFilterPanel.activities.size() == 0)
+                JOptionPane.showMessageDialog(null, "No results.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            else {
+                displayActivitiesPanel.setActivities(activitiesFilterPanel.activities);
+                showCard("Display activities", true);
+            }
+
+        });
 
     }
 
@@ -104,7 +117,7 @@ public class MainFrame extends JFrame{
         else if(name.equalsIgnoreCase("choose balances filters"))
             this.setSize(270, 250);
         else if(name.equalsIgnoreCase("display activities"))
-            this.setSize(350, 300);
+            this.setSize(500, 400);
         else if(name.equalsIgnoreCase("add currencies"))
             this.setSize(370, 150);
         if(title)

@@ -8,13 +8,23 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
+        String mainLookAndFeel = "Nimbus";
         try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+            /*for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                //if (mainLookAndFeel.equals(info.getName())) {
+                   // UIManager.setLookAndFeel(info.getClassName());
+                    //break;
+                    System.out.println(info.getClassName());
+                //}
+            }*/
+            //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); //windows default
+            //UIManager.setLookAndFeel(mainLookAndFeel);
+            //UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+            //UIManager.setLookAndFeel(new InfoNodeLookAndFeel());
+            //UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel"); //sledeci najbolji, posle nimbusa
+            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
+
         } catch (Exception e) {
             // If Nimbus is not available, you can set the GUI to another look and feel.
         }

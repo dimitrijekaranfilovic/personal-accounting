@@ -21,7 +21,6 @@ public class DisplayActivitiesPanel extends JPanel {
     public JButton printBtn;
     private ManagerFactory managerFactory;
     private ArrayList<String> currencies;
-    //ArrayList<Integer> sortingDirections;
     private int[] sortingDirections = {1, 1, 1, 1, 1};
 
     public DisplayActivitiesPanel(ManagerFactory managerFactory){
@@ -29,11 +28,6 @@ public class DisplayActivitiesPanel extends JPanel {
         this.activities = new ArrayList<>();
         this.table = new JTable(new ActivityModel(this.activities));
         this.table.getTableHeader().setReorderingAllowed(false);
-        //this.sortingDirections = new ArrayList<>();
-
-       /* for(int i = 0; i < 5;i++){
-            this.sortingDirections.add(1);
-        }*/
         this.backBtn = new JButton("Back");
         this.printBtn = new JButton("Print");
 
@@ -64,7 +58,6 @@ public class DisplayActivitiesPanel extends JPanel {
     public void setActivities(ArrayList<Activity> activities){
         this.activities = activities;
         this.table.setModel(new ActivityModel(this.activities));
-        //setTableHeader();
         ActivityModel am = new ActivityModel(this.activities);
         TableRowSorter<ActivityModel> sorter = new TableRowSorter<>(am);
         this.table.setRowSorter(sorter);

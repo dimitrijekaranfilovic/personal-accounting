@@ -26,7 +26,6 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
     public JDatePickerImpl datePicker1;
     public JTextField searchField;
     public ArrayList<Activity> activities;
-    //private int[] sortingDirections = {1, 1, 1, 1, 1};
 
 
     public ActivitiesFilterPanel(ManagerFactory managerFactory) {
@@ -97,9 +96,6 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
 
         JPanel panel3 = new JPanel(new MigLayout());
         panel3.add(new JLabel("Currency"), "wrap");
-        /*panel3.add(eur, "split 3");
-        panel3.add(rsd);
-        panel3.add(both, "wrap");*/
         panel3.add(this.currenciesBox);
 
         JPanel panel4 = new JPanel(new MigLayout());
@@ -138,15 +134,5 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
 
     public void search() {
         this.activities = this.managerFactory.activityManager.getActivities((String) activitiesBox.getSelectedItem(), this.datePicker.getJFormattedTextField().getText(), this.datePicker1.getJFormattedTextField().getText(), (String) currenciesBox.getSelectedItem(), this.searchField.getText());
-        /*if (this.activities == null)
-            System.out.println("Greska!");
-        else if (this.activities.size() == 0)
-            System.out.println("Nema rezultata");
-        else {
-            System.out.println("Nasli smo " + activities.size() + " rezultata!");
-            for (Activity a : activities)
-                System.out.println(a.getDescription() + " " + a.getAmount() + " " + a.getCurrency() + " " + a.getTime());
-
-        }*/
     }
 }

@@ -52,7 +52,6 @@ public class AddCurrencyBalanceFrame extends JPanel {
                     JOptionPane.showMessageDialog(null, "Balance amount is not a number!", "Warning", JOptionPane.WARNING_MESSAGE);
                     break;
                 case CurrencyManager.OK:
-                    //.out.println("USPJESNO DODATO!");
                     JOptionPane.showMessageDialog(null, "Currency successfully added!", "Information", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 case CurrencyManager.WRONG:

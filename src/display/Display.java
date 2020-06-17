@@ -7,7 +7,6 @@ public class Display {
 
     public static String amountDisplay(int amount){
         StringBuilder sb = new StringBuilder();
-
         sb.append(amount / 100);
         int mod = amount % 100;
         if(mod < 0){
@@ -15,12 +14,11 @@ public class Display {
         }
         if(mod > 0 && mod < 10){
             sb.append(".0");
-            sb.append(mod);
         }
         else{
             sb.append(".");
-            sb.append(mod);
         }
+        sb.append(mod);
         return sb.toString();
     }
 

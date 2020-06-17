@@ -37,7 +37,6 @@ public class HomePanel extends JPanel implements Observer {
         this.balancesHistoryBtn = new JButton("Balances history");
         this.activitiesHistoryBtn = new JButton("Activities history");
         this.addCurrencyButton = new JButton("Add currency");
-        //this.currentBalanceValues =new HashMap<>();
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
         this.managerFactory.currencyManager.addObserver(this);
         this.managerFactory.activityManager.addObserver(this);
@@ -51,7 +50,6 @@ public class HomePanel extends JPanel implements Observer {
         this.currenciesBox = new JComboBox<>();
         for(String s : this.currencies){
             this.currenciesBox.addItem(s);
-            //this.currentBalance.currencyValueMap.put(s, this.managerFactory.balanceManager.getLatestBalance(s));
             this.currencyValueMap.put(s, this.managerFactory.balanceManager.getLatestBalance(s));
         }
         if(this.currencies.size() > 0){
@@ -60,17 +58,11 @@ public class HomePanel extends JPanel implements Observer {
         this.balanceField.setEditable(false);
 
         this.currenciesBox.addItemListener(ie->{
-            //System.out.println("USAO SAM U LISTENER!");
             String currency = (String)ie.getItem();
-            //int balance = this.managerFactory.balanceManager.getLatestBalance(currency);
-            //int balance = this.currentBalance.currencyValueMap.get(currency);
-            //System.out.println("Balance: " + this.currentBalance.currencyValueMap.get(currency));
-            //this.balanceField.setText(Display.amountDisplay(this.currentBalance.currencyValueMap.get(currency)));
             this.balanceField.setText(Display.amountDisplay(this.currencyValueMap.get(currency)));
 
         });
 
-        //this.add(new JLabel("Current balance"), "split 3");
         this.setLayout(new MigLayout());
         this.add(this.balanceField, "split 2");
         this.add(this.currenciesBox, "wrap");
@@ -90,18 +82,11 @@ public class HomePanel extends JPanel implements Observer {
     @Override
     public void updatePerformed(UpdateEvent e) {
         if(e.getSource() instanceof CurrencyManager){
-            //System.out.println("REAGUJEM NA DODAVANJE VALUTE!");
-            //System.out.println("MICEM IZ COMBO BOX-A");
             this.currenciesBox.removeAllItems();
             this.currencies = this.managerFactory.currencyManager.getCurrencies();
-            //System.out.println("BROJ VALUTA: " + this.managerFactory.currencyManager.getCurrencies().size());
             for(String s : currencies){
-                //this.currentBalance.currencyValueMap.put(s, this.managerFactory.balanceManager.getLatestBalance(s));
                 this.currencyValueMap.put(s, this.managerFactory.balanceManager.getLatestBalance(s));
-
                 this.currenciesBox.addItem(s);
-                //if(!currentBalance.currencyValueMap.containsKey(s))
-                //System.out.println("DODAJEM VALUTU " + s + " SA VRIJEDNOSCU " + this.managerFactory.balanceManager.getLatestBalance(s) + " U MAPU");
             }
             balanceField.setText(Display.amountDisplay(this.managerFactory.balanceManager.getLatestBalance(this.currencies.get(0))));
         }
@@ -109,17 +94,13 @@ public class HomePanel extends JPanel implements Observer {
                 ActivityManager am = (ActivityManager)e.getSource();
                 int newValue = 0;
                 if(am.activity.getActivityVersion().equalsIgnoreCase("expense")){
-                    //newValue = this.currentBalance.currencyValueMap.get(am.activity.getCurrency()) - am.activity.getAmount();
                     newValue = this.currencyValueMap.get(am.activity.getCurrency()) - am.activity.getAmount();
 
                 }
                 else if(am.activity.getActivityVersion().equalsIgnoreCase("income")){
-                    //newValue = this.currentBalance.currencyValueMap.get(am.activity.getCurrency()) + am.activity.getAmount();
                     newValue = this.currencyValueMap.get(am.activity.getCurrency()) + am.activity.getAmount();
                 }
-                //this.currentBalance.currencyValueMap.put(am.activity.getCurrency(), newValue);
                 this.currencyValueMap.put(am.activity.getCurrency(), newValue);
-                //int balance = this.currentBalance.currencyValueMap.get((String)currenciesBox.getSelectedItem());
                 int balance = this.currencyValueMap.get((String)currenciesBox.getSelectedItem());
                 this.balanceField.setText(Display.amountDisplay(balance));
         }

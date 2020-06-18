@@ -29,6 +29,7 @@ public class MainFrame extends JFrame{
         BalancesFilterPanel balancesFilterPanel = new BalancesFilterPanel(this.managerFactory);
         DisplayActivitiesPanel displayActivitiesPanel = new DisplayActivitiesPanel(this.managerFactory);
         DisplayBalancesPanel displayBalancesPanel = new DisplayBalancesPanel(this.managerFactory);
+        WelcomePanel welcomePanel = new WelcomePanel();
 
 
         mainPanel = new JPanel(new CardLayout());
@@ -39,6 +40,7 @@ public class MainFrame extends JFrame{
         mainPanel.add(balancesFilterPanel, "Choose balances filters");
         mainPanel.add(displayActivitiesPanel, "Display activities");
         mainPanel.add(displayBalancesPanel, "Display balances");
+        mainPanel.add(welcomePanel, "Welcome");
 
 
         this.add(mainPanel, BorderLayout.CENTER);
@@ -46,14 +48,15 @@ public class MainFrame extends JFrame{
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        this.setResizable(false);
+        //this.setResizable(false);
 
         if(this.managerFactory.currencyManager.countCurrencies() > 0){
             showCard("Home", true);
         }
         else {
-            showCard("Add currencies", false);
-            this.setTitle("Initial setup");
+            //showCard("Add currencies", false);
+            showCard("Welcome", true);
+            //this.setTitle("Initial setup");
         }
         addCurrencyBalanceFrame.finishBtn.addActionListener(ae->{
             try {
@@ -86,6 +89,7 @@ public class MainFrame extends JFrame{
         balancesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         displayActivitiesPanel.backBtn.addActionListener(ae->showCard("Choose filters", true));
         displayBalancesPanel.backBtn.addActionListener(ae->showCard("Choose balances filters", true));
+        welcomePanel.nextBtn.addActionListener(ae->showCard("Add currencies", true));
 
         activitiesFilterPanel.okBtn.addActionListener(ae->{
             activitiesFilterPanel.search();
@@ -132,6 +136,9 @@ public class MainFrame extends JFrame{
             this.setSize(370, 150);
         else if(name.equalsIgnoreCase("display balances"))
             this.setSize(400, 300);
+        else if(name.equalsIgnoreCase("welcome"))
+            this.setSize(380, 180);
+        //this.pack();
         if(title)
             this.setTitle(name);
     }

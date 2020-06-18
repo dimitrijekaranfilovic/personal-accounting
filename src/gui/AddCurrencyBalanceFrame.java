@@ -21,7 +21,7 @@ public class AddCurrencyBalanceFrame extends JPanel {
         JLabel balanceLabel = new JLabel("Balance");
         JTextField balanceField = new JTextField(20);
 
-        Dimension d = new Dimension(70, 20);
+        Dimension d = new Dimension(70, 30);
         currencyLabel.setMinimumSize(d);
         currencyLabel.setMaximumSize(d);
         balanceLabel.setMinimumSize(d);
@@ -53,14 +53,13 @@ public class AddCurrencyBalanceFrame extends JPanel {
                     break;
                 case CurrencyManager.OK:
                     JOptionPane.showMessageDialog(null, "Currency successfully added!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    currencyField.setText("");
+                    balanceField.setText("");
                     break;
                 case CurrencyManager.WRONG:
                     JOptionPane.showMessageDialog(null, "Error adding currency!", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
             }
         });
-
-
     }
-
 }

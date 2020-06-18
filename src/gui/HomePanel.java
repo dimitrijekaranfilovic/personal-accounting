@@ -26,11 +26,11 @@ public class HomePanel extends JPanel implements Observer {
     public JTextField balanceField;
     //public Balance currentBalance;
     public HashMap<String, Integer> currencyValueMap;
-
-
+    private JFrame frame;
 
     public HomePanel(ManagerFactory managerFactory){
         //this.currentBalance = new Balance();
+        //this.frame = frame;
         this.currencyValueMap = new HashMap<>();
         this.managerFactory = managerFactory;
         this.addActivityBtn = new JButton("Add activity");
@@ -41,11 +41,21 @@ public class HomePanel extends JPanel implements Observer {
         this.managerFactory.currencyManager.addObserver(this);
         this.managerFactory.activityManager.addObserver(this);
 
+        //setPreferredSize(new Dimension(370, 150));
+
         JButton helpBtn = new JButton("Help");
         this.balanceField = new JTextField(36);
-        Dimension d = new Dimension(280, 30);
-        this.balanceField.setMinimumSize(d);
-        this.balanceField.setMaximumSize(d);
+        Dimension fieldDimension = new Dimension(280, 30);
+        this.balanceField.setMinimumSize(fieldDimension);
+        this.balanceField.setMaximumSize(fieldDimension);
+        //this.balanceField.setPreferredSize(fieldDimension);
+
+       /* Dimension buttonDimension = new Dimension(50, 20);
+        this.addActivityBtn.setPreferredSize(buttonDimension);
+        this.balancesHistoryBtn.setPreferredSize(buttonDimension);
+        this.activitiesHistoryBtn.setPreferredSize(buttonDimension);
+        this.addCurrencyButton.setPreferredSize(buttonDimension);
+        helpBtn.setPreferredSize(buttonDimension);*/
 
         this.currenciesBox = new JComboBox<>();
         for(String s : this.currencies){
@@ -62,6 +72,7 @@ public class HomePanel extends JPanel implements Observer {
             this.balanceField.setText(Display.amountDisplay(this.currencyValueMap.get(currency)));
 
         });
+        helpBtn.addActionListener(ae-> JOptionPane.showMessageDialog(null, "Dimitrije Karanfilovic 2020", "Help", JOptionPane.INFORMATION_MESSAGE));
 
         this.setLayout(new MigLayout());
         this.add(this.balanceField, "split 2");
@@ -73,8 +84,7 @@ public class HomePanel extends JPanel implements Observer {
 
         this.add(this.addCurrencyButton, "split 2");
         this.add(helpBtn);
-
-        helpBtn.addActionListener(ae-> JOptionPane.showMessageDialog(null, "Dimitrije Karanfilovic 2020", "Help", JOptionPane.INFORMATION_MESSAGE));
+        this.setPreferredSize(this.getPreferredSize());
 
 
     }

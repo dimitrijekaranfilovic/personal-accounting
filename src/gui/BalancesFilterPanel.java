@@ -31,6 +31,7 @@ public class BalancesFilterPanel extends JPanel implements Observer {
         this.okBtn = new JButton("Ok");
         this.cancelBtn = new JButton("Back");
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
+        this.managerFactory.currencyManager.addObserver(this);
         for(String s : this.currencies)
             this.currenciesBox.addItem(s);
         this.currenciesBox.addItem("");
@@ -98,7 +99,7 @@ public class BalancesFilterPanel extends JPanel implements Observer {
     public void updatePerformed(UpdateEvent e) {
         this.currenciesBox.removeAllItems();
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
-        for(String s : currencies)
+        for(String s : this.currencies)
             this.currenciesBox.addItem(s);
         this.currenciesBox.addItem("");
     }

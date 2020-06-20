@@ -28,8 +28,10 @@ public class BalancesFilterPanel extends JPanel implements Observer {
     public BalancesFilterPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
         this.currenciesBox = new JComboBox<>();
-        this.okBtn = new JButton("Ok");
-        this.cancelBtn = new JButton("Back");
+
+        this.okBtn = new JButton(this.managerFactory.resourceManager.okIcon);
+        this.cancelBtn = new JButton(this.managerFactory.resourceManager.backIcon);
+
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
         this.managerFactory.currencyManager.addObserver(this);
         for(String s : this.currencies)

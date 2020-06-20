@@ -27,8 +27,12 @@ public class AddCurrencyBalanceFrame extends JPanel {
         balanceLabel.setMinimumSize(d);
         balanceLabel.setMaximumSize(d);
 
-        this.finishBtn = new JButton("Finish");
-        JButton addBtn = new JButton("Add");
+        //if(firstTimeSetup)
+        //    this.finishBtn = new JButton(this.managerFactory.resourceManager.nextIcon);
+        //else
+        //    this.finishBtn = new JButton(this.managerFactory.resourceManager.backIcon);
+        this.finishBtn = new JButton();
+        JButton addBtn = new JButton(this.managerFactory.resourceManager.addIcon);
 
         this.add(currencyLabel, "split 2");
         this.add(currencyField, "wrap");
@@ -61,5 +65,12 @@ public class AddCurrencyBalanceFrame extends JPanel {
                     break;
             }
         });
+    }
+
+    public void updateIcon(boolean firstTimeSetup){
+        if(firstTimeSetup)
+            this.finishBtn.setIcon(this.managerFactory.resourceManager.nextIcon);
+        else
+            this.finishBtn.setIcon(this.managerFactory.resourceManager.backIcon);
     }
 }

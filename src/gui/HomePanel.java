@@ -22,6 +22,7 @@ public class HomePanel extends JPanel implements Observer {
     public JButton balancesHistoryBtn;
     public JButton activitiesHistoryBtn;
     public JButton addCurrencyButton;
+    public JButton settingsButton;
     public JComboBox<String> currenciesBox;
     public JTextField balanceField;
     //public Balance currentBalance;
@@ -31,21 +32,34 @@ public class HomePanel extends JPanel implements Observer {
     public HomePanel(ManagerFactory managerFactory){
         //this.currentBalance = new Balance();
         //this.frame = frame;
+        //load icons
+
         this.currencyValueMap = new HashMap<>();
         this.managerFactory = managerFactory;
-        this.addActivityBtn = new JButton("Add activity");
-        this.balancesHistoryBtn = new JButton("Balances history");
-        this.activitiesHistoryBtn = new JButton("Activities history");
-        this.addCurrencyButton = new JButton("Add currency");
+
+        this.addActivityBtn = new JButton(this.managerFactory.resourceManager.addIcon);
+        this.balancesHistoryBtn = new JButton(this.managerFactory.resourceManager.balancesHistoryIcon);
+        this.activitiesHistoryBtn = new JButton(this.managerFactory.resourceManager.activitiesHistoryIcon);
+        this.addCurrencyButton = new JButton(this.managerFactory.resourceManager.addCurrencyIcon);
+        this.settingsButton = new JButton(this.managerFactory.resourceManager.settingsIcon);
+        JButton helpBtn = new JButton(this.managerFactory.resourceManager.helpIcon);
+
+        this.addActivityBtn.setToolTipText("Add activity");
+        this.balancesHistoryBtn.setToolTipText("Balances history");
+        this.activitiesHistoryBtn.setToolTipText("Activities history");
+        this.addCurrencyButton.setToolTipText("Add currency");
+        this.settingsButton.setToolTipText("Settings");
+        helpBtn.setToolTipText("Help");
+
+
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
         this.managerFactory.currencyManager.addObserver(this);
         this.managerFactory.activityManager.addObserver(this);
 
         //setPreferredSize(new Dimension(370, 150));
 
-        JButton helpBtn = new JButton("Help");
-        this.balanceField = new JTextField(36);
-        Dimension fieldDimension = new Dimension(280, 30);
+        this.balanceField = new JTextField(50);
+        Dimension fieldDimension = new Dimension(90, 30);
         this.balanceField.setMinimumSize(fieldDimension);
         this.balanceField.setMaximumSize(fieldDimension);
         //this.balanceField.setPreferredSize(fieldDimension);
@@ -82,8 +96,9 @@ public class HomePanel extends JPanel implements Observer {
         this.add(this.activitiesHistoryBtn);
         this.add(this.balancesHistoryBtn, "wrap");
 
-        this.add(this.addCurrencyButton, "split 2");
-        this.add(helpBtn);
+        this.add(this.addCurrencyButton, "split 3");
+        this.add(this.settingsButton);
+        this.add(helpBtn, "wrap");
         this.setPreferredSize(this.getPreferredSize());
 
 

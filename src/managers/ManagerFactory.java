@@ -9,6 +9,7 @@ public class ManagerFactory {
     public CurrencyManager currencyManager;
     public BalanceManager balanceManager;
     public ActivityManager activityManager;
+    public ResourceManager resourceManager;
 
 
     public ManagerFactory() throws SQLException, ClassNotFoundException {
@@ -17,6 +18,7 @@ public class ManagerFactory {
         this.currencyManager = new CurrencyManager(this.databaseManager);
         this.balanceManager = new BalanceManager(this.databaseManager);
         this.activityManager = new ActivityManager(this.databaseManager);
+        this.resourceManager = new ResourceManager();
     }
 
 }

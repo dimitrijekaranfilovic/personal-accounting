@@ -62,9 +62,8 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
         JDatePanelImpl datePanel1 = new JDatePanelImpl(model1, p1);
         this.datePicker1 = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
 
-
-        this.okBtn = new JButton("Ok");
-        this.cancelBtn = new JButton("Back");
+        this.okBtn = new JButton(this.managerFactory.resourceManager.okIcon);
+        this.cancelBtn = new JButton(this.managerFactory.resourceManager.backIcon);
 
         this.searchField = new JTextField(20);
 

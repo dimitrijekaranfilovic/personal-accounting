@@ -29,8 +29,14 @@ public class AddActivityPanel extends JPanel implements Observer {
         this.managerFactory = managerFactory;
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
         this.currenciesBox = new JComboBox<>();
-        this.okBtn = new JButton("Confirm");
-        this.cancelBtn = new JButton("Back");
+
+        this.okBtn = new JButton(this.managerFactory.resourceManager.okIcon);
+        this.cancelBtn = new JButton(this.managerFactory.resourceManager.backIcon);
+
+        this.okBtn.setToolTipText("Confirm");
+        this.cancelBtn.setToolTipText("Back");
+
+
         this.managerFactory.currencyManager.addObserver(this);
         for(String s : currencies)
             this.currenciesBox.addItem(s);

@@ -28,8 +28,9 @@ public class DisplayActivitiesPanel extends JPanel {
         this.activities = new ArrayList<>();
         this.table = new JTable(new ActivityModel(this.activities));
         this.table.getTableHeader().setReorderingAllowed(false);
-        this.backBtn = new JButton("Back");
-        this.printBtn = new JButton("Print");
+
+        this.backBtn = new JButton(this.managerFactory.resourceManager.backIcon);
+        this.printBtn = new JButton(this.managerFactory.resourceManager.printIcon);
 
         this.setLayout(new BorderLayout());
 

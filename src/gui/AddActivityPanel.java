@@ -33,8 +33,8 @@ public class AddActivityPanel extends JPanel implements Observer {
         this.okBtn = new JButton(this.managerFactory.resourceManager.okIcon);
         this.cancelBtn = new JButton(this.managerFactory.resourceManager.backIcon);
 
-        this.okBtn.setToolTipText("Confirm");
-        this.cancelBtn.setToolTipText("Back");
+        //this.okBtn.setToolTipText("Confirm");
+        //this.cancelBtn.setToolTipText("Back");
 
 
         this.managerFactory.currencyManager.addObserver(this);

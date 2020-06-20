@@ -30,6 +30,7 @@ public class MainFrame extends JFrame{
         DisplayActivitiesPanel displayActivitiesPanel = new DisplayActivitiesPanel(this.managerFactory);
         DisplayBalancesPanel displayBalancesPanel = new DisplayBalancesPanel(this.managerFactory);
         WelcomePanel welcomePanel = new WelcomePanel(this.managerFactory);
+        SettingsPanel settingsPanel = new SettingsPanel(this.managerFactory, this);
 
 
         mainPanel = new JPanel(new CardLayout());
@@ -41,7 +42,7 @@ public class MainFrame extends JFrame{
         mainPanel.add(displayActivitiesPanel, "Display activities");
         mainPanel.add(displayBalancesPanel, "Display balances");
         mainPanel.add(welcomePanel, "Welcome");
-
+        mainPanel.add(settingsPanel, "Settings");
 
         this.add(mainPanel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -87,11 +88,15 @@ public class MainFrame extends JFrame{
         this.homePanel.addActivityBtn.addActionListener(ae->showCard("Add activity", true));
         this.homePanel.activitiesHistoryBtn.addActionListener(ae->showCard("Choose filters", true));
         this.homePanel.balancesHistoryBtn.addActionListener(ae->showCard("Choose balances filters", true));
+        this.homePanel.settingsButton.addActionListener(ae->showCard("Settings", true));
         addActivityPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         activitiesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         balancesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         displayActivitiesPanel.backBtn.addActionListener(ae->showCard("Choose filters", true));
         displayBalancesPanel.backBtn.addActionListener(ae->showCard("Choose balances filters", true));
+        //homePanel.settingsButton.addActionListener(ae-> Main.changeLaf(this));
+        settingsPanel.backBtn.addActionListener(ae->showCard("Home", true));
+
         welcomePanel.nextBtn.addActionListener(ae->{
             addCurrencyBalancePanel.updateIcon(true);
             showCard("Add currencies", true);
@@ -129,21 +134,31 @@ public class MainFrame extends JFrame{
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
         cl.show(mainPanel, name);
         if(name.equalsIgnoreCase("home"))
-            this.setSize(180, 150); //width - 370 original
+            //this.setSize(180, 150); //width - 370 original
+            this.setSize(this.managerFactory.lookAndFeelManager.homeDimension);
         else if(name.equalsIgnoreCase("add activity"))
-            this.setSize(330, 270);
+            //this.setSize(330, 270);
+            this.setSize(this.managerFactory.lookAndFeelManager.addActivityDimension);
         else if(name.equalsIgnoreCase("choose filters"))
-            this.setSize(270, 370);
+            //this.setSize(270, 370);
+            this.setSize(this.managerFactory.lookAndFeelManager.activityHistoryDimension);
         else if(name.equalsIgnoreCase("choose balances filters"))
-            this.setSize(270, 250);
+            //this.setSize(270, 250);
+            this.setSize(this.managerFactory.lookAndFeelManager.balanceHistoryDimension);
         else if(name.equalsIgnoreCase("display activities"))
-            this.setSize(500, 400);
+            //this.setSize(500, 400);
+            this.setSize(this.managerFactory.lookAndFeelManager.displayActivitiesDimension);
         else if(name.equalsIgnoreCase("add currencies"))
-            this.setSize(370, 150);
+            //this.setSize(370, 150);
+            this.setSize(this.managerFactory.lookAndFeelManager.addCurrencyDimension);
         else if(name.equalsIgnoreCase("display balances"))
-            this.setSize(400, 300);
+            //this.setSize(400, 300);
+            this.setSize(this.managerFactory.lookAndFeelManager.displayBalancesDimension);
         else if(name.equalsIgnoreCase("welcome"))
-            this.setSize(380, 180);
+            //this.setSize(380, 180);
+            this.setSize(this.managerFactory.lookAndFeelManager.welcomeDimension);
+        else if(name.equalsIgnoreCase("settings"))
+            this.setSize(this.managerFactory.lookAndFeelManager.settingsDimension);
         //this.pack();
         if(title)
             this.setTitle(name);

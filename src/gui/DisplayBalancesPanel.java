@@ -23,7 +23,8 @@ public class DisplayBalancesPanel extends JPanel {
         this.table = new JTable(new BalanceModel(this.balances));
         this.table.getTableHeader().setReorderingAllowed(false);
 
-        this.backBtn = new JButton("Back");
+        this.backBtn = new JButton(this.managerFactory.resourceManager.backIcon);
+
         this.setLayout(new BorderLayout());
         JScrollPane tablePane = new JScrollPane(this.table);
         this.add(tablePane, BorderLayout.CENTER);

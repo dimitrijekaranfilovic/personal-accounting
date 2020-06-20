@@ -22,19 +22,19 @@ public class MainFrame extends JFrame{
     }
     private  MainFrame(ManagerFactory managerFactory) throws SQLException {
         this.managerFactory = managerFactory;
-        AddCurrencyBalanceFrame addCurrencyBalanceFrame = new AddCurrencyBalanceFrame(this.managerFactory);
         this.homePanel = new HomePanel(this.managerFactory);
+        AddCurrencyBalanceFrame addCurrencyBalancePanel = new AddCurrencyBalanceFrame(this.managerFactory);
         AddActivityPanel addActivityPanel = new AddActivityPanel(this.managerFactory);
         ActivitiesFilterPanel activitiesFilterPanel = new ActivitiesFilterPanel(this.managerFactory);
         BalancesFilterPanel balancesFilterPanel = new BalancesFilterPanel(this.managerFactory);
         DisplayActivitiesPanel displayActivitiesPanel = new DisplayActivitiesPanel(this.managerFactory);
         DisplayBalancesPanel displayBalancesPanel = new DisplayBalancesPanel(this.managerFactory);
-        WelcomePanel welcomePanel = new WelcomePanel();
+        WelcomePanel welcomePanel = new WelcomePanel(this.managerFactory);
 
 
         mainPanel = new JPanel(new CardLayout());
         mainPanel.add(this.homePanel, "Home");
-        mainPanel.add(addCurrencyBalanceFrame, "Add currencies");
+        mainPanel.add(addCurrencyBalancePanel, "Add currencies");
         mainPanel.add(addActivityPanel, "Add activity");
         mainPanel.add(activitiesFilterPanel, "Choose filters");
         mainPanel.add(balancesFilterPanel, "Choose balances filters");
@@ -48,7 +48,7 @@ public class MainFrame extends JFrame{
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        //this.setResizable(false);
+        this.setResizable(false);
 
         if(this.managerFactory.currencyManager.countCurrencies() > 0){
             showCard("Home", true);
@@ -58,7 +58,7 @@ public class MainFrame extends JFrame{
             showCard("Welcome", true);
             //this.setTitle("Initial setup");
         }
-        addCurrencyBalanceFrame.finishBtn.addActionListener(ae->{
+        addCurrencyBalancePanel.finishBtn.addActionListener(ae->{
             try {
                 if(this.managerFactory.currencyManager.countCurrencies() == 0)
                     JOptionPane.showMessageDialog(null, "You have to enter at least one currency!", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -80,7 +80,10 @@ public class MainFrame extends JFrame{
             }
         });
 
-        this.homePanel.addCurrencyButton.addActionListener(ae->showCard("Add currencies", true));
+        this.homePanel.addCurrencyButton.addActionListener(ae->{
+            addCurrencyBalancePanel.updateIcon(false);
+            showCard("Add currencies", true);
+        });
         this.homePanel.addActivityBtn.addActionListener(ae->showCard("Add activity", true));
         this.homePanel.activitiesHistoryBtn.addActionListener(ae->showCard("Choose filters", true));
         this.homePanel.balancesHistoryBtn.addActionListener(ae->showCard("Choose balances filters", true));
@@ -89,7 +92,10 @@ public class MainFrame extends JFrame{
         balancesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         displayActivitiesPanel.backBtn.addActionListener(ae->showCard("Choose filters", true));
         displayBalancesPanel.backBtn.addActionListener(ae->showCard("Choose balances filters", true));
-        welcomePanel.nextBtn.addActionListener(ae->showCard("Add currencies", true));
+        welcomePanel.nextBtn.addActionListener(ae->{
+            addCurrencyBalancePanel.updateIcon(true);
+            showCard("Add currencies", true);
+        });
 
         activitiesFilterPanel.okBtn.addActionListener(ae->{
             activitiesFilterPanel.search();
@@ -123,7 +129,7 @@ public class MainFrame extends JFrame{
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
         cl.show(mainPanel, name);
         if(name.equalsIgnoreCase("home"))
-            this.setSize(370, 150);
+            this.setSize(180, 150); //width - 370 original
         else if(name.equalsIgnoreCase("add activity"))
             this.setSize(330, 270);
         else if(name.equalsIgnoreCase("choose filters"))

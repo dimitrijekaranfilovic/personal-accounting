@@ -1,16 +1,21 @@
 package gui;
 
+import managers.ManagerFactory;
+
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 
 public class WelcomePanel extends JPanel {
         public JButton nextBtn;
+        private ManagerFactory managerFactory;
 
-        public WelcomePanel()
+        public WelcomePanel(ManagerFactory managerFactory)
         {
             //this.setLayout(new MigLayout());
-            this.nextBtn = new JButton("Next");
+            this.managerFactory = managerFactory;
+            this.nextBtn = new JButton(this.managerFactory.resourceManager.nextIcon);
+
             JLabel welcomeLabel = new JLabel("Welcome", SwingConstants.CENTER);
 
             //this.add(new JLabel(), "split 3");

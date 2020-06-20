@@ -43,3 +43,8 @@
 <a href="https://iconscout.com/icons/wallet" target="_blank">Wallet Icon</a> by <a href="https://iconscout.com/contributors/iconscout">Iconscout Freebies</a> on <a href="https://iconscout.com">Iconscout</a>
 
 <a href="https://iconscout.com/icons/wallet" target="_blank">Wallet Icon</a> by <a href="https://iconscout.com/contributors/kiran-shastry" target="_blank">Kiran Shastry</a>
+
+
+<a href="https://iconscout.com/icons/printer" target="_blank">Printer Icon</a> by <a href="https://iconscout.com/contributors/chamedesign" target="_blank">Chameleon Design</a>
+
+<a href="https://iconscout.com/icons/play" target="_blank">Play Icon</a> by <a href="https://iconscout.com/contributors/chamedesign">Chameleon Design</a> on <a href="https://iconscout.com">Iconscout</a>

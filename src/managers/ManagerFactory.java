@@ -10,6 +10,7 @@ public class ManagerFactory {
     public BalanceManager balanceManager;
     public ActivityManager activityManager;
     public ResourceManager resourceManager;
+    public LookAndFeelManager lookAndFeelManager;
 
 
     public ManagerFactory() throws SQLException, ClassNotFoundException {
@@ -19,6 +20,7 @@ public class ManagerFactory {
         this.balanceManager = new BalanceManager(this.databaseManager);
         this.activityManager = new ActivityManager(this.databaseManager);
         this.resourceManager = new ResourceManager();
+        this.lookAndFeelManager = new LookAndFeelManager();
     }
 
 }

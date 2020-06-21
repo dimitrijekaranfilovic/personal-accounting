@@ -42,20 +42,6 @@ public class Main {
         catch (SQLException | ClassNotFoundException se){
             se.printStackTrace();
         }*/
-
-        /*Locale[] locales = {Locale.ENGLISH,
-                new Locale("srb", "SRB")
-        };
-
-        System.out.println("w1: ");
-        for(Locale locale : locales){
-            getWord(locale, "w1");
-        }
-
-        System.out.println("w2: ");
-        for(Locale locale : locales){
-            getWord(locale, "w2");
-        }*/
     }
     private static void getWord(Locale locale, String key){
         ResourceBundle words = ResourceBundle.getBundle("languages/words", locale);

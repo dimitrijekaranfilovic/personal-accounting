@@ -17,8 +17,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//import entities.Balance;
-
 public class HomePanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
     private ArrayList<String> currencies;
@@ -30,7 +28,6 @@ public class HomePanel extends JPanel implements Observer {
     public JComboBox<String> currenciesBox;
     public JTextField balanceField;
     public HashMap<String, Integer> currencyValueMap;
-    //private JFrame frame;
     private JButton helpBtn;
     private JEditorPane editorPane;
 

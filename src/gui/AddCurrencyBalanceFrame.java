@@ -27,10 +27,6 @@ public class AddCurrencyBalanceFrame extends JPanel {
         balanceLabel.setMinimumSize(d);
         balanceLabel.setMaximumSize(d);
 
-        //if(firstTimeSetup)
-        //    this.finishBtn = new JButton(this.managerFactory.resourceManager.nextIcon);
-        //else
-        //    this.finishBtn = new JButton(this.managerFactory.resourceManager.backIcon);
         this.finishBtn = new JButton();
         JButton addBtn = new JButton(this.managerFactory.resourceManager.addIcon);
 

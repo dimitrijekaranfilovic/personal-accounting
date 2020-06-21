@@ -11,6 +11,7 @@ public class ManagerFactory {
     public ActivityManager activityManager;
     public ResourceManager resourceManager;
     public LookAndFeelManager lookAndFeelManager;
+    public SettingsManager settingsManager;
 
 
     public ManagerFactory() throws SQLException, ClassNotFoundException {
@@ -21,6 +22,7 @@ public class ManagerFactory {
         this.activityManager = new ActivityManager(this.databaseManager);
         this.resourceManager = new ResourceManager();
         this.lookAndFeelManager = new LookAndFeelManager();
+        this.settingsManager = new SettingsManager(this.databaseManager);
     }
 
 }

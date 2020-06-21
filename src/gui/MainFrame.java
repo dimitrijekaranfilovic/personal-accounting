@@ -47,17 +47,22 @@ public class MainFrame extends JFrame{
         this.add(mainPanel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
-        this.setLocationRelativeTo(null);
         this.setVisible(true);
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
         if(this.managerFactory.currencyManager.countCurrencies() > 0){
+            //this.managerFactory.settingsManager.loadSettings();
+            //this.managerFactory.lookAndFeelManager.changeLookAndFeel(this, this.managerFactory.settingsManager.style);
+            //System.out.println("Treba da postavim: " + this.managerFactory.settingsManager.style);
+            //this.setLocation(this.managerFactory.settingsManager.x, this.managerFactory.settingsManager.y);
             showCard("Home", true);
         }
         else {
-            //showCard("Add currencies", false);
             showCard("Welcome", true);
-            //this.setTitle("Initial setup");
+            //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            //this.setLocation((int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2);
+            //this.managerFactory.settingsManager.addInitialSettings(this.managerFactory.lookAndFeelManager.currentLookAndFeel, (int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2);
         }
         addCurrencyBalancePanel.finishBtn.addActionListener(ae->{
             try {
@@ -77,6 +82,8 @@ public class MainFrame extends JFrame{
                 for(String key : homePanel.currencyValueMap.keySet()){
                     managerFactory.balanceManager.addBalance(key, homePanel.currencyValueMap.get(key));
                     managerFactory.balanceManager.updateCurrentBalance(key, homePanel.currencyValueMap.get(key));
+                    //managerFactory.settingsManager.saveSettings(managerFactory.lookAndFeelManager.currentLookAndFeel, getX(), getY());
+
                 }
             }
         });
@@ -94,7 +101,6 @@ public class MainFrame extends JFrame{
         balancesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
         displayActivitiesPanel.backBtn.addActionListener(ae->showCard("Choose filters", true));
         displayBalancesPanel.backBtn.addActionListener(ae->showCard("Choose balances filters", true));
-        //homePanel.settingsButton.addActionListener(ae-> Main.changeLaf(this));
         settingsPanel.backBtn.addActionListener(ae->showCard("Home", true));
 
         welcomePanel.nextBtn.addActionListener(ae->{

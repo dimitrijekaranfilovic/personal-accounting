@@ -13,6 +13,8 @@ public class LookAndFeelManager {
     public Dimension displayActivitiesDimension;
     public Dimension welcomeDimension;
     public Dimension settingsDimension;
+    public String currentLookAndFeel = "nimbus";
+    private int counter = 0;
 
     LookAndFeelManager(){
         this.homeDimension = new Dimension(180,150);
@@ -33,11 +35,16 @@ public class LookAndFeelManager {
     }
 
     public boolean changeLookAndFeel(JFrame frame, String name){
+        currentLookAndFeel = name;
+        //System.out.println("Counter: " + counter);
+        //counter = (counter + 1) % 2;
+        //System.out.println("Look and feel treba da bude: " + currentLookAndFeel +".");
         try{
             if(name.equalsIgnoreCase("nimbus"))
             {
+
                 UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-                updateDimension(this.homeDimension, 180, 150);
+                updateDimension(this.homeDimension, 180, 150); //width 180
                 updateDimension(this.addActivityDimension, 330, 250);
                 updateDimension(this.activityHistoryDimension, 270, 370);
                 updateDimension(this.balanceHistoryDimension, 270, 250);
@@ -49,6 +56,7 @@ public class LookAndFeelManager {
 
             }
             else if(name.equalsIgnoreCase("metal")){
+
                 UIManager.setLookAndFeel(UIManager
                         .getCrossPlatformLookAndFeelClassName());
             }

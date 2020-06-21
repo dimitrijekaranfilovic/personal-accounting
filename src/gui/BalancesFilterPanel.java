@@ -13,9 +13,10 @@ import org.jdatepicker.impl.UtilDateModel;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Properties;
 
-public class BalancesFilterPanel extends JPanel implements Observer {
+public class BalancesFilterPanel extends AbstractChildPanel implements Observer {
     private ManagerFactory managerFactory;
     private JComboBox<String> currenciesBox;
     private ArrayList<String> currencies;
@@ -104,5 +105,10 @@ public class BalancesFilterPanel extends JPanel implements Observer {
         for(String s : this.currencies)
             this.currenciesBox.addItem(s);
         this.currenciesBox.addItem("");
+    }
+
+    @Override
+    public void updateLocale(Locale l) {
+
     }
 }

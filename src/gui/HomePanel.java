@@ -16,8 +16,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 
-public class HomePanel extends JPanel implements Observer {
+public class HomePanel extends AbstractChildPanel implements Observer {
     private ManagerFactory managerFactory;
     private ArrayList<String> currencies;
     public JButton addActivityBtn;
@@ -35,8 +36,8 @@ public class HomePanel extends JPanel implements Observer {
         this.currencyValueMap = new HashMap<>();
         this.managerFactory = managerFactory;
 
-        JLabel pictureLabel = new JLabel("Test", SwingConstants.CENTER);
-        pictureLabel.setHorizontalTextPosition(JLabel.CENTER);
+        //JLabel pictureLabel = new JLabel("Test", SwingConstants.CENTER);
+        //pictureLabel.setHorizontalTextPosition(JLabel.CENTER);
         this.addActivityBtn = new JButton(this.managerFactory.resourceManager.addIcon);
         this.balancesHistoryBtn = new JButton(this.managerFactory.resourceManager.balancesHistoryIcon);
         this.activitiesHistoryBtn = new JButton(this.managerFactory.resourceManager.activitiesHistoryIcon);
@@ -162,5 +163,10 @@ public class HomePanel extends JPanel implements Observer {
             //e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public void updateLocale(Locale l) {
+
     }
 }

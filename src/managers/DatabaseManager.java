@@ -85,7 +85,9 @@ public class DatabaseManager {
                         "lastX integer," +
                         "lastY integer" +
                         ");");
-
+                createTables.execute("create table currentLanguage(" +
+                        "language varchar(10)" +
+                        ")");
             }
         }
     }

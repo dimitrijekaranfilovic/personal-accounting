@@ -5,8 +5,9 @@ import managers.ManagerFactory;
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
+import java.util.Locale;
 
-public class WelcomePanel extends JPanel {
+public class WelcomePanel extends AbstractChildPanel {
         public JButton nextBtn;
         private ManagerFactory managerFactory;
 
@@ -32,4 +33,9 @@ public class WelcomePanel extends JPanel {
             this.nextBtn.setHorizontalAlignment(JButton.CENTER);
             this.add(this.nextBtn);
         }
+
+    @Override
+    public void updateLocale(Locale l) {
+
+    }
 }

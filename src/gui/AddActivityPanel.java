@@ -14,9 +14,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Properties;
 
-public class AddActivityPanel extends JPanel implements Observer {
+public class AddActivityPanel extends AbstractChildPanel implements Observer {
     private ManagerFactory managerFactory;
     private ArrayList<String> currencies;
     private JComboBox<String> currenciesBox;
@@ -24,6 +25,16 @@ public class AddActivityPanel extends JPanel implements Observer {
     private JTextField amountField;
     public JButton okBtn;
     public JButton cancelBtn;
+    public JComboBox<String> activitiesBox;
+    public String incomeString = "income";
+    public String expenseString = "expense";
+    public JLabel activitiesLabel, currencyLabel, dateLabel, timeLabel, descriptionLabel, amountLabel;
+    //public JLabel descriptionLabel;
+   // public JLabel amountLabel;
+    public String activityAdded = "Activity successfully added.";
+    public String information = "Information";
+    public String errorMessage = "Error adding activity!";
+
 
     public AddActivityPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
@@ -37,22 +48,22 @@ public class AddActivityPanel extends JPanel implements Observer {
         for(String s : currencies)
             this.currenciesBox.addItem(s);
 
-        JComboBox<String> activitiesBox = new JComboBox<>();
-        activitiesBox.addItem("income");
-        activitiesBox.addItem("expense");
+        this.activitiesBox = new JComboBox<>();
+        activitiesBox.addItem(incomeString);
+        activitiesBox.addItem(expenseString);
 
-        JLabel activitiesLabel = new JLabel("Activity");
+        this.activitiesLabel = new JLabel("Activity");
 
-        JLabel descriptionLabel = new JLabel("Description");
+        this.descriptionLabel = new JLabel("Description");
         this.descriptionField = new JTextField(20);
         AutoCompleteDecorator.decorate(this.descriptionField, this.managerFactory.activityManager.getActivitiesDescriptions(), false);
 
-        JLabel amountLabel = new JLabel("Amount");
+        this.amountLabel = new JLabel("Amount");
         this.amountField = new JTextField(20);
 
-        JLabel currencyLabel = new JLabel("Currency");
-        JLabel dateLabel = new JLabel("Date");
-        JLabel timeLabel = new JLabel("Time");
+        this.currencyLabel = new JLabel("Currency");
+        this.dateLabel = new JLabel("Date");
+        this.timeLabel = new JLabel("Time");
 
         Dimension d = new Dimension(70, 25);
         descriptionLabel.setMinimumSize(d);
@@ -140,7 +151,7 @@ public class AddActivityPanel extends JPanel implements Observer {
                    if(this.managerFactory.activityManager.addActivity(descriptionField.getText(), amountField.getText(),
                         (String)currenciesBox.getSelectedItem(), (String)activitiesBox.getSelectedItem(), datePicker.getJFormattedTextField().getText(),
                         (Integer) hourSpinner.getValue(), (Integer) minuteSpinner.getValue())){
-                       JOptionPane.showMessageDialog(null, "Activity successfully added.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                       JOptionPane.showMessageDialog(null, activityAdded, information, JOptionPane.INFORMATION_MESSAGE);
                        this.descriptionField.setText("");
                        this.amountField.setText("");
 
@@ -157,5 +168,10 @@ public class AddActivityPanel extends JPanel implements Observer {
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
         for(String s : currencies)
             this.currenciesBox.addItem(s);
+    }
+
+    @Override
+    public void updateLocale(Locale l) {
+
     }
 }

@@ -6,8 +6,9 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Locale;
 
-public class SettingsPanel extends JPanel {
+public class SettingsPanel extends AbstractChildPanel {
     private ManagerFactory managerFactory;
     public JComboBox<String> lookAndFeelsBox;
     public JComboBox<String> languageBox;
@@ -45,6 +46,11 @@ public class SettingsPanel extends JPanel {
                    managerFactory.lookAndFeelManager.changeLookAndFeel(parent, e.getItem().toString());
            }
        });
+
+    }
+
+    @Override
+    public void updateLocale(Locale l) {
 
     }
 }

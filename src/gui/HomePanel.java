@@ -6,6 +6,7 @@ import event.UpdateEvent;
 import managers.ActivityManager;
 import managers.CurrencyManager;
 import managers.ManagerFactory;
+import managers.SettingsManager;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -54,6 +55,7 @@ public class HomePanel extends JPanel implements Observer {
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
         this.managerFactory.currencyManager.addObserver(this);
         this.managerFactory.activityManager.addObserver(this);
+        this.managerFactory.settingsManager.addObserver(this);
 
         this.balanceField = new JTextField(50);
         Dimension fieldDimension = new Dimension(90, 30);
@@ -118,6 +120,18 @@ public class HomePanel extends JPanel implements Observer {
                 this.currencyValueMap.put(am.activity.getCurrency(), newValue);
                 int balance = this.currencyValueMap.get((String)currenciesBox.getSelectedItem());
                 this.balanceField.setText(Display.amountDisplay(balance));
+        }
+
+        else if(e.getSource() instanceof SettingsManager){
+            this.addActivityBtn.setToolTipText(this.managerFactory.settingsManager.getWord("add_activity"));
+
+            //System.out.println("Mijenjam addActivityBtn u " + this.managerFactory.settingsManager.getWord("add_activity"));
+
+            this.activitiesHistoryBtn.setToolTipText(this.managerFactory.settingsManager.getWord("activities_history"));
+            this.addCurrencyButton.setToolTipText(this.managerFactory.settingsManager.getWord("add_currency"));
+            this.balancesHistoryBtn.setToolTipText(this.managerFactory.settingsManager.getWord("balances_history"));
+            this.settingsButton.setToolTipText(this.managerFactory.settingsManager.getWord("settings"));
+            this.helpBtn.setToolTipText(this.managerFactory.settingsManager.getWord("help"));
         }
     }
 

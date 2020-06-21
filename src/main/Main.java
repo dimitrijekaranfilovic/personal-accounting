@@ -31,6 +31,18 @@ public class Main {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+       /* try {
+            ManagerFactory mf = new ManagerFactory();
+            ResultSet rs = mf.databaseManager.display();
+            while(rs.next()){
+                System.out.println(rs.getString("language"));
+            }
+        }
+        catch (SQLException | ClassNotFoundException se){
+            se.printStackTrace();
+        }*/
+
         /*Locale[] locales = {Locale.ENGLISH,
                 new Locale("srb", "SRB")
         };

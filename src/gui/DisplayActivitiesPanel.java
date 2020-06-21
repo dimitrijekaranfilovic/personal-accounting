@@ -51,6 +51,7 @@ public class DisplayActivitiesPanel extends JPanel {
     public void setActivities(ArrayList<Activity> activities){
         this.activities = activities;
         ActivityModel am = new ActivityModel(this.activities, this.managerFactory);
+        am.updateColumnNames();
         TableRowSorter<ActivityModel> sorter = new TableRowSorter<>(am);
         this.table.setRowSorter(sorter);
         this.table.setModel(am);

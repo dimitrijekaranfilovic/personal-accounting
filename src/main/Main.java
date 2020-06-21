@@ -1,14 +1,11 @@
 package main;
 
-import gui.MainFrame;
-import managers.ManagerFactory;
-
-import javax.swing.*;
-import java.sql.SQLException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Main {
     public static void main(String[] args) {
-        String mainLookAndFeel = "Nimbus";
+        /*String mainLookAndFeel = "Nimbus";
         try {
 
             //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); //windows default
@@ -27,19 +24,26 @@ public class Main {
             MainFrame.getInstance(mf);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-        }
-        /*try {
-            ManagerFactory mf = new ManagerFactory();
-            ResultSet rs = mf.databaseManager.display();
-            while(rs.next()){
-
-                System.out.println(rs.getString("currency") + " " + rs.getInt("amount") + " " + rs.getTimestamp("time").toLocalDateTime());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }*/
+        /*Locale[] locales = {Locale.ENGLISH,
+                new Locale("srb", "SRB")
+        };
+
+        System.out.println("w1: ");
+        for(Locale locale : locales){
+            getWord(locale, "w1");
+        }
+
+        System.out.println("w2: ");
+        for(Locale locale : locales){
+            getWord(locale, "w2");
+        }*/
+    }
+    private static void getWord(Locale locale, String key){
+        ResourceBundle words = ResourceBundle.getBundle("languages/words", locale);
+        String value = words.getString(key);
+        System.out.printf("Locale: %s, Value: %s %n", locale.toString(), value);
+
     }
     public static boolean isNumeric(String str) {
         try {
@@ -48,14 +52,5 @@ public class Main {
         } catch(NumberFormatException e){
             return false;
         }
-    }
-    public static void changeLaf(JFrame frame) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException
-                | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            e.printStackTrace();
-        }
-        SwingUtilities.updateComponentTreeUI(frame);
     }
 }

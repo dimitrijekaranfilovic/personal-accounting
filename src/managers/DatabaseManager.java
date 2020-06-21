@@ -21,7 +21,7 @@ public class DatabaseManager {
             getConnection();
         }
         Statement statement = connection.createStatement();
-        return statement.executeQuery("select * from balances;");
+        return statement.executeQuery("select * from settings;");
     }
 
     //creates tables if there are none
@@ -78,6 +78,14 @@ public class DatabaseManager {
                         "amount integer," +
                         "constraint cbFK foreign key(currency) references currency(abbreviation)" +
                         ");");
+
+                //build the table that holds app settings(lookAndFeel, last position)
+                createTables.execute("create table settings(" +
+                        "style varchar(20)," +
+                        "lastX integer," +
+                        "lastY integer" +
+                        ");");
+
             }
         }
     }
@@ -322,5 +330,57 @@ public class DatabaseManager {
         } catch (SQLException | ClassNotFoundException e) {
             return null;
         }
+    }
+
+    ResultSet loadSettings(){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("select * from settings;");
+            ps.execute();
+            //System.out.println("Ucitao koordinate: " + ps.getResultSet().getInt("lastX") + "," + ps.getResultSet().getInt("lastY"));
+            return ps.getResultSet();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            return null;
+        }
+    }
+
+    boolean addInitialSettings(String lookAndFeel, int x, int y){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("insert into settings(style, lastX, lastY) values(?,?,?);");
+            ps.setString(1, lookAndFeel);
+            ps.setInt(2, x);
+            ps.setInt(3, y);
+            ps.execute();
+            return true;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            return false;
+        }
+
+    }
+
+    boolean saveSettings(String lookAndFeel, int x, int y){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("update settings set style=?, lastX=?, lastY=?;");
+            ps.setString(1, lookAndFeel);
+            ps.setInt(2, x);
+            ps.setInt(3, y);
+           // System.out.println("Cuvam koordinate: " + x + "," + y);
+            ps.execute();
+            return true;
+
+        } catch (SQLException | ClassNotFoundException e) {
+            return false;
+        }
+
     }
 }

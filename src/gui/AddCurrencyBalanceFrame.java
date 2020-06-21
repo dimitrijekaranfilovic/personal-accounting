@@ -6,8 +6,9 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Locale;
 
-public class AddCurrencyBalanceFrame extends JPanel {
+public class AddCurrencyBalanceFrame extends AbstractChildPanel {
     private ManagerFactory managerFactory;
     public JButton finishBtn;
 
@@ -68,5 +69,10 @@ public class AddCurrencyBalanceFrame extends JPanel {
             this.finishBtn.setIcon(this.managerFactory.resourceManager.nextIcon);
         else
             this.finishBtn.setIcon(this.managerFactory.resourceManager.backIcon);
+    }
+
+    @Override
+    public void updateLocale(Locale l) {
+
     }
 }

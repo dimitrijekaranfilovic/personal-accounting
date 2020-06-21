@@ -166,7 +166,7 @@ public class MainFrame extends JFrame{
         else if(name.equalsIgnoreCase("settings"))
             this.setSize(this.managerFactory.lookAndFeelManager.settingsDimension);
         //this.pack();
-        if(title)
+        if(title) //kad se stavlja naslov, trazi u trenutnom Locale
             this.setTitle(name);
     }
 }

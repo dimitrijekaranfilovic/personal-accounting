@@ -1,11 +1,17 @@
 package main;
 
+import gui.MainFrame;
+import managers.ManagerFactory;
+
+import javax.swing.*;
+import java.sql.SQLException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Main {
     public static void main(String[] args) {
-        /*String mainLookAndFeel = "Nimbus";
+        //TODO: promijeni da se u tabeli activities za vrstu aktovnosti cuva + ili - da bi radilo i kod promjene jezika
+        String mainLookAndFeel = "Nimbus";
         try {
 
             //UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName()); //windows default
@@ -24,7 +30,7 @@ public class Main {
             MainFrame.getInstance(mf);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-        }*/
+        }
         /*Locale[] locales = {Locale.ENGLISH,
                 new Locale("srb", "SRB")
         };

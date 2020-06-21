@@ -84,6 +84,7 @@ public class MainFrame extends JFrame{
                     managerFactory.balanceManager.updateCurrentBalance(key, homePanel.currencyValueMap.get(key));
                     managerFactory.settingsManager.saveSettings(managerFactory.settingsManager.style, getX(), getY(), managerFactory.settingsManager.currentLanguage);
 
+
                 }
             }
         });

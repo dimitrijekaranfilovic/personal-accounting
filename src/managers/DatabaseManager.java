@@ -377,7 +377,6 @@ public class DatabaseManager {
             ps.setInt(2, x);
             ps.setInt(3, y);
             ps.setString(4, language);
-           // System.out.println("Cuvam koordinate: " + x + "," + y);
             ps.execute();
             return true;
 

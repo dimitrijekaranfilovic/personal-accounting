@@ -67,7 +67,7 @@ public class MainFrame extends JFrame{
         addCurrencyBalancePanel.finishBtn.addActionListener(ae->{
             try {
                 if(this.managerFactory.currencyManager.countCurrencies() == 0)
-                    JOptionPane.showMessageDialog(null, "You have to enter at least one currency!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_4"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.WARNING_MESSAGE);
                 else
                     showCard("Home", true);
             } catch (SQLException e) {
@@ -112,9 +112,9 @@ public class MainFrame extends JFrame{
         activitiesFilterPanel.okBtn.addActionListener(ae->{
             activitiesFilterPanel.search();
             if(activitiesFilterPanel.activities == null)
-                JOptionPane.showMessageDialog(null, "Error: Check parameters.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("check_parameters"), this.managerFactory.settingsManager.getWord("error"), JOptionPane.ERROR_MESSAGE);
             else if(activitiesFilterPanel.activities.size() == 0)
-                JOptionPane.showMessageDialog(null, "No results.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("no_result"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
             else {
                 displayActivitiesPanel.setActivities(activitiesFilterPanel.activities);
                 showCard("Display activities", true);
@@ -125,9 +125,9 @@ public class MainFrame extends JFrame{
         balancesFilterPanel.okBtn.addActionListener(ae->{
             balancesFilterPanel.search();
             if(balancesFilterPanel.balances == null)
-                JOptionPane.showMessageDialog(null, "Error: Check parameters.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("check_parameters"), this.managerFactory.settingsManager.getWord("error"), JOptionPane.ERROR_MESSAGE);
             else if(balancesFilterPanel.balances.size() == 0)
-                JOptionPane.showMessageDialog(null, "No results.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("no_result"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
             else{
                 displayBalancesPanel.setBalances(balancesFilterPanel.balances);
                 showCard("Display balances", true);

@@ -43,6 +43,8 @@ public class BalanceManager  {
 
     public ArrayList<Balance> getBalances(String currency, String fromDate, String toDate){
         ArrayList<Balance> balances = new ArrayList<>();
+        if(fromDate.equalsIgnoreCase("") || toDate.equalsIgnoreCase(""))
+            return null;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm");
         LocalDateTime from = LocalDateTime.parse(fromDate + " 00:01", dateTimeFormatter);
         LocalDateTime to = LocalDateTime.parse(toDate + " 23:59", dateTimeFormatter);

@@ -2,14 +2,12 @@ package models;
 
 import display.Display;
 import entities.Activity;
-import event.Observer;
-import event.UpdateEvent;
 import managers.ManagerFactory;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class ActivityModel extends AbstractTableModel implements Observer {
+public class ActivityModel extends AbstractTableModel {
     private static final int DESCRIPTION_COLUMN = 0;
     private static final int AMOUNT_COLUMN = 1;
     private static final int CURRENCY_COLUMN = 2;
@@ -23,7 +21,7 @@ public class ActivityModel extends AbstractTableModel implements Observer {
     public ActivityModel(ArrayList<Activity> activities, ManagerFactory managerFactory) {
         this.activities = activities;
         this.managerFactory = managerFactory;
-        this.managerFactory.settingsManager.addObserver(this);
+        //this.managerFactory.settingsManager.addObserver(this);
     }
 
     public Activity getActivity(int row){
@@ -75,8 +73,7 @@ public class ActivityModel extends AbstractTableModel implements Observer {
         return columnNames[column];
     }
 
-    @Override
-    public void updatePerformed(UpdateEvent e) {
+    public void updateColumnNames(){
         columnNames[CURRENCY_COLUMN] = this.managerFactory.settingsManager.getWord("currency");
         columnNames[DESCRIPTION_COLUMN] = this.managerFactory.settingsManager.getWord("description");
         columnNames[VERSION_COLUMN] = this.managerFactory.settingsManager.getWord("activity");

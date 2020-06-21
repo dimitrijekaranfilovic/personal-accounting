@@ -2,26 +2,24 @@ package models;
 
 import display.Display;
 import entities.Balance;
-import event.Observer;
-import event.UpdateEvent;
 import managers.ManagerFactory;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class BalanceModel extends AbstractTableModel implements Observer {
+public class BalanceModel extends AbstractTableModel{
     public static final int AMOUNT_COLUMN = 0;
     public static final int CURRENCY_COLUMN = 1;
     public static final int DATE_COLUMN = 2;
 
     public ArrayList<Balance> balances;
-    private String[] columnNames = {"Amount", "Currency", "Date"};
+    public String[] columnNames = {"Amount", "Currency", "Date"};
     private ManagerFactory managerFactory;
 
     public BalanceModel(ArrayList<Balance> balances, ManagerFactory managerFactory) {
         this.balances = balances;
         this.managerFactory = managerFactory;
-        this.managerFactory.settingsManager.addObserver(this);
+        //this.managerFactory.settingsManager.addObserver(this);
     }
 
 
@@ -67,12 +65,21 @@ public class BalanceModel extends AbstractTableModel implements Observer {
         return columnNames[column];
     }
 
-    @Override
+   /* @Override
     public void updatePerformed(UpdateEvent e) {
         columnNames[DATE_COLUMN] = this.managerFactory.settingsManager.getWord("date");
         columnNames[CURRENCY_COLUMN] = this.managerFactory.settingsManager.getWord("currency");
         columnNames[AMOUNT_COLUMN] = this.managerFactory.settingsManager.getWord("amount");
+        System.out.println("Azurirani nazivi kolona: " + columnNames[DATE_COLUMN] + "," + columnNames[AMOUNT_COLUMN] + "," + columnNames[CURRENCY_COLUMN]);
+
         fireTableStructureChanged();
 
+    }*/
+
+    public void updateColumnNames(){
+        columnNames[DATE_COLUMN] = this.managerFactory.settingsManager.getWord("date");
+        columnNames[CURRENCY_COLUMN] = this.managerFactory.settingsManager.getWord("currency");
+        columnNames[AMOUNT_COLUMN] = this.managerFactory.settingsManager.getWord("amount");
+        fireTableStructureChanged();
     }
 }

@@ -13,6 +13,7 @@ public class ResourceManager {
     public ImageIcon addCurrencyIcon;
     public ImageIcon printIcon;
     public ImageIcon nextIcon;
+    public ImageIcon moneyIcon;
 
     ResourceManager(){
         this.okIcon = new ImageIcon("resources/accept.png");
@@ -25,6 +26,7 @@ public class ResourceManager {
         this.addCurrencyIcon = new ImageIcon("resources/currency-1.png");
         this.printIcon = new ImageIcon("resources/printer-2.png");
         this.nextIcon = new ImageIcon("resources/play.png");
+        this.moneyIcon = new ImageIcon("resources/wallet-1.png");
 
 
     }

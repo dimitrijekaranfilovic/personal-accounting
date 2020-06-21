@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 
 public class Main {
     public static void main(String[] args) {
-        //TODO: promijeni da se u tabeli activities za vrstu aktovnosti cuva + ili - da bi radilo i kod promjene jezika
+        //TODO: odradi da se imena kolona u modelima mijenjaju u runtime
         String mainLookAndFeel = "Nimbus";
         try {
 

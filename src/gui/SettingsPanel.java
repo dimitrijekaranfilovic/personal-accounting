@@ -40,6 +40,7 @@ public class SettingsPanel extends JPanel implements Observer {
         //this.english = this.managerFactory.settingsManager.getWord("english");
         this.languageBox.addItem(this.managerFactory.settingsManager.getWord("serbian"));
         this.languageBox.addItem(this.managerFactory.settingsManager.getWord("english"));
+        this.languageBox.addItem(this.managerFactory.settingsManager.getWord("serbian_cyrillic"));
 
         this.styleLabel = new JLabel(this.managerFactory.settingsManager.getWord("style"));
         this.languageLabel = new JLabel(this.managerFactory.settingsManager.getWord("language"));
@@ -76,7 +77,7 @@ public class SettingsPanel extends JPanel implements Observer {
         this.okBtn.addActionListener(ae->{
             managerFactory.lookAndFeelManager.changeLookAndFeel(parent, lookAndFeelsBox.getSelectedItem().toString());
             managerFactory.settingsManager.style = lookAndFeelsBox.getSelectedItem().toString();
-            System.out.println("Izabrani jezik: " + languageBox.getSelectedItem().toString());
+            //System.out.println("Izabrani jezik: " + languageBox.getSelectedItem().toString());
             managerFactory.settingsManager.updateLocale(languageBox.getSelectedItem().toString());
 
 
@@ -117,7 +118,7 @@ public class SettingsPanel extends JPanel implements Observer {
     public void updatePerformed(UpdateEvent e) {
             this.styleLabel.setText(managerFactory.settingsManager.getWord("style"));
             this.languageLabel.setText(managerFactory.settingsManager.getWord("language"));
-
+            //System.out.println("Mijenjeam languageLabel u: " + managerFactory.settingsManager.getWord("language"));
             this.languageBox.removeAllItems();
             //this.lookAndFeelsBox.removeAllItems();
             //System.out.println("USAO U SETTINGS LISTENER!");
@@ -127,6 +128,7 @@ public class SettingsPanel extends JPanel implements Observer {
             //adding available languages
             this.languageBox.addItem(managerFactory.settingsManager.getWord("serbian"));
             this.languageBox.addItem(managerFactory.settingsManager.getWord("english"));
+            this.languageBox.addItem(managerFactory.settingsManager.getWord("serbian_cyrillic"));
 
             //this.lookAndFeelsBox.addItem(managerFactory.settingsManager.getWord("nimbus"));
             //this.lookAndFeelsBox.addItem(managerFactory.settingsManager.getWord("metal"));

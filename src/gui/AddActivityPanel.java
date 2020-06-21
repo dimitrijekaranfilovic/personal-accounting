@@ -3,7 +3,9 @@ package gui;
 import display.DateLabelFormatter;
 import event.Observer;
 import event.UpdateEvent;
+import managers.CurrencyManager;
 import managers.ManagerFactory;
+import managers.SettingsManager;
 import net.miginfocom.swing.MigLayout;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -44,6 +46,7 @@ public class AddActivityPanel extends JPanel implements Observer {
         this.cancelBtn = new JButton(this.managerFactory.resourceManager.backIcon);
 
         this.managerFactory.currencyManager.addObserver(this);
+        this.managerFactory.settingsManager.addObserver(this);
         for(String s : currencies)
             this.currenciesBox.addItem(s);
 
@@ -147,9 +150,17 @@ public class AddActivityPanel extends JPanel implements Observer {
         this.add(this.cancelBtn);
 
        this.okBtn.addActionListener(ae->{
+                    String sign;
+                    if(activitiesBox.getSelectedItem().toString().equalsIgnoreCase(this.managerFactory.settingsManager.getWord("income")))
+                        sign = "+";
+                    else
+                        sign = "-";
+
                    if(this.managerFactory.activityManager.addActivity(descriptionField.getText(), amountField.getText(),
-                        (String)currenciesBox.getSelectedItem(), (String)activitiesBox.getSelectedItem(), datePicker.getJFormattedTextField().getText(),
+                        (String)currenciesBox.getSelectedItem(), sign, datePicker.getJFormattedTextField().getText(),
                         (Integer) hourSpinner.getValue(), (Integer) minuteSpinner.getValue())){
+
+
                        JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("activity_information"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
                        this.descriptionField.setText("");
                        this.amountField.setText("");
@@ -163,10 +174,27 @@ public class AddActivityPanel extends JPanel implements Observer {
 
     @Override
     public void updatePerformed(UpdateEvent e) {
-        this.currenciesBox.removeAllItems();
-        this.currencies = this.managerFactory.currencyManager.getCurrencies();
-        for(String s : currencies)
-            this.currenciesBox.addItem(s);
+        if(e.getSource() instanceof CurrencyManager){
+            this.currenciesBox.removeAllItems();
+            this.currencies = this.managerFactory.currencyManager.getCurrencies();
+            for(String s : currencies)
+                this.currenciesBox.addItem(s);
+        }
+        else if(e.getSource() instanceof SettingsManager){
+            this.descriptionLabel.setText(this.managerFactory.settingsManager.getWord("description"));
+            this.timeLabel.setText(this.managerFactory.settingsManager.getWord("time"));
+            this.amountLabel.setText(this.managerFactory.settingsManager.getWord("amount"));
+            this.dateLabel.setText(this.managerFactory.settingsManager.getWord("date"));
+            this.currencyLabel.setText(this.managerFactory.settingsManager.getWord("currency"));
+            this.activitiesLabel.setText(this.managerFactory.settingsManager.getWord("activity"));
+
+            this.activitiesBox.removeAllItems();
+
+            this.activitiesBox.addItem(this.managerFactory.settingsManager.getWord("income"));
+            this.activitiesBox.addItem(this.managerFactory.settingsManager.getWord("expense"));
+
+        }
+
     }
 
 

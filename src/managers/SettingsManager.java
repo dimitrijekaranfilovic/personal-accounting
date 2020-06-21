@@ -6,10 +6,7 @@ import event.UpdateEvent;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class SettingsManager implements Publisher {
     private DatabaseManager databaseManager;
@@ -17,15 +14,18 @@ public class SettingsManager implements Publisher {
     public int y;
     public String style = "nimbus";
     public String currentLanguage = "en";
-    public Locale currentLocale;
     public ResourceBundle bundle;
     private List<Observer> observers;
+    private HashMap<String, Locale> localeHashMap;
 
 
     public SettingsManager(DatabaseManager databaseManager){
         this.databaseManager = databaseManager;
-        this.currentLocale = new Locale(this.currentLanguage, this.currentLanguage.toUpperCase());
-        this.bundle = ResourceBundle.getBundle("languages/words",this.currentLocale);
+        this.localeHashMap = new HashMap<>();
+        this.localeHashMap.put("en", new Locale("en", "EN"));
+        this.localeHashMap.put("srb", new Locale("srb", "SRB"));
+        this.localeHashMap.put("srb_CYR", new Locale("srb_CYR", "SRB_CYR"));
+        this.bundle = ResourceBundle.getBundle("languages/words",this.localeHashMap.get("en"));
     }
 
 
@@ -36,17 +36,10 @@ public class SettingsManager implements Publisher {
             this.x = rs.getInt("lastX");
             this.y = rs.getInt("lastY");
             this.currentLanguage = rs.getString("language");
-            //System.out.println(this.currentLanguage);
-            if(this.currentLanguage == null)
-                this.currentLanguage = "en";
-            this.currentLocale = new Locale(this.currentLanguage, this.currentLanguage.toUpperCase());
-            this.bundle = ResourceBundle.getBundle("languages/words", this.currentLocale);
-            //System.out.println(this.bundle == null);
-            //System.out.println("Ucitao sam \nkoordinate" + this.x + "," + this.y + "\nstil: " + this.style + "\njezik: " + this.currentLanguage);
+            this.bundle = ResourceBundle.getBundle("languages/words", this.localeHashMap.get(this.currentLanguage));
             notifyObservers();
             return true;
         } catch (SQLException e) {
-            //e.printStackTrace();
             return false;
         }
 
@@ -54,37 +47,25 @@ public class SettingsManager implements Publisher {
 
 
     public void saveSettings(String lookAndFeel, int x, int y, String language){
-        //System.out.println("Ucitao sam \nkoordinate" + this.x + "," + this.y + "\nstil: " + this.style + "\njezik: " + this.currentLanguage);
         this.databaseManager.saveSettings(lookAndFeel, x, y, language);
-        //System.out.println("Cuvam " + this.currentLanguage);
     }
 
     public void addInitialSettings(String lookAndFeel, int x, int y){
-        //System.out.println("Inicijalna podesavanja: " + x + "," + y);
         this.databaseManager.addInitialSettings(lookAndFeel, x, y);
     }
 
     public void updateLocale(String language){
         String abbreviation = null;
-        System.out.println("Proslijedjeno: " + language + " Trenutni engleski: " + this.getWord("english"));
-        System.out.println("Proslijedjeno: " + language + " Trenutni srpski: " + this.getWord("serbian"));
-
-        if(language.equalsIgnoreCase(this.getWord("serbian"))) {
+        if(language.equalsIgnoreCase(this.getWord("serbian")))
             abbreviation = "srb";
-            //System.out.println("Mijenjam abbreviation u srb");
-        }
-        else if(language.equalsIgnoreCase(this.getWord("english"))){
-            System.out.println("Mijenjam abbreviation u en");
-            //abbreviation = "en";
-        }
-
+        else if(language.equalsIgnoreCase(this.getWord("english")))
+            abbreviation = "en";
+        else if(language.equalsIgnoreCase(this.getWord("serbian_cyrillic")))
+            abbreviation = "srb_CYR";
         this.currentLanguage = abbreviation;
-        this.currentLocale = new Locale(language, language.toUpperCase());
-        this.bundle = ResourceBundle.getBundle("languages/words", this.currentLocale);
-        //System.out.println("Current abbreviation: " + this.currentLanguage);
+        this.bundle = ResourceBundle.getBundle("languages/words", this.localeHashMap.get(this.currentLanguage));
         notifyObservers();
     }
-
 
     public String getWord(String key){
         return this.bundle.getString(key);

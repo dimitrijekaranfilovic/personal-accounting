@@ -20,7 +20,7 @@ public class DisplayActivitiesPanel extends JPanel {
     public DisplayActivitiesPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
         this.activities = new ArrayList<>();
-        this.table = new JTable(new ActivityModel(this.activities));
+        this.table = new JTable(new ActivityModel(this.activities, this.managerFactory));
         this.table.getTableHeader().setReorderingAllowed(false);
 
         this.backBtn = new JButton(this.managerFactory.resourceManager.backIcon);
@@ -50,8 +50,7 @@ public class DisplayActivitiesPanel extends JPanel {
 
     public void setActivities(ArrayList<Activity> activities){
         this.activities = activities;
-        this.table.setModel(new ActivityModel(this.activities));
-        ActivityModel am = new ActivityModel(this.activities);
+        ActivityModel am = new ActivityModel(this.activities, this.managerFactory);
         TableRowSorter<ActivityModel> sorter = new TableRowSorter<>(am);
         this.table.setRowSorter(sorter);
         this.table.setModel(am);

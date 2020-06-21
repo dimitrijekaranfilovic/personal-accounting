@@ -4,7 +4,9 @@ import display.DateLabelFormatter;
 import entities.Balance;
 import event.Observer;
 import event.UpdateEvent;
+import managers.CurrencyManager;
 import managers.ManagerFactory;
+import managers.SettingsManager;
 import net.miginfocom.swing.MigLayout;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -19,11 +21,9 @@ public class BalancesFilterPanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
     private JComboBox<String> currenciesBox;
     private ArrayList<String> currencies;
-    public JButton okBtn;
-    public JButton cancelBtn;
+    public JButton okBtn, cancelBtn;
     public ArrayList<Balance> balances;
-    private JDatePickerImpl datePicker;
-    private JDatePickerImpl datePicker1;
+    private JDatePickerImpl datePicker, datePicker1;
     private JLabel currencyLabel, fromLabel, toLabel, timeLabel;
 
     public BalancesFilterPanel(ManagerFactory managerFactory){
@@ -35,6 +35,7 @@ public class BalancesFilterPanel extends JPanel implements Observer {
 
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
         this.managerFactory.currencyManager.addObserver(this);
+        this.managerFactory.settingsManager.addObserver(this);
         for(String s : this.currencies)
             this.currenciesBox.addItem(s);
         this.currenciesBox.addItem("");
@@ -76,9 +77,9 @@ public class BalancesFilterPanel extends JPanel implements Observer {
 
         JPanel panel2 = new JPanel(new MigLayout());
         panel2.add(this.timeLabel, "wrap");
-        panel2.add(fromLabel, "split");
+        panel2.add(this.fromLabel, "split");
         panel2.add(this.datePicker, "wrap");
-        panel2.add(toLabel, "split 2");
+        panel2.add(this.toLabel, "split 2");
         panel2.add(this.datePicker1, "wrap");
 
         JPanel panel3 = new JPanel(new MigLayout());
@@ -102,11 +103,20 @@ public class BalancesFilterPanel extends JPanel implements Observer {
 
     @Override
     public void updatePerformed(UpdateEvent e) {
-        this.currenciesBox.removeAllItems();
-        this.currencies = this.managerFactory.currencyManager.getCurrencies();
-        for(String s : this.currencies)
-            this.currenciesBox.addItem(s);
-        this.currenciesBox.addItem("");
+        if(e.getSource() instanceof CurrencyManager){
+            this.currenciesBox.removeAllItems();
+            this.currencies = this.managerFactory.currencyManager.getCurrencies();
+            for(String s : this.currencies)
+                this.currenciesBox.addItem(s);
+            this.currenciesBox.addItem("");
+        }
+        else if(e.getSource() instanceof SettingsManager){
+            this.currencyLabel.setText(this.managerFactory.settingsManager.getWord("currency"));
+            this.fromLabel.setText(this.managerFactory.settingsManager.getWord("from"));
+            this.toLabel.setText(this.managerFactory.settingsManager.getWord("to"));
+            this.timeLabel.setText(this.managerFactory.settingsManager.getWord("time"));
+        }
+
     }
 
 }

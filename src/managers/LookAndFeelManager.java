@@ -13,7 +13,7 @@ public class LookAndFeelManager {
     public Dimension displayActivitiesDimension;
     public Dimension welcomeDimension;
     public Dimension settingsDimension;
-    public String currentLookAndFeel = "nimbus";
+    //public String currentLookAndFeel = "nimbus";
     private int counter = 0;
 
     LookAndFeelManager(){
@@ -35,7 +35,7 @@ public class LookAndFeelManager {
     }
 
     public boolean changeLookAndFeel(JFrame frame, String name){
-        currentLookAndFeel = name;
+        //currentLookAndFeel = name;
         //System.out.println("Counter: " + counter);
         //counter = (counter + 1) % 2;
         //System.out.println("Look and feel treba da bude: " + currentLookAndFeel +".");

@@ -83,11 +83,10 @@ public class DatabaseManager {
                 createTables.execute("create table settings(" +
                         "style varchar(20)," +
                         "lastX integer," +
-                        "lastY integer" +
+                        "lastY integer," +
+                        "language varchar(15)" +
                         ");");
-                createTables.execute("create table currentLanguage(" +
-                        "language varchar(10)" +
-                        ")");
+
             }
         }
     }
@@ -354,10 +353,11 @@ public class DatabaseManager {
             if(connection == null){
                 getConnection();
             }
-            PreparedStatement ps = connection.prepareStatement("insert into settings(style, lastX, lastY) values(?,?,?);");
+            PreparedStatement ps = connection.prepareStatement("insert into settings(style, lastX, lastY, language) values(?,?,?,?);");
             ps.setString(1, lookAndFeel);
             ps.setInt(2, x);
             ps.setInt(3, y);
+            ps.setString(4, "en");
             ps.execute();
             return true;
 
@@ -367,15 +367,16 @@ public class DatabaseManager {
 
     }
 
-    boolean saveSettings(String lookAndFeel, int x, int y){
+    boolean saveSettings(String lookAndFeel, int x, int y, String language){
         try {
             if(connection == null){
                 getConnection();
             }
-            PreparedStatement ps = connection.prepareStatement("update settings set style=?, lastX=?, lastY=?;");
+            PreparedStatement ps = connection.prepareStatement("update settings set style=?, lastX=?, lastY=?, language=?;");
             ps.setString(1, lookAndFeel);
             ps.setInt(2, x);
             ps.setInt(3, y);
+            ps.setString(4, language);
            // System.out.println("Cuvam koordinate: " + x + "," + y);
             ps.execute();
             return true;

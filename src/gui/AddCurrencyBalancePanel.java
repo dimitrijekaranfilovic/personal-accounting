@@ -6,20 +6,22 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Locale;
 
-public class AddCurrencyBalanceFrame extends AbstractChildPanel {
+
+
+public class AddCurrencyBalancePanel extends JPanel {
     private ManagerFactory managerFactory;
     public JButton finishBtn;
+    private JLabel currencyLabel, balanceLabel;
 
-    AddCurrencyBalanceFrame(ManagerFactory managerFactory){
+    AddCurrencyBalancePanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
         this.setLayout(new MigLayout());
 
-        JLabel currencyLabel = new JLabel("Currency");
+        this.currencyLabel = new JLabel(this.managerFactory.settingsManager.getWord("currency"));
         JTextField currencyField = new JTextField(20);
 
-        JLabel balanceLabel = new JLabel("Balance");
+        this.balanceLabel = new JLabel(this.managerFactory.settingsManager.getWord("balance"));
         JTextField balanceField = new JTextField(20);
 
         Dimension d = new Dimension(70, 30);
@@ -44,21 +46,21 @@ public class AddCurrencyBalanceFrame extends AbstractChildPanel {
             int result = this.managerFactory.currencyManager.addCurrency(currencyField.getText(), balanceField.getText());
             switch (result){
                 case CurrencyManager.NUM_CHARACTERS:
-                    JOptionPane.showMessageDialog(null, "Currency abbreviation must be exactly 3 characters!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_1"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
                     break;
                 case CurrencyManager.NOT_CHARACTER:
-                    JOptionPane.showMessageDialog(null, "Currency abbreviation can containt only characters!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_2"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
                     break;
                 case CurrencyManager.NOT_NUMBER:
-                    JOptionPane.showMessageDialog(null, "Balance amount is not a number!", "Warning", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_3"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
                     break;
                 case CurrencyManager.OK:
-                    JOptionPane.showMessageDialog(null, "Currency successfully added!", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_information"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.INFORMATION_MESSAGE);
                     currencyField.setText("");
                     balanceField.setText("");
                     break;
                 case CurrencyManager.WRONG:
-                    JOptionPane.showMessageDialog(null, "Error adding currency!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_error"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.ERROR_MESSAGE);
                     break;
             }
         });
@@ -71,8 +73,4 @@ public class AddCurrencyBalanceFrame extends AbstractChildPanel {
             this.finishBtn.setIcon(this.managerFactory.resourceManager.backIcon);
     }
 
-    @Override
-    public void updateLocale(Locale l) {
-
-    }
 }

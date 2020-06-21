@@ -6,14 +6,14 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Locale;
 
-public class SettingsPanel extends AbstractChildPanel {
+public class SettingsPanel extends JPanel {
     private ManagerFactory managerFactory;
     public JComboBox<String> lookAndFeelsBox;
     public JComboBox<String> languageBox;
     public JButton backBtn;
     private JFrame parent;
+    private JLabel styleLabel, languageLabel;
 
 
     public SettingsPanel(ManagerFactory managerFactory, JFrame parent) {
@@ -24,16 +24,19 @@ public class SettingsPanel extends AbstractChildPanel {
         this.languageBox = new JComboBox<>();
         this.backBtn = new JButton(this.managerFactory.resourceManager.backIcon);
 
-        this.lookAndFeelsBox.addItem("Nimbus");
-        this.lookAndFeelsBox.addItem("Metal");
-        this.lookAndFeelsBox.addItem("System default");
+        this.lookAndFeelsBox.addItem(this.managerFactory.settingsManager.getWord("nimbus"));
+        this.lookAndFeelsBox.addItem(this.managerFactory.settingsManager.getWord("metal"));
+        this.lookAndFeelsBox.addItem(this.managerFactory.settingsManager.getWord("system_default"));
 
-        this.languageBox.addItem("Serbian");
-        this.languageBox.addItem("English");
+        this.languageBox.addItem(this.managerFactory.settingsManager.getWord("serbian"));
+        this.languageBox.addItem(this.managerFactory.settingsManager.getWord("english"));
 
-        this.add(new JLabel("Style"), "split 2");
+        this.styleLabel = new JLabel(this.managerFactory.settingsManager.getWord("style"));
+        this.languageLabel = new JLabel(this.managerFactory.settingsManager.getWord("language"));
+
+        this.add(this.styleLabel, "split 2");
         this.add(this.lookAndFeelsBox, "wrap");
-        this.add(new JLabel("Language"), "split 2");
+        this.add(this.languageLabel, "split 2");
         this.add(this.languageBox, "wrap");
         this.add(this.backBtn);
 
@@ -42,15 +45,22 @@ public class SettingsPanel extends AbstractChildPanel {
            public void itemStateChanged(ItemEvent e) {
                //System.out.println(e.getItem() + " " + e.getStateChange());
               // managerFactory.lookAndFeelManager.changeLookAndFeel()
-               if(e.getStateChange() == ItemEvent.SELECTED)
+               if(e.getStateChange() == ItemEvent.SELECTED){
                    managerFactory.lookAndFeelManager.changeLookAndFeel(parent, e.getItem().toString());
+                   managerFactory.settingsManager.style = e.getItem().toString();
+               }
+           }
+       });
+
+       this.languageBox.addItemListener(new ItemListener() {
+           @Override
+           public void itemStateChanged(ItemEvent e) {
+               if(e.getStateChange() == ItemEvent.SELECTED){
+                   managerFactory.settingsManager.updateLocale(e.getItem().toString());
+               }
            }
        });
 
     }
 
-    @Override
-    public void updateLocale(Locale l) {
-
-    }
 }

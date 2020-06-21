@@ -16,28 +16,20 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
-public class HomePanel extends AbstractChildPanel implements Observer {
+public class HomePanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
     private ArrayList<String> currencies;
-    public JButton addActivityBtn;
-    public JButton balancesHistoryBtn;
-    public JButton activitiesHistoryBtn;
-    public JButton addCurrencyButton;
-    public JButton settingsButton;
+    public JButton addActivityBtn, balancesHistoryBtn, activitiesHistoryBtn, addCurrencyButton, settingsButton, helpBtn;
     public JComboBox<String> currenciesBox;
     public JTextField balanceField;
     public HashMap<String, Integer> currencyValueMap;
-    private JButton helpBtn;
     private JEditorPane editorPane;
 
     public HomePanel(ManagerFactory managerFactory){
         this.currencyValueMap = new HashMap<>();
         this.managerFactory = managerFactory;
 
-        //JLabel pictureLabel = new JLabel("Test", SwingConstants.CENTER);
-        //pictureLabel.setHorizontalTextPosition(JLabel.CENTER);
         this.addActivityBtn = new JButton(this.managerFactory.resourceManager.addIcon);
         this.balancesHistoryBtn = new JButton(this.managerFactory.resourceManager.balancesHistoryIcon);
         this.activitiesHistoryBtn = new JButton(this.managerFactory.resourceManager.activitiesHistoryIcon);
@@ -46,13 +38,18 @@ public class HomePanel extends AbstractChildPanel implements Observer {
         this.helpBtn = new JButton(this.managerFactory.resourceManager.helpIcon);
         this.editorPane = setUpEditorPane();
 
-        this.addActivityBtn.setToolTipText("Add activity");
+        /*this.addActivityBtn.setToolTipText("Add activity");
         this.balancesHistoryBtn.setToolTipText("Balances history");
         this.activitiesHistoryBtn.setToolTipText("Activities history");
         this.addCurrencyButton.setToolTipText("Add currency");
         this.settingsButton.setToolTipText("Settings");
-        this.helpBtn.setToolTipText("Help");
-
+        this.helpBtn.setToolTipText("Help");*/
+        this.addActivityBtn.setToolTipText(this.managerFactory.settingsManager.getWord("add_activity"));
+        this.activitiesHistoryBtn.setToolTipText(this.managerFactory.settingsManager.getWord("activities_history"));
+        this.addCurrencyButton.setToolTipText(this.managerFactory.settingsManager.getWord("add_currency"));
+        this.balancesHistoryBtn.setToolTipText(this.managerFactory.settingsManager.getWord("balances_history"));
+        this.settingsButton.setToolTipText(this.managerFactory.settingsManager.getWord("settings"));
+        this.helpBtn.setToolTipText(this.managerFactory.settingsManager.getWord("help"));
 
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
         this.managerFactory.currencyManager.addObserver(this);
@@ -111,7 +108,7 @@ public class HomePanel extends AbstractChildPanel implements Observer {
         else if(e.getSource() instanceof ActivityManager){
                 ActivityManager am = (ActivityManager)e.getSource();
                 int newValue = 0;
-                if(am.activity.getActivityVersion().equalsIgnoreCase("expense")){
+                if(am.activity.getActivityVersion().equalsIgnoreCase("expense")){ //TODO: ovdje pazi ono za +, - kod aktivnosti
                     newValue = this.currencyValueMap.get(am.activity.getCurrency()) - am.activity.getAmount();
 
                 }
@@ -165,8 +162,4 @@ public class HomePanel extends AbstractChildPanel implements Observer {
         }
     }
 
-    @Override
-    public void updateLocale(Locale l) {
-
-    }
 }

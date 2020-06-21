@@ -9,9 +9,8 @@ import javax.swing.*;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Locale;
 
-public class DisplayActivitiesPanel extends AbstractChildPanel {
+public class DisplayActivitiesPanel extends JPanel {
     private ArrayList<Activity> activities;
     private JTable table;
     public JButton backBtn;
@@ -58,8 +57,4 @@ public class DisplayActivitiesPanel extends AbstractChildPanel {
         this.table.setModel(am);
     }
 
-    @Override
-    public void updateLocale(Locale l) {
-
-    }
 }

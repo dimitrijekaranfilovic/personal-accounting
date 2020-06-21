@@ -9,9 +9,8 @@ import javax.swing.*;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Locale;
 
-public class DisplayBalancesPanel extends AbstractChildPanel {
+public class DisplayBalancesPanel extends JPanel {
     private ArrayList<Balance> balances;
     private JTable table;
     private ManagerFactory managerFactory;
@@ -46,8 +45,4 @@ public class DisplayBalancesPanel extends AbstractChildPanel {
         this.table.setModel(bm);
     }
 
-    @Override
-    public void updateLocale(Locale l) {
-
-    }
 }

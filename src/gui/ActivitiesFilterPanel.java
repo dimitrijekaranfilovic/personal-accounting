@@ -13,10 +13,9 @@ import org.jdatepicker.impl.UtilDateModel;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Properties;
 
-public class ActivitiesFilterPanel extends AbstractChildPanel implements Observer {
+public class ActivitiesFilterPanel extends JPanel implements Observer {
     private ArrayList<String> currencies;
     private ManagerFactory managerFactory;
     private JComboBox<String> activitiesBox, currenciesBox;
@@ -143,8 +142,4 @@ public class ActivitiesFilterPanel extends AbstractChildPanel implements Observe
         this.activities = this.managerFactory.activityManager.getActivities((String) activitiesBox.getSelectedItem(), this.datePicker.getJFormattedTextField().getText(), this.datePicker1.getJFormattedTextField().getText(), (String) currenciesBox.getSelectedItem(), this.searchField.getText());
     }
 
-    @Override
-    public void updateLocale(Locale l) {
-
-    }
 }

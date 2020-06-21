@@ -23,7 +23,7 @@ public class MainFrame extends JFrame{
     private  MainFrame(ManagerFactory managerFactory) throws SQLException {
         this.managerFactory = managerFactory;
         this.homePanel = new HomePanel(this.managerFactory);
-        AddCurrencyBalanceFrame addCurrencyBalancePanel = new AddCurrencyBalanceFrame(this.managerFactory);
+        AddCurrencyBalancePanel addCurrencyBalancePanel = new AddCurrencyBalancePanel(this.managerFactory);
         AddActivityPanel addActivityPanel = new AddActivityPanel(this.managerFactory);
         ActivitiesFilterPanel activitiesFilterPanel = new ActivitiesFilterPanel(this.managerFactory);
         BalancesFilterPanel balancesFilterPanel = new BalancesFilterPanel(this.managerFactory);
@@ -49,20 +49,20 @@ public class MainFrame extends JFrame{
         this.pack();
         this.setVisible(true);
         this.setResizable(false);
-        this.setLocationRelativeTo(null);
+        //this.setLocationRelativeTo(null);
 
         if(this.managerFactory.currencyManager.countCurrencies() > 0){
-            //this.managerFactory.settingsManager.loadSettings();
+            this.managerFactory.settingsManager.loadSettings();
             //this.managerFactory.lookAndFeelManager.changeLookAndFeel(this, this.managerFactory.settingsManager.style);
             //System.out.println("Treba da postavim: " + this.managerFactory.settingsManager.style);
-            //this.setLocation(this.managerFactory.settingsManager.x, this.managerFactory.settingsManager.y);
+            this.setLocation(this.managerFactory.settingsManager.x, this.managerFactory.settingsManager.y);
             showCard("Home", true);
         }
         else {
             showCard("Welcome", true);
-            //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            //this.setLocation((int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2);
-            //this.managerFactory.settingsManager.addInitialSettings(this.managerFactory.lookAndFeelManager.currentLookAndFeel, (int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2);
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            this.setLocation((int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2);
+            this.managerFactory.settingsManager.addInitialSettings(this.managerFactory.settingsManager.style, (int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2);
         }
         addCurrencyBalancePanel.finishBtn.addActionListener(ae->{
             try {
@@ -82,7 +82,7 @@ public class MainFrame extends JFrame{
                 for(String key : homePanel.currencyValueMap.keySet()){
                     managerFactory.balanceManager.addBalance(key, homePanel.currencyValueMap.get(key));
                     managerFactory.balanceManager.updateCurrentBalance(key, homePanel.currencyValueMap.get(key));
-                    //managerFactory.settingsManager.saveSettings(managerFactory.lookAndFeelManager.currentLookAndFeel, getX(), getY());
+                    managerFactory.settingsManager.saveSettings(managerFactory.settingsManager.style, getX(), getY(), managerFactory.settingsManager.currentLanguage);
 
                 }
             }

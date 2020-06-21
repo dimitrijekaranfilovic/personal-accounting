@@ -13,10 +13,9 @@ import org.jdatepicker.impl.UtilDateModel;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Properties;
 
-public class BalancesFilterPanel extends AbstractChildPanel implements Observer {
+public class BalancesFilterPanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
     private JComboBox<String> currenciesBox;
     private ArrayList<String> currencies;
@@ -25,6 +24,7 @@ public class BalancesFilterPanel extends AbstractChildPanel implements Observer 
     public ArrayList<Balance> balances;
     private JDatePickerImpl datePicker;
     private JDatePickerImpl datePicker1;
+    private JLabel currencyLabel, fromLabel, toLabel, timeLabel;
 
     public BalancesFilterPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
@@ -58,14 +58,16 @@ public class BalancesFilterPanel extends AbstractChildPanel implements Observer 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
+        this.currencyLabel = new JLabel(this.managerFactory.settingsManager.getWord("currency"));
+
         JPanel panel1 = new JPanel(new MigLayout());
-        panel1.add(new JLabel("Currency"), "wrap");
+        panel1.add(this.currencyLabel, "wrap");
         panel1.add(currenciesBox, "wrap");
 
         Dimension d = new Dimension(30, 28);
-        JLabel fromLabel = new JLabel("from");
-        JLabel toLabel = new JLabel("to");
-
+        this.fromLabel = new JLabel(this.managerFactory.settingsManager.getWord("from"));
+        this.toLabel = new JLabel(this.managerFactory.settingsManager.getWord("to"));
+        this.timeLabel = new JLabel(this.managerFactory.settingsManager.getWord("time"));
         fromLabel.setMinimumSize(d);
         fromLabel.setMaximumSize(d);
 
@@ -73,7 +75,7 @@ public class BalancesFilterPanel extends AbstractChildPanel implements Observer 
         toLabel.setMaximumSize(d);
 
         JPanel panel2 = new JPanel(new MigLayout());
-        panel2.add(new JLabel("Time"), "wrap");
+        panel2.add(this.timeLabel, "wrap");
         panel2.add(fromLabel, "split");
         panel2.add(this.datePicker, "wrap");
         panel2.add(toLabel, "split 2");
@@ -107,8 +109,4 @@ public class BalancesFilterPanel extends AbstractChildPanel implements Observer 
         this.currenciesBox.addItem("");
     }
 
-    @Override
-    public void updateLocale(Locale l) {
-
-    }
 }

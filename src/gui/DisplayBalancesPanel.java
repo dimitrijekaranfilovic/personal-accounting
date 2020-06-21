@@ -15,7 +15,6 @@ public class DisplayBalancesPanel extends JPanel {
     private JTable table;
     private ManagerFactory managerFactory;
     public JButton backBtn;
-    private int[] sortingDIrections = {1, 1, 1, 1, 1};
 
     DisplayBalancesPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
@@ -35,9 +34,6 @@ public class DisplayBalancesPanel extends JPanel {
         panel1.add(this.backBtn);
         mainPanel.add(panel1);
         this.add(mainPanel, BorderLayout.SOUTH);
-
-
-
     }
 
     public void setBalances(ArrayList<Balance> balances){
@@ -48,10 +44,4 @@ public class DisplayBalancesPanel extends JPanel {
         this.table.setRowSorter(sorter);
         this.table.setModel(bm);
     }
-
-    private void refresh(){
-        BalanceModel bm = (BalanceModel) this.table.getModel();
-        bm.fireTableDataChanged();
-    }
-
 }

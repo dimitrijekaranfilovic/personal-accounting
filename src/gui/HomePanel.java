@@ -9,7 +9,11 @@ import managers.ManagerFactory;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
 import java.awt.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,51 +29,41 @@ public class HomePanel extends JPanel implements Observer {
     public JButton settingsButton;
     public JComboBox<String> currenciesBox;
     public JTextField balanceField;
-    //public Balance currentBalance;
     public HashMap<String, Integer> currencyValueMap;
-    private JFrame frame;
+    //private JFrame frame;
+    private JButton helpBtn;
+    private JEditorPane editorPane;
 
     public HomePanel(ManagerFactory managerFactory){
-        //this.currentBalance = new Balance();
-        //this.frame = frame;
-        //load icons
-
         this.currencyValueMap = new HashMap<>();
         this.managerFactory = managerFactory;
 
+        JLabel pictureLabel = new JLabel("Test", SwingConstants.CENTER);
+        pictureLabel.setHorizontalTextPosition(JLabel.CENTER);
         this.addActivityBtn = new JButton(this.managerFactory.resourceManager.addIcon);
         this.balancesHistoryBtn = new JButton(this.managerFactory.resourceManager.balancesHistoryIcon);
         this.activitiesHistoryBtn = new JButton(this.managerFactory.resourceManager.activitiesHistoryIcon);
         this.addCurrencyButton = new JButton(this.managerFactory.resourceManager.addCurrencyIcon);
         this.settingsButton = new JButton(this.managerFactory.resourceManager.settingsIcon);
-        JButton helpBtn = new JButton(this.managerFactory.resourceManager.helpIcon);
+        this.helpBtn = new JButton(this.managerFactory.resourceManager.helpIcon);
+        this.editorPane = setUpEditorPane();
 
         this.addActivityBtn.setToolTipText("Add activity");
         this.balancesHistoryBtn.setToolTipText("Balances history");
         this.activitiesHistoryBtn.setToolTipText("Activities history");
         this.addCurrencyButton.setToolTipText("Add currency");
         this.settingsButton.setToolTipText("Settings");
-        helpBtn.setToolTipText("Help");
+        this.helpBtn.setToolTipText("Help");
 
 
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
         this.managerFactory.currencyManager.addObserver(this);
         this.managerFactory.activityManager.addObserver(this);
 
-        //setPreferredSize(new Dimension(370, 150));
-
         this.balanceField = new JTextField(50);
         Dimension fieldDimension = new Dimension(90, 30);
         this.balanceField.setMinimumSize(fieldDimension);
         this.balanceField.setMaximumSize(fieldDimension);
-        //this.balanceField.setPreferredSize(fieldDimension);
-
-       /* Dimension buttonDimension = new Dimension(50, 20);
-        this.addActivityBtn.setPreferredSize(buttonDimension);
-        this.balancesHistoryBtn.setPreferredSize(buttonDimension);
-        this.activitiesHistoryBtn.setPreferredSize(buttonDimension);
-        this.addCurrencyButton.setPreferredSize(buttonDimension);
-        helpBtn.setPreferredSize(buttonDimension);*/
 
         this.currenciesBox = new JComboBox<>();
         for(String s : this.currencies){
@@ -86,9 +80,10 @@ public class HomePanel extends JPanel implements Observer {
             this.balanceField.setText(Display.amountDisplay(this.currencyValueMap.get(currency)));
 
         });
-        helpBtn.addActionListener(ae-> JOptionPane.showMessageDialog(null, "Dimitrije Karanfilovic 2020", "Help", JOptionPane.INFORMATION_MESSAGE));
+        helpBtn.addActionListener(ae-> JOptionPane.showMessageDialog(null, editorPane, "Help", JOptionPane.INFORMATION_MESSAGE));
 
         this.setLayout(new MigLayout());
+
         this.add(this.balanceField, "split 2");
         this.add(this.currenciesBox, "wrap");
 
@@ -128,6 +123,47 @@ public class HomePanel extends JPanel implements Observer {
                 this.currencyValueMap.put(am.activity.getCurrency(), newValue);
                 int balance = this.currencyValueMap.get((String)currenciesBox.getSelectedItem());
                 this.balanceField.setText(Display.amountDisplay(balance));
+        }
+    }
+
+    private JEditorPane setUpEditorPane(){
+        Font font = this.helpBtn.getFont();
+        StringBuilder style = new StringBuilder("font-family:" + font.getFamily() + ";");
+        style.append("font-weight:" + (font.isBold() ? "bold" : "normal") + ";");
+        style.append("font-size:" + font.getSize() + "pt;");
+        JEditorPane ep = new JEditorPane("text/html", "<html><body style=\"" + style + "\">" //
+                + "If you have any difficulties, visit <a href=\"https://github.com/dimitrijekaranfilovic/personal-accounting/\"> this page.</a><br>" +
+                "Dimitrije Karanfilovic 2020" //
+                + "</body></html>");
+        ep.addHyperlinkListener(he->{
+            if(he.getEventType().equals(HyperlinkEvent.EventType.ACTIVATED))
+                openWebpage(he.getURL());
+        });
+        ep.setEditable(false);
+
+        return ep;
+
+    }
+
+    private boolean openWebpage(URI uri){
+        Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
+        if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
+            try {
+                desktop.browse(uri);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private boolean openWebpage(URL url){
+        try {
+            return openWebpage(url.toURI());
+        } catch (URISyntaxException e) {
+            //e.printStackTrace();
+            return false;
         }
     }
 }

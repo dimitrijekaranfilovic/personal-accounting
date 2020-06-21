@@ -110,11 +110,11 @@ public class HomePanel extends JPanel implements Observer {
         else if(e.getSource() instanceof ActivityManager){
                 ActivityManager am = (ActivityManager)e.getSource();
                 int newValue = 0;
-                if(am.activity.getActivityVersion().equalsIgnoreCase("expense")){ //TODO: ovdje pazi ono za +, - kod aktivnosti
+                if(am.activity.getActivityVersion().equalsIgnoreCase("-")){ //TODO: ovdje pazi ono za +, - kod aktivnosti
                     newValue = this.currencyValueMap.get(am.activity.getCurrency()) - am.activity.getAmount();
 
                 }
-                else if(am.activity.getActivityVersion().equalsIgnoreCase("income")){
+                else if(am.activity.getActivityVersion().equalsIgnoreCase("+")){
                     newValue = this.currencyValueMap.get(am.activity.getCurrency()) + am.activity.getAmount();
                 }
                 this.currencyValueMap.put(am.activity.getCurrency(), newValue);
@@ -124,9 +124,6 @@ public class HomePanel extends JPanel implements Observer {
 
         else if(e.getSource() instanceof SettingsManager){
             this.addActivityBtn.setToolTipText(this.managerFactory.settingsManager.getWord("add_activity"));
-
-            //System.out.println("Mijenjam addActivityBtn u " + this.managerFactory.settingsManager.getWord("add_activity"));
-
             this.activitiesHistoryBtn.setToolTipText(this.managerFactory.settingsManager.getWord("activities_history"));
             this.addCurrencyButton.setToolTipText(this.managerFactory.settingsManager.getWord("add_currency"));
             this.balancesHistoryBtn.setToolTipText(this.managerFactory.settingsManager.getWord("balances_history"));

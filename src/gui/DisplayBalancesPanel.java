@@ -10,7 +10,7 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class DisplayBalancesPanel extends JPanel {
+public class DisplayBalancesPanel extends JPanel{
     private ArrayList<Balance> balances;
     private JTable table;
     private ManagerFactory managerFactory;
@@ -18,8 +18,9 @@ public class DisplayBalancesPanel extends JPanel {
 
     DisplayBalancesPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
+        //this.managerFactory.settingsManager.addObserver(this);
         this.balances = new ArrayList<>();
-        this.table = new JTable(new BalanceModel(this.balances));
+        this.table = new JTable(new BalanceModel(this.balances, this.managerFactory));
         this.table.getTableHeader().setReorderingAllowed(false);
 
         this.backBtn = new JButton(this.managerFactory.resourceManager.backIcon);
@@ -38,11 +39,9 @@ public class DisplayBalancesPanel extends JPanel {
 
     public void setBalances(ArrayList<Balance> balances){
         this.balances = balances;
-        this.table.setModel(new BalanceModel(this.balances));
-        BalanceModel bm = new BalanceModel(this.balances);
+        BalanceModel bm = new BalanceModel(this.balances, this.managerFactory);
         TableRowSorter<BalanceModel> sorter = new TableRowSorter<>(bm);
         this.table.setRowSorter(sorter);
         this.table.setModel(bm);
     }
-
 }

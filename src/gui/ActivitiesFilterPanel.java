@@ -4,7 +4,9 @@ import display.DateLabelFormatter;
 import entities.Activity;
 import event.Observer;
 import event.UpdateEvent;
+import managers.CurrencyManager;
 import managers.ManagerFactory;
+import managers.SettingsManager;
 import net.miginfocom.swing.MigLayout;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -23,8 +25,6 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
     public JDatePickerImpl datePicker, datePicker1;
     public JTextField searchField;
     public ArrayList<Activity> activities;
-    public String incomeString = "income";
-    public String expenseString = "expense";
 
     public JLabel activityLabel, fromLabel, toLabel, timeLabel, currencyLabel, descriptionLabel;
 
@@ -34,6 +34,7 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
         this.managerFactory = managerFactory;
         this.setLayout(new MigLayout());
         this.managerFactory.currencyManager.addObserver(this);
+        this.managerFactory.settingsManager.addObserver(this);
         this.currencies = this.managerFactory.currencyManager.getCurrencies();
         this.activities = new ArrayList<>();
         this.currenciesBox = new JComboBox<>();
@@ -42,13 +43,16 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
             this.currenciesBox.addItem(s);
         this.currenciesBox.addItem("");
 
-        this.activityLabel = new JLabel("Activity");
-
-
-        activitiesBox.addItem(incomeString);
-        activitiesBox.addItem(expenseString);
+        activitiesBox.addItem(this.managerFactory.settingsManager.getWord("income"));
+        activitiesBox.addItem(this.managerFactory.settingsManager.getWord("expense"));
         activitiesBox.addItem("");
 
+        this.timeLabel = new JLabel(this.managerFactory.settingsManager.getWord("time"));
+        this.descriptionLabel = new JLabel(this.managerFactory.settingsManager.getWord("description"));
+        this.currencyLabel = new JLabel(this.managerFactory.settingsManager.getWord("currency"));
+        this.fromLabel = new JLabel(this.managerFactory.settingsManager.getWord("from"));
+        this.toLabel = new JLabel(this.managerFactory.settingsManager.getWord("to"));
+        this.activityLabel = new JLabel(this.managerFactory.settingsManager.getWord("activity"));
 
         UtilDateModel model = new UtilDateModel();
         Properties p = new Properties();
@@ -81,8 +85,9 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
         JPanel panel2 = new JPanel(new MigLayout());
 
         Dimension d = new Dimension(30, 28);
-        this.fromLabel = new JLabel("from");
-        this.toLabel = new JLabel("to");
+
+
+
 
         this.fromLabel.setMinimumSize(d);
         this.fromLabel.setMaximumSize(d);
@@ -90,7 +95,6 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
         this.toLabel.setMinimumSize(d);
         this.toLabel.setMaximumSize(d);
 
-        this.timeLabel = new JLabel("Time");
 
         panel2.add(this.timeLabel, "wrap");
         panel2.add(fromLabel, "split");
@@ -98,15 +102,13 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
         panel2.add(toLabel, "split 2");
         panel2.add(datePicker1, "wrap");
 
-        this.currencyLabel = new JLabel("Currency");
         JPanel panel3 = new JPanel(new MigLayout());
         panel3.add(this.currencyLabel, "wrap");
         panel3.add(this.currenciesBox);
 
         JPanel panel4 = new JPanel(new MigLayout());
 
-        this.descriptionLabel = new JLabel("Description");
-        panel4.add(new JLabel("Description"), "split 2");
+        panel4.add(this.descriptionLabel, "split 2");
         panel4.add(searchField, "wrap");
 
 
@@ -131,11 +133,26 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
 
     @Override
     public void updatePerformed(UpdateEvent e) {
-        this.currenciesBox.removeAllItems();
-        this.currencies = this.managerFactory.currencyManager.getCurrencies();
-        for (String s : currencies)
-            this.currenciesBox.addItem(s);
-        this.currenciesBox.addItem("");
+        if(e.getSource() instanceof CurrencyManager){
+            this.currenciesBox.removeAllItems();
+            this.currencies = this.managerFactory.currencyManager.getCurrencies();
+            for (String s : currencies)
+                this.currenciesBox.addItem(s);
+            this.currenciesBox.addItem("");
+        }
+        else if(e.getSource() instanceof SettingsManager){
+            this.descriptionLabel.setText(this.managerFactory.settingsManager.getWord("description"));
+            this.currencyLabel.setText(this.managerFactory.settingsManager.getWord("currency"));
+            this.timeLabel.setText(this.managerFactory.settingsManager.getWord("time"));
+            this.fromLabel.setText(this.managerFactory.settingsManager.getWord("from"));
+            this.toLabel.setText(this.managerFactory.settingsManager.getWord("to"));
+            this.activityLabel.setText(this.managerFactory.settingsManager.getWord("activity"));
+
+            activitiesBox.removeAllItems();
+            activitiesBox.addItem(this.managerFactory.settingsManager.getWord("income"));
+            activitiesBox.addItem(this.managerFactory.settingsManager.getWord("expense"));
+            activitiesBox.addItem("");
+        }
     }
 
     public void search() {

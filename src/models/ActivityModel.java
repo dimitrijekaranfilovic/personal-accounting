@@ -2,16 +2,28 @@ package models;
 
 import display.Display;
 import entities.Activity;
+import event.Observer;
+import event.UpdateEvent;
+import managers.ManagerFactory;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
-public class ActivityModel extends AbstractTableModel {
+public class ActivityModel extends AbstractTableModel implements Observer {
+    private static final int DESCRIPTION_COLUMN = 0;
+    private static final int AMOUNT_COLUMN = 1;
+    private static final int CURRENCY_COLUMN = 2;
+    private static final int DATE_COLUMN = 3;
+    private static final int VERSION_COLUMN = 4;
+
     public ArrayList<Activity> activities;
     private String[] columnNames = {"Description", "Amount", "Currency", "Date", "Version"};
+    private ManagerFactory managerFactory;
 
-    public ActivityModel(ArrayList<Activity> activities) {
+    public ActivityModel(ArrayList<Activity> activities, ManagerFactory managerFactory) {
         this.activities = activities;
+        this.managerFactory = managerFactory;
+        this.managerFactory.settingsManager.addObserver(this);
     }
 
     public Activity getActivity(int row){
@@ -36,15 +48,15 @@ public class ActivityModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         Activity activity = this.activities.get(rowIndex);
         switch (columnIndex){
-            case 0:
+            case DESCRIPTION_COLUMN:
                 return  activity.getDescription();
-            case 1:
+            case AMOUNT_COLUMN:
                 return Display.amountDisplay(activity.getAmount());
-            case 2:
+            case CURRENCY_COLUMN:
                 return activity.getCurrency();
-            case 3:
+            case DATE_COLUMN:
                 return Display.dateDisplay(activity.getTime());
-            case 4:
+            case VERSION_COLUMN:
                 return activity.getActivityVersion();
             default:
                 break;
@@ -61,5 +73,15 @@ public class ActivityModel extends AbstractTableModel {
     @Override
     public String getColumnName(int column) {
         return columnNames[column];
+    }
+
+    @Override
+    public void updatePerformed(UpdateEvent e) {
+        columnNames[CURRENCY_COLUMN] = this.managerFactory.settingsManager.getWord("currency");
+        columnNames[DESCRIPTION_COLUMN] = this.managerFactory.settingsManager.getWord("description");
+        columnNames[VERSION_COLUMN] = this.managerFactory.settingsManager.getWord("activity");
+        columnNames[AMOUNT_COLUMN] = this.managerFactory.settingsManager.getWord("amount");
+        columnNames[DATE_COLUMN] = this.managerFactory.settingsManager.getWord("date");
+        fireTableStructureChanged();
     }
 }

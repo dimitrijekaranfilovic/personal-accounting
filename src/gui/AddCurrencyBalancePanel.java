@@ -1,5 +1,7 @@
 package gui;
 
+import event.Observer;
+import event.UpdateEvent;
 import managers.CurrencyManager;
 import managers.ManagerFactory;
 import net.miginfocom.swing.MigLayout;
@@ -9,7 +11,7 @@ import java.awt.*;
 
 
 
-public class AddCurrencyBalancePanel extends JPanel {
+public class AddCurrencyBalancePanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
     public JButton finishBtn;
     private JLabel currencyLabel, balanceLabel;
@@ -18,6 +20,7 @@ public class AddCurrencyBalancePanel extends JPanel {
         this.managerFactory = managerFactory;
         this.setLayout(new MigLayout());
 
+        this.managerFactory.settingsManager.addObserver(this);
         this.currencyLabel = new JLabel(this.managerFactory.settingsManager.getWord("currency"));
         JTextField currencyField = new JTextField(20);
 
@@ -73,4 +76,9 @@ public class AddCurrencyBalancePanel extends JPanel {
             this.finishBtn.setIcon(this.managerFactory.resourceManager.backIcon);
     }
 
+    @Override
+    public void updatePerformed(UpdateEvent e) {
+        this.currencyLabel.setText(this.managerFactory.settingsManager.getWord("currency"));
+        this.balanceLabel.setText(this.managerFactory.settingsManager.getWord("balance"));
+    }
 }

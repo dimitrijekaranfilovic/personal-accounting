@@ -45,7 +45,7 @@ public class LookAndFeelManager {
 
                 UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
                 updateDimension(this.homeDimension, 180, 150); //width 180
-                updateDimension(this.addActivityDimension, 330, 250);
+                updateDimension(this.addActivityDimension, 330, 270);
                 updateDimension(this.activityHistoryDimension, 270, 370);
                 updateDimension(this.balanceHistoryDimension, 270, 250);
                 updateDimension(this.addCurrencyDimension, 350, 150);

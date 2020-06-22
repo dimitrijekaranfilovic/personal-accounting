@@ -10,6 +10,13 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ * Class that represents panel used for displaying filtered activities.
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
+
 public class DisplayActivitiesPanel extends JPanel {
     private ArrayList<Activity> activities;
     private JTable table;
@@ -29,8 +36,6 @@ public class DisplayActivitiesPanel extends JPanel {
 
         JScrollPane tablePane = new JScrollPane(this.table);
         this.add(tablePane, BorderLayout.CENTER);
-
-        JPanel panel1 = new JPanel(new MigLayout());
         JPanel panel2 = new JPanel(new MigLayout());
 
         JPanel mainPanel = new JPanel();
@@ -39,13 +44,20 @@ public class DisplayActivitiesPanel extends JPanel {
         panel2.add(this.backBtn, "split 2");
         panel2.add(this.printBtn);
 
-        mainPanel.add(panel1);
         mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
         mainPanel.add(panel2);
+
+        this.printBtn.setEnabled(false);
 
         this.add(mainPanel, BorderLayout.SOUTH);
     }
 
+
+    /**
+     * Function called after {@link ActivitiesFilterPanel#search()} function finishes and
+     * if the {@link ActivitiesFilterPanel#activities} size is larger than zero.
+     * @param activities ArrayList<Activity> : activities to be displayed
+     * */
     public void setActivities(ArrayList<Activity> activities){
         this.activities = activities;
         ActivityModel am = new ActivityModel(this.activities, this.managerFactory);

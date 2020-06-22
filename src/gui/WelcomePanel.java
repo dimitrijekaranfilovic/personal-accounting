@@ -6,6 +6,12 @@ import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 
+/**
+ * Class that represents simple welcome screen.
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
 public class WelcomePanel extends JPanel {
         public JButton nextBtn;
         private ManagerFactory managerFactory;

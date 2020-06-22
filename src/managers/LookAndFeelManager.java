@@ -3,6 +3,13 @@ package managers;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Class that handles LookAndFeel and dimension change.
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
+
 public class LookAndFeelManager {
     public Dimension homeDimension;
     public Dimension addActivityDimension;
@@ -14,6 +21,9 @@ public class LookAndFeelManager {
     public Dimension welcomeDimension;
     public Dimension settingsDimension;
 
+    /**
+     * Class constructor. Initializes default dimension values.
+     * */
     LookAndFeelManager(){
         this.homeDimension = new Dimension(180,150);
         this.addActivityDimension = new Dimension(330, 270);
@@ -27,11 +37,25 @@ public class LookAndFeelManager {
 
     }
 
+    /**
+     * Function that updates a dimension.
+     * @param d Dimension : dimension to be updated
+     * @param width int : new dimension width
+     * @param height int : new dimension height
+     * */
+
     private void updateDimension(Dimension d, int width, int height){
         d.width = width;
         d.height = height;
     }
 
+
+    /**
+     * Function that changes LookAndFeel and updates dimensions.
+     * @param frame JFrame :  frame to be updated
+     * @param name String : LookAndFeel name
+     * @return indicator whether the change was successful
+     * */
     public boolean changeLookAndFeel(JFrame frame, String name){
         try{
             if(name.equalsIgnoreCase("nimbus"))

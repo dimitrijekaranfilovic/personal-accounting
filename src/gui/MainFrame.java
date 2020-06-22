@@ -8,6 +8,14 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
+/**
+ * Function that encompasses all other panels and controls conditions which need to be met
+ * in order for panels to be displayed. This class is implemented as Singleton.
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
+
 public class MainFrame extends JFrame{
     private JPanel mainPanel;
     private ManagerFactory managerFactory;
@@ -49,12 +57,16 @@ public class MainFrame extends JFrame{
         this.pack();
         this.setResizable(false);
 
+
+        //if at least one currency is found, previous settings are loaded
         if(this.managerFactory.currencyManager.countCurrencies() > 0){
             this.managerFactory.settingsManager.loadSettings();
             this.setLocation(this.managerFactory.settingsManager.x, this.managerFactory.settingsManager.y);
             this.setVisible(true);
             showCard("home");
         }
+
+        //if no currencies are found, initial settings are used and welcome panel is displayed.
         else {
             showCard("welcome");
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -76,8 +88,7 @@ public class MainFrame extends JFrame{
         displayBalancesPanel.backBtn.addActionListener(ae->showCard("balances_filter"));
         settingsPanel.backBtn.addActionListener(ae->showCard("home"));
 
-
-        //connect buttons which activate other actions beside simple display
+        //checks whether at least one currency was added in the initial setup
         addCurrencyBalancePanel.finishBtn.addActionListener(ae->{
             try {
                 if(this.managerFactory.currencyManager.countCurrencies() == 0)
@@ -90,6 +101,7 @@ public class MainFrame extends JFrame{
 
         });
 
+        //saves current balance, adds it to balances history and saves current language used and window position right before closing
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -101,16 +113,19 @@ public class MainFrame extends JFrame{
             }
         });
 
+        //updates the addCurrencyPanel's icon
         this.homePanel.addCurrencyButton.addActionListener(ae->{
             addCurrencyBalancePanel.updateIcon(false);
             showCard("add_currency");
         });
 
+        //updates the addCurrencyPanel's icon
         welcomePanel.nextBtn.addActionListener(ae->{
             addCurrencyBalancePanel.updateIcon(true);
             showCard("add_currency");
         });
 
+        //calls activitiesFilterPanel search function and displays messages accordingly
         activitiesFilterPanel.okBtn.addActionListener(ae->{
             activitiesFilterPanel.search();
             if(activitiesFilterPanel.activities == null)
@@ -124,6 +139,7 @@ public class MainFrame extends JFrame{
 
         });
 
+        //calls balancesFilterPanel search function and displays messages accordingly
         balancesFilterPanel.okBtn.addActionListener(ae->{
             balancesFilterPanel.search();
             if(balancesFilterPanel.balances == null)
@@ -137,6 +153,10 @@ public class MainFrame extends JFrame{
         });
     }
 
+    /**
+     * Function that shows desired panel from frame's CardLayout and sets frame's size and title accordingly.
+     * @param name String : card's name within the Cardlayout
+     * */
     private void showCard(String name){
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
         cl.show(mainPanel, name);

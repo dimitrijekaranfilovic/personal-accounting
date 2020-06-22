@@ -8,6 +8,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Class that handles operations tied with balances.
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ *
+ * */
+
+
 public class BalanceManager  {
     private DatabaseManager databaseManager;
 
@@ -15,6 +23,11 @@ public class BalanceManager  {
         this.databaseManager = databaseManager;
     }
 
+    /**
+     * Function that fetches latest balance for the desired currency.
+     * @param currency String : string whose balance is wanted
+     * @return amount for desired currency
+     * */
     public int getLatestBalance(String currency){
         ResultSet rs = this.databaseManager.getLatestBalance(currency);
         if(rs == null)
@@ -31,14 +44,34 @@ public class BalanceManager  {
         }
     }
 
+    /**
+     * Function that adds balance in balances history.
+     * @param currency String : currency
+     * @param amount int : amount of the currency
+     * @return indicator whether the balance was successfully added
+     * */
     public boolean addBalance(String currency, int amount){
         return this.databaseManager.addBalance(currency, amount);
     }
 
+
+    /**
+     * Function that updates currenct balance.
+     * @param currency String : currency
+     * @param amount int : new amount for the desired currency
+     * @return indicator whether the balance was successfully updated
+     * */
     public boolean updateCurrentBalance(String currency, int amount){
         return this.databaseManager.updateCurrentBalance(currency, amount);
     }
 
+    /**
+     * Function that returns list of balances that fulfill the conditions.
+     * @param  currency String : desired currency
+     * @param  fromDate String : string representation of the date which is starting date of time span
+     * @param toDate String : string representation of the date which is ending date of time span
+     * @return list of balances
+     * */
     public ArrayList<Balance> getBalances(String currency, String fromDate, String toDate){
         ArrayList<Balance> balances = new ArrayList<>();
         if(fromDate.equalsIgnoreCase("") || toDate.equalsIgnoreCase(""))

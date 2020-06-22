@@ -1,8 +1,14 @@
 package managers;
 
-//import entities.Balance;
-
 import java.sql.SQLException;
+
+/**
+ * Wrapper class for managers. Managers aren't created one by one separately,
+ * they are created together.
+ * @author Dimitrije Kaanfilovic
+ * @since 22.06.2020.
+ * */
+
 
 public class ManagerFactory {
     public DatabaseManager databaseManager;
@@ -14,6 +20,9 @@ public class ManagerFactory {
     public SettingsManager settingsManager;
 
 
+    /**
+     * Class constructor which initializes all managers.
+     * */
     public ManagerFactory() throws SQLException, ClassNotFoundException {
         this.databaseManager = new DatabaseManager();
         this.databaseManager.getConnection();

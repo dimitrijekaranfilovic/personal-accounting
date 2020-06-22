@@ -2,6 +2,13 @@ package entities;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class that represents an activity(income or expense).
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
+
 public class Activity implements Comparable<Activity>{
     private String description;
     private LocalDateTime time;
@@ -9,6 +16,10 @@ public class Activity implements Comparable<Activity>{
     private String currency;
     private String activityVersion;
 
+
+    /**
+     * Class constructor.
+     * */
     public Activity(String description, LocalDateTime time, int amount, String currency, String activityVersion) {
         this.description = description;
         this.time = time;
@@ -16,11 +27,16 @@ public class Activity implements Comparable<Activity>{
         this.currency = currency;
         this.activityVersion = activityVersion;
     }
+
+    /**
+     * Class constructor.
+     * */
     public Activity(String currency, int amount, String activity){
         this.currency = currency;
         this.amount = amount;
         this.activityVersion = activity;
     }
+
 
     public void setDescription(String description) {
         this.description = description;
@@ -66,6 +82,13 @@ public class Activity implements Comparable<Activity>{
     public int compareTo(Activity o) {
         return 0;
     }
+
+    /**
+     * Function that calculates whether the date is in the specified range.
+     * @param fromDate lower date bound
+     * @param toDate upper date bound
+     * @return boolean value, true if the time attribute is between fromDate and toDate
+     */
 
     public boolean isBetween(LocalDateTime fromDate, LocalDateTime toDate){
         return this.time.isAfter(fromDate) && this.time.isBefore(toDate);

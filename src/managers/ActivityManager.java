@@ -14,6 +14,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that handles operations tied with activities.
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
+
 public class ActivityManager implements Publisher {
     private DatabaseManager databaseManager;
     private List<Observer> observers;
@@ -23,10 +30,26 @@ public class ActivityManager implements Publisher {
         this.databaseManager = databaseManager;
     }
 
+    /**
+     * Function that takes all parameters needed to add an activity, checks them, parses if needed and
+     * calls {@link managers.DatabaseManager#addActivity(String, int, String, String, LocalDateTime)} method.
+     * {@link ActivityManager#notifyObservers()} is called after successfully adding the activity.
+     * @param description String : activity's description
+     * @param amount String : string representation of the activity's amount
+     * @param currency String : activity's currency
+     * @param activity String : activity's version(income or expense)
+     * @param  date String : string representation of activity's date
+     * @param hours int : activity's hour
+     * @param minutes int : activity's minutes
+     * @return indicator whether the activity was successfully added
+     * */
+
     public boolean addActivity(String description, String amount, String currency, String activity, String date, int hours, int minutes){
         if(description.length() > 40)
             return false;
         if(!Main.isNumeric(amount))
+            return false;
+        if(description.equalsIgnoreCase("") || amount.equalsIgnoreCase("") || date.equalsIgnoreCase(""))
             return false;
         StringBuilder dateToFormat = new StringBuilder();
         dateToFormat.append(date);
@@ -66,6 +89,16 @@ public class ActivityManager implements Publisher {
 
     }
 
+    /**
+     * Function that returns activities that fulfill the specified parameters.
+     * @param activity String : activity's version
+     * @param fromDate String : activities after this date
+     * @param toDate String : activities before this date
+     * @param currency String : activity's currency
+     * @param description String : activity's description
+     * @return list of activities
+     * */
+
     public ArrayList<Activity> getActivities(String activity, String fromDate, String toDate, String currency, String description) {
         ArrayList<Activity> activities = new ArrayList<>();
         if(fromDate.equalsIgnoreCase("") || toDate.equalsIgnoreCase(""))
@@ -88,6 +121,11 @@ public class ActivityManager implements Publisher {
         return activities;
     }
 
+    /**
+     * Function that returns all descriptions of activities.
+     * @return list of descriptions
+     * */
+
     public ArrayList<String> getActivitiesDescriptions(){
         ArrayList<String> descriptions = new ArrayList<>();
         ResultSet rs = this.databaseManager.getActivitiesDescriptions();
@@ -102,6 +140,7 @@ public class ActivityManager implements Publisher {
         return descriptions;
     }
 
+    //TODO: implementirati kada provalis kako scrollpane da stavis u displayActivitiesPanel
     public int getActivitiesSum(String activity, String fromDate, String toDate, String currency, String description){
         int result;
         if(fromDate.equalsIgnoreCase("") || toDate.equalsIgnoreCase(""))

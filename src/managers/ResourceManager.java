@@ -2,6 +2,13 @@ package managers;
 
 import javax.swing.*;
 
+
+/**
+ * Class that handles outside resources(such as icons).
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
 public class ResourceManager {
     public ImageIcon okIcon;
     public ImageIcon backIcon;
@@ -14,6 +21,11 @@ public class ResourceManager {
     public ImageIcon printIcon;
     public ImageIcon nextIcon;
     public ImageIcon moneyIcon;
+
+
+    /**
+     * Class constructor. Initializes all icons.
+     * */
 
     ResourceManager(){
         this.okIcon = new ImageIcon("resources/accept.png");

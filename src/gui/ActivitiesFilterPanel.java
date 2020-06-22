@@ -17,11 +17,27 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
+/**
+ * Class that represents panel in which filters for activities search are chosen.
+ * It is an observer to CurrencyManager {@link managers.CurrencyManager} and SettingsManager {@link managers.SettingsManager}.
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
+
+
 public class ActivitiesFilterPanel extends JPanel implements Observer {
+    /**
+     * Available currencies.
+     * */
     private ArrayList<String> currencies;
     private ManagerFactory managerFactory;
     private JComboBox<String> activitiesBox, currenciesBox;
     public JButton okBtn, cancelBtn;
+
+    /**
+     * Date pickers for date range.
+     * */
     public JDatePickerImpl datePicker, datePicker1;
     public JTextField searchField;
     public ArrayList<Activity> activities;
@@ -123,6 +139,14 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
         this.add(mainPanel, BorderLayout.CENTER);
     }
 
+    /**
+     * Function that needs to be defined after implementing {@link event.Observer} interface.
+     * @param e UpdateEvent: if the event comes from {@link managers.CurrencyManager} it
+     * updates combo box containing all currencies. If the event comes from {@link managers.SettingsManager},
+     * it changes the text inside combo boxes and labels according to the specified language using.
+     *
+     * */
+
     @Override
     public void updatePerformed(UpdateEvent e) {
         if(e.getSource() instanceof CurrencyManager){
@@ -146,6 +170,10 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
             activitiesBox.addItem("");
         }
     }
+
+    /**
+     * Function that filters activities based on content in text fields, combo boxes and date pickers.
+     * */
     public void search() {
         this.activities = this.managerFactory.activityManager.getActivities((String) activitiesBox.getSelectedItem(), this.datePicker.getJFormattedTextField().getText(), this.datePicker1.getJFormattedTextField().getText(), (String) currenciesBox.getSelectedItem(), this.searchField.getText());
     }

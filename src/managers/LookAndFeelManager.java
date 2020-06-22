@@ -13,8 +13,6 @@ public class LookAndFeelManager {
     public Dimension displayActivitiesDimension;
     public Dimension welcomeDimension;
     public Dimension settingsDimension;
-    //public String currentLookAndFeel = "nimbus";
-    private int counter = 0;
 
     LookAndFeelManager(){
         this.homeDimension = new Dimension(180,150);
@@ -25,7 +23,7 @@ public class LookAndFeelManager {
         this.displayBalancesDimension = new Dimension(400, 300);
         this.displayActivitiesDimension = new Dimension(500, 400);
         this.welcomeDimension = new Dimension(380, 180);
-        this.settingsDimension = new Dimension(200, 200);
+        this.settingsDimension = new Dimension(200, 150);
 
     }
 
@@ -35,10 +33,6 @@ public class LookAndFeelManager {
     }
 
     public boolean changeLookAndFeel(JFrame frame, String name){
-        //currentLookAndFeel = name;
-        //System.out.println("Counter: " + counter);
-        //counter = (counter + 1) % 2;
-        //System.out.println("Look and feel treba da bude: " + currentLookAndFeel +".");
         try{
             if(name.equalsIgnoreCase("nimbus"))
             {
@@ -52,20 +46,37 @@ public class LookAndFeelManager {
                 updateDimension(this.displayBalancesDimension, 400, 300);
                 updateDimension(this.displayActivitiesDimension, 500, 400);
                 updateDimension(this.welcomeDimension, 380, 180);
-                updateDimension(this.settingsDimension, 200, 200);
+                updateDimension(this.settingsDimension, 200, 150);
 
             }
             else if(name.equalsIgnoreCase("metal")){
 
                 UIManager.setLookAndFeel(UIManager
                         .getCrossPlatformLookAndFeelClassName());
+                updateDimension(this.homeDimension, 190, 150); //width 180
+                updateDimension(this.addActivityDimension, 330, 270);
+                updateDimension(this.activityHistoryDimension, 270, 350);
+                updateDimension(this.balanceHistoryDimension, 270, 250);
+                updateDimension(this.addCurrencyDimension, 350, 150);
+                updateDimension(this.displayBalancesDimension, 400, 300);
+                updateDimension(this.displayActivitiesDimension, 500, 400);
+                updateDimension(this.welcomeDimension, 380, 180);
+                updateDimension(this.settingsDimension, 200, 150);
             }
             else if(name.equalsIgnoreCase("system default")){
                 UIManager.setLookAndFeel(UIManager
                         .getSystemLookAndFeelClassName());
+                //UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+                updateDimension(this.homeDimension, 180, 150); //width 180
+                updateDimension(this.addActivityDimension, 310, 260);
+                updateDimension(this.activityHistoryDimension, 270, 330);
+                updateDimension(this.balanceHistoryDimension, 270, 250);
+                updateDimension(this.addCurrencyDimension, 300, 150);
+                updateDimension(this.displayBalancesDimension, 400, 300);
+                updateDimension(this.displayActivitiesDimension, 500, 400);
+                updateDimension(this.welcomeDimension, 380, 180);
+                updateDimension(this.settingsDimension, 200, 130);
             }
-            //return true;
-
         }
         catch(ClassNotFoundException | InstantiationException
                 | IllegalAccessException | UnsupportedLookAndFeelException e){
@@ -74,6 +85,4 @@ public class LookAndFeelManager {
         SwingUtilities.updateComponentTreeUI(frame);
         return true;
     }
-
-
 }

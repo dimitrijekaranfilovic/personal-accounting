@@ -119,15 +119,19 @@ Here you can tweak the app to your liking:
 * you can change the LookAndFeel (style)
 * you can change the language
 
+![picture](images/settings.png)
 
-Currently available languages
-
-![picture](images/languages.png)
+Currently available languages:
+* serbian cyrillic
+* serbian latin
+* english
 
 
 Currently available styles:
+* nimbus
+* metal
+* system default - it will look different on different platforms
 
-![picture](images/styles.png)
 
 Language changes are real time and are saved for the next startup.
 

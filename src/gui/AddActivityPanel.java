@@ -10,13 +10,14 @@ import net.miginfocom.swing.MigLayout;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Properties;
+
+//import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 
 /**
@@ -55,7 +56,7 @@ public class AddActivityPanel extends JPanel implements Observer {
 
         this.descriptionLabel = new JLabel(this.managerFactory.settingsManager.getWord("description"));
         this.descriptionField = new JTextField(20);
-        AutoCompleteDecorator.decorate(this.descriptionField, this.managerFactory.activityManager.getActivitiesDescriptions(), false);
+        //AutoCompleteDecorator.decorate(this.descriptionField, this.managerFactory.activityManager.getActivitiesDescriptions(), false);
 
         this.amountLabel = new JLabel(this.managerFactory.settingsManager.getWord("amount"));
         this.amountField = new JTextField(20);

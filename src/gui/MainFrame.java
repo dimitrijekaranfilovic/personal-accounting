@@ -34,15 +34,15 @@ public class MainFrame extends JFrame{
 
 
         mainPanel = new JPanel(new CardLayout());
-        mainPanel.add(this.homePanel, "Home");
-        mainPanel.add(addCurrencyBalancePanel, "Add currencies");
-        mainPanel.add(addActivityPanel, "Add activity");
-        mainPanel.add(activitiesFilterPanel, "Choose filters");
-        mainPanel.add(balancesFilterPanel, "Choose balances filters");
-        mainPanel.add(displayActivitiesPanel, "Display activities");
-        mainPanel.add(displayBalancesPanel, "Display balances");
-        mainPanel.add(welcomePanel, "Welcome");
-        mainPanel.add(settingsPanel, "Settings");
+        mainPanel.add(this.homePanel, "home");
+        mainPanel.add(addCurrencyBalancePanel, "add_currency");
+        mainPanel.add(addActivityPanel, "add_activity");
+        mainPanel.add(activitiesFilterPanel, "activities_filter");
+        mainPanel.add(balancesFilterPanel, "balances_filter");
+        mainPanel.add(displayActivitiesPanel, "display_activities");
+        mainPanel.add(displayBalancesPanel, "display_balances");
+        mainPanel.add(welcomePanel, "welcome");
+        mainPanel.add(settingsPanel, "settings");
 
         this.add(mainPanel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,10 +56,10 @@ public class MainFrame extends JFrame{
             //this.managerFactory.lookAndFeelManager.changeLookAndFeel(this, this.managerFactory.settingsManager.style);
             //System.out.println("Treba da postavim: " + this.managerFactory.settingsManager.style);
             this.setLocation(this.managerFactory.settingsManager.x, this.managerFactory.settingsManager.y);
-            showCard("Home", true);
+            showCard("home", true);
         }
         else {
-            showCard("Welcome", true);
+            showCard("welcome", true);
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             this.setLocation((int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2);
             this.managerFactory.settingsManager.addInitialSettings(this.managerFactory.settingsManager.style, (int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2);
@@ -69,7 +69,7 @@ public class MainFrame extends JFrame{
                 if(this.managerFactory.currencyManager.countCurrencies() == 0)
                     JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_4"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.WARNING_MESSAGE);
                 else
-                    showCard("Home", true);
+                    showCard("home", true);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -91,22 +91,22 @@ public class MainFrame extends JFrame{
 
         this.homePanel.addCurrencyButton.addActionListener(ae->{
             addCurrencyBalancePanel.updateIcon(false);
-            showCard("Add currencies", true);
+            showCard("add_currency", true);
         });
-        this.homePanel.addActivityBtn.addActionListener(ae->showCard("Add activity", true));
-        this.homePanel.activitiesHistoryBtn.addActionListener(ae->showCard("Choose filters", true));
-        this.homePanel.balancesHistoryBtn.addActionListener(ae->showCard("Choose balances filters", true));
-        this.homePanel.settingsButton.addActionListener(ae->showCard("Settings", true));
-        addActivityPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
-        activitiesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
-        balancesFilterPanel.cancelBtn.addActionListener(ae->showCard("Home", true));
-        displayActivitiesPanel.backBtn.addActionListener(ae->showCard("Choose filters", true));
-        displayBalancesPanel.backBtn.addActionListener(ae->showCard("Choose balances filters", true));
-        settingsPanel.backBtn.addActionListener(ae->showCard("Home", true));
+        this.homePanel.addActivityBtn.addActionListener(ae->showCard("add_activity", true));
+        this.homePanel.activitiesHistoryBtn.addActionListener(ae->showCard("activities_filter", true));
+        this.homePanel.balancesHistoryBtn.addActionListener(ae->showCard("balances_filter", true));
+        this.homePanel.settingsButton.addActionListener(ae->showCard("settings", true));
+        addActivityPanel.cancelBtn.addActionListener(ae->showCard("home", true));
+        activitiesFilterPanel.cancelBtn.addActionListener(ae->showCard("home", true));
+        balancesFilterPanel.cancelBtn.addActionListener(ae->showCard("home", true));
+        displayActivitiesPanel.backBtn.addActionListener(ae->showCard("activities_filter", true));
+        displayBalancesPanel.backBtn.addActionListener(ae->showCard("balances_filter", true));
+        settingsPanel.backBtn.addActionListener(ae->showCard("home", true));
 
         welcomePanel.nextBtn.addActionListener(ae->{
             addCurrencyBalancePanel.updateIcon(true);
-            showCard("Add currencies", true);
+            showCard("add_currency", true);
         });
 
         activitiesFilterPanel.okBtn.addActionListener(ae->{
@@ -117,7 +117,7 @@ public class MainFrame extends JFrame{
                 JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("no_result"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
             else {
                 displayActivitiesPanel.setActivities(activitiesFilterPanel.activities);
-                showCard("Display activities", true);
+                showCard("display_activities", true);
             }
 
         });
@@ -130,7 +130,7 @@ public class MainFrame extends JFrame{
                 JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("no_result"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
             else{
                 displayBalancesPanel.setBalances(balancesFilterPanel.balances);
-                showCard("Display balances", true);
+                showCard("display_balances", true);
             }
         });
 
@@ -141,24 +141,24 @@ public class MainFrame extends JFrame{
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
         cl.show(mainPanel, name);
         if(name.equalsIgnoreCase("home"))
-            //this.setSize(180, 150); //width - 370 original
             this.setSize(this.managerFactory.lookAndFeelManager.homeDimension);
-        else if(name.equalsIgnoreCase("add activity"))
+            //this.setSize(180, 150); //width - 370 original
+        else if(name.equalsIgnoreCase("add_activity"))
             //this.setSize(330, 270);
             this.setSize(this.managerFactory.lookAndFeelManager.addActivityDimension);
-        else if(name.equalsIgnoreCase("choose filters"))
+        else if(name.equalsIgnoreCase("activities_filter"))
             //this.setSize(270, 370);
             this.setSize(this.managerFactory.lookAndFeelManager.activityHistoryDimension);
-        else if(name.equalsIgnoreCase("choose balances filters"))
+        else if(name.equalsIgnoreCase("balances_filter"))
             //this.setSize(270, 250);
             this.setSize(this.managerFactory.lookAndFeelManager.balanceHistoryDimension);
-        else if(name.equalsIgnoreCase("display activities"))
+        else if(name.equalsIgnoreCase("display_activities"))
             //this.setSize(500, 400);
             this.setSize(this.managerFactory.lookAndFeelManager.displayActivitiesDimension);
-        else if(name.equalsIgnoreCase("add currencies"))
+        else if(name.equalsIgnoreCase("add_currency"))
             //this.setSize(370, 150);
             this.setSize(this.managerFactory.lookAndFeelManager.addCurrencyDimension);
-        else if(name.equalsIgnoreCase("display balances"))
+        else if(name.equalsIgnoreCase("display_balances"))
             //this.setSize(400, 300);
             this.setSize(this.managerFactory.lookAndFeelManager.displayBalancesDimension);
         else if(name.equalsIgnoreCase("welcome"))
@@ -168,6 +168,7 @@ public class MainFrame extends JFrame{
             this.setSize(this.managerFactory.lookAndFeelManager.settingsDimension);
         //this.pack();
         if(title) //kad se stavlja naslov, trazi u trenutnom Locale
-            this.setTitle(name);
+            //this.setTitle(name);
+            this.setTitle(this.managerFactory.settingsManager.getWord(name));
     }
 }

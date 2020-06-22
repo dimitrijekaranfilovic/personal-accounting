@@ -1,10 +1,6 @@
 package main;
 
-import gui.MainFrame;
-import managers.ManagerFactory;
-
 import javax.swing.*;
-import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,12 +15,12 @@ public class Main {
         } catch (Exception e) {
             // If Nimbus is not available, you can set the GUI to another look and feel
         }
-        try {
+        /*try {
             ManagerFactory mf = new ManagerFactory();
             MainFrame.getInstance(mf);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
 
        /* try {
             ManagerFactory mf = new ManagerFactory();

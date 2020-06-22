@@ -65,12 +65,12 @@ public class AddCurrencyBalancePanel extends JPanel implements Observer {
                     JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_3"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
                     break;
                 case CurrencyManager.OK:
-                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_information"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_information"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
                     currencyField.setText("");
                     balanceField.setText("");
                     break;
                 case CurrencyManager.WRONG:
-                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_error"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_error"), this.managerFactory.settingsManager.getWord("error"), JOptionPane.ERROR_MESSAGE);
                     break;
             }
         });

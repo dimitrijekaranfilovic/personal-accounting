@@ -439,8 +439,7 @@ public class DatabaseManager {
      * @param y int : frame's initial y coordinate
      * @return indicator whether the adding was successful
      * */
-    //TODO: stavi da se podrazumijevani jezik prosledjuje
-    boolean addInitialSettings(String lookAndFeel, int x, int y){
+    boolean addInitialSettings(String lookAndFeel, int x, int y, String language){
         try {
             if(connection == null){
                 getConnection();
@@ -449,7 +448,7 @@ public class DatabaseManager {
             ps.setString(1, lookAndFeel);
             ps.setInt(2, x);
             ps.setInt(3, y);
-            ps.setString(4, "en");
+            ps.setString(4, language);
             ps.execute();
             return true;
 

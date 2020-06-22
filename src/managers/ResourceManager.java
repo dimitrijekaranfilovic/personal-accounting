@@ -28,7 +28,7 @@ public class ResourceManager {
      * */
 
     ResourceManager(){
-        this.okIcon = new ImageIcon("resources/accept.png");
+        /*this.okIcon = new ImageIcon("resources/accept.png");
         this.backIcon = new ImageIcon("resources/skip-back.png");
         this.addIcon = new ImageIcon("resources/plus-2.png");
         this.activitiesHistoryIcon = new ImageIcon("resources/stock-market-analysis.png");
@@ -39,5 +39,18 @@ public class ResourceManager {
         this.printIcon = new ImageIcon("resources/printer-2.png");
         this.nextIcon = new ImageIcon("resources/play.png");
         this.moneyIcon = new ImageIcon("resources/wallet-1.png");
+        */
+
+        this.okIcon = new ImageIcon(getClass().getResource("../resources/accept.png"));
+        this.backIcon = new ImageIcon(getClass().getResource("../resources/skip-back.png"));
+        this.addIcon = new ImageIcon(getClass().getResource("../resources/plus-2.png"));
+        this.activitiesHistoryIcon = new ImageIcon(getClass().getResource("../resources/stock-market-analysis.png"));
+        this.balancesHistoryIcon = new ImageIcon(getClass().getResource("../resources/balance-2.png"));
+        this.settingsIcon = new ImageIcon(getClass().getResource("../resources/settings.png"));
+        this.helpIcon = new ImageIcon(getClass().getResource("../resources/help-2.png"));
+        this.addCurrencyIcon = new ImageIcon(getClass().getResource("../resources/currency-1.png"));
+        this.printIcon = new ImageIcon(getClass().getResource("../resources/printer-2.png"));
+        this.nextIcon = new ImageIcon(getClass().getResource("../resources/play.png"));
+        this.moneyIcon = new ImageIcon(getClass().getResource("../resources/wallet-1.png"));
     }
 }

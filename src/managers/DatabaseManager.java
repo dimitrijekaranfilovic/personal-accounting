@@ -340,7 +340,6 @@ public class DatabaseManager {
             }
             PreparedStatement ps = connection.prepareStatement("select * from settings;");
             ps.execute();
-            //System.out.println("Ucitao koordinate: " + ps.getResultSet().getInt("lastX") + "," + ps.getResultSet().getInt("lastY"));
             return ps.getResultSet();
 
         } catch (SQLException | ClassNotFoundException e) {

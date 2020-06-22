@@ -18,7 +18,6 @@ public class DisplayBalancesPanel extends JPanel{
 
     DisplayBalancesPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
-        //this.managerFactory.settingsManager.addObserver(this);
         this.balances = new ArrayList<>();
         this.table = new JTable(new BalanceModel(this.balances, this.managerFactory));
         this.table.getTableHeader().setReorderingAllowed(false);
@@ -41,7 +40,6 @@ public class DisplayBalancesPanel extends JPanel{
         this.balances = balances;
         BalanceModel bm = new BalanceModel(this.balances, this.managerFactory);
         bm.updateColumnNames();
-        //System.out.println("Kolone: " + bm.columnNames[BalanceModel.DATE_COLUMN] + "," + bm.columnNames[BalanceModel.AMOUNT_COLUMN] + "," + bm.columnNames[BalanceModel.CURRENCY_COLUMN]);
         TableRowSorter<BalanceModel> sorter = new TableRowSorter<>(bm);
         this.table.setRowSorter(sorter);
         this.table.setModel(bm);

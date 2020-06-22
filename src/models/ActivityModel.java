@@ -21,7 +21,6 @@ public class ActivityModel extends AbstractTableModel {
     public ActivityModel(ArrayList<Activity> activities, ManagerFactory managerFactory) {
         this.activities = activities;
         this.managerFactory = managerFactory;
-        //this.managerFactory.settingsManager.addObserver(this);
     }
 
     public Activity getActivity(int row){

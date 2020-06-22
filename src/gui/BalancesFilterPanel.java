@@ -93,7 +93,6 @@ public class BalancesFilterPanel extends JPanel implements Observer {
         mainPanel.add(panel3);
 
         this.add(mainPanel, BorderLayout.CENTER);
-
     }
 
     public void search()
@@ -116,7 +115,5 @@ public class BalancesFilterPanel extends JPanel implements Observer {
             this.toLabel.setText(this.managerFactory.settingsManager.getWord("to"));
             this.timeLabel.setText(this.managerFactory.settingsManager.getWord("time"));
         }
-
     }
-
 }

@@ -39,12 +39,6 @@ public class HomePanel extends JPanel implements Observer {
         this.helpBtn = new JButton(this.managerFactory.resourceManager.helpIcon);
         this.editorPane = setUpEditorPane();
 
-        /*this.addActivityBtn.setToolTipText("Add activity");
-        this.balancesHistoryBtn.setToolTipText("Balances history");
-        this.activitiesHistoryBtn.setToolTipText("Activities history");
-        this.addCurrencyButton.setToolTipText("Add currency");
-        this.settingsButton.setToolTipText("Settings");
-        this.helpBtn.setToolTipText("Help");*/
         this.addActivityBtn.setToolTipText(this.managerFactory.settingsManager.getWord("add_activity"));
         this.activitiesHistoryBtn.setToolTipText(this.managerFactory.settingsManager.getWord("activities_history"));
         this.addCurrencyButton.setToolTipText(this.managerFactory.settingsManager.getWord("add_currency"));
@@ -110,9 +104,8 @@ public class HomePanel extends JPanel implements Observer {
         else if(e.getSource() instanceof ActivityManager){
                 ActivityManager am = (ActivityManager)e.getSource();
                 int newValue = 0;
-                if(am.activity.getActivityVersion().equalsIgnoreCase("-")){ //TODO: ovdje pazi ono za +, - kod aktivnosti
+                if(am.activity.getActivityVersion().equalsIgnoreCase("-")){
                     newValue = this.currencyValueMap.get(am.activity.getCurrency()) - am.activity.getAmount();
-
                 }
                 else if(am.activity.getActivityVersion().equalsIgnoreCase("+")){
                     newValue = this.currencyValueMap.get(am.activity.getCurrency()) + am.activity.getAmount();
@@ -132,6 +125,7 @@ public class HomePanel extends JPanel implements Observer {
         }
     }
 
+    //TODO: stavi u properties ovaj tekst koji ide uz link
     private JEditorPane setUpEditorPane(){
         Font font = this.helpBtn.getFont();
         StringBuilder style = new StringBuilder("font-family:" + font.getFamily() + ";");
@@ -146,9 +140,7 @@ public class HomePanel extends JPanel implements Observer {
                 openWebpage(he.getURL());
         });
         ep.setEditable(false);
-
         return ep;
-
     }
 
     private boolean openWebpage(URI uri){
@@ -172,5 +164,4 @@ public class HomePanel extends JPanel implements Observer {
             return false;
         }
     }
-
 }

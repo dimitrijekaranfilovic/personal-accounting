@@ -19,9 +19,7 @@ public class BalanceModel extends AbstractTableModel{
     public BalanceModel(ArrayList<Balance> balances, ManagerFactory managerFactory) {
         this.balances = balances;
         this.managerFactory = managerFactory;
-        //this.managerFactory.settingsManager.addObserver(this);
     }
-
 
     public Balance getBalance(int row){
         return this.balances.get(row);
@@ -64,17 +62,6 @@ public class BalanceModel extends AbstractTableModel{
     public String getColumnName(int column) {
         return columnNames[column];
     }
-
-   /* @Override
-    public void updatePerformed(UpdateEvent e) {
-        columnNames[DATE_COLUMN] = this.managerFactory.settingsManager.getWord("date");
-        columnNames[CURRENCY_COLUMN] = this.managerFactory.settingsManager.getWord("currency");
-        columnNames[AMOUNT_COLUMN] = this.managerFactory.settingsManager.getWord("amount");
-        System.out.println("Azurirani nazivi kolona: " + columnNames[DATE_COLUMN] + "," + columnNames[AMOUNT_COLUMN] + "," + columnNames[CURRENCY_COLUMN]);
-
-        fireTableStructureChanged();
-
-    }*/
 
     public void updateColumnNames(){
         columnNames[DATE_COLUMN] = this.managerFactory.settingsManager.getWord("date");

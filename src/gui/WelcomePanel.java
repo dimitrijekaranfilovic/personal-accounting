@@ -10,8 +10,7 @@ public class WelcomePanel extends JPanel {
         public JButton nextBtn;
         private ManagerFactory managerFactory;
 
-        public WelcomePanel(ManagerFactory managerFactory)
-        {
+        public WelcomePanel(ManagerFactory managerFactory) {
             this.managerFactory = managerFactory;
             this.nextBtn = new JButton(this.managerFactory.resourceManager.nextIcon);
 
@@ -32,5 +31,4 @@ public class WelcomePanel extends JPanel {
             this.nextBtn.setHorizontalAlignment(JButton.CENTER);
             this.add(this.nextBtn);
         }
-
 }

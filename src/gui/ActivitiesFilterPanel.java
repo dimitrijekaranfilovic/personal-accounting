@@ -25,9 +25,7 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
     public JDatePickerImpl datePicker, datePicker1;
     public JTextField searchField;
     public ArrayList<Activity> activities;
-
     public JLabel activityLabel, fromLabel, toLabel, timeLabel, currencyLabel, descriptionLabel;
-
 
     public ActivitiesFilterPanel(ManagerFactory managerFactory) {
         super();
@@ -86,15 +84,11 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
 
         Dimension d = new Dimension(30, 28);
 
-
-
-
         this.fromLabel.setMinimumSize(d);
         this.fromLabel.setMaximumSize(d);
 
         this.toLabel.setMinimumSize(d);
         this.toLabel.setMaximumSize(d);
-
 
         panel2.add(this.timeLabel, "wrap");
         panel2.add(fromLabel, "split");
@@ -116,7 +110,6 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
         panel5.add(this.okBtn, "split 2");
         panel5.add(this.cancelBtn, "wrap");
 
-
         mainPanel.add(panel1);
         mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));
         mainPanel.add(panel2);
@@ -128,7 +121,6 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
         mainPanel.add(panel5);
 
         this.add(mainPanel, BorderLayout.CENTER);
-
     }
 
     @Override
@@ -154,9 +146,7 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
             activitiesBox.addItem("");
         }
     }
-
     public void search() {
         this.activities = this.managerFactory.activityManager.getActivities((String) activitiesBox.getSelectedItem(), this.datePicker.getJFormattedTextField().getText(), this.datePicker1.getJFormattedTextField().getText(), (String) currenciesBox.getSelectedItem(), this.searchField.getText());
     }
-
 }

@@ -35,7 +35,7 @@ public class SettingsPanel extends JPanel implements Observer {
         this.lookAndFeelsBox.addItem(this.managerFactory.settingsManager.getWord("nimbus"));
         this.lookAndFeelsBox.addItem(this.managerFactory.settingsManager.getWord("metal"));
         this.lookAndFeelsBox.addItem(this.managerFactory.settingsManager.getWord("system_default"));
-        this.lookAndFeelsBox.addItem(this.managerFactory.settingsManager.getWord("mcwin"));
+        //this.lookAndFeelsBox.addItem(this.managerFactory.settingsManager.getWord("mcwin"));
 
         //adding all available languages
         this.languageBox.addItem(this.managerFactory.settingsManager.getWord("serbian"));

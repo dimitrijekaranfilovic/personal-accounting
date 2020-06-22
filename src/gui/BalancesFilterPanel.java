@@ -17,6 +17,14 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
+/**
+ * Class that represents a panel which is used for choosing filters
+ * for balances' filtering.
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
+
 public class BalancesFilterPanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
     private JComboBox<String> currenciesBox;
@@ -95,11 +103,20 @@ public class BalancesFilterPanel extends JPanel implements Observer {
         this.add(mainPanel, BorderLayout.CENTER);
     }
 
-    public void search()
-    {
+    /**
+     * Function that filters balances based on parameters specified in combo boxes and text fields.
+     * */
+    public void search() {
         this.balances = this.managerFactory.balanceManager.getBalances((String)currenciesBox.getSelectedItem(), this.datePicker.getJFormattedTextField().getText(), this.datePicker1.getJFormattedTextField().getText());
     }
 
+
+    /**
+     * Function that needs to be defined after implementing the {@link event.Observer} interface.
+     * @param e UpdateEvent : if the event's source is {@link managers.CurrencyManager} the
+     * content of combo boxes is updated. If the source is {@link managers.SettingsManager},
+     * the text inside labels is updated according to the specified language.
+     * */
     @Override
     public void updatePerformed(UpdateEvent e) {
         if(e.getSource() instanceof CurrencyManager){

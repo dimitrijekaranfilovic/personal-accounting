@@ -7,6 +7,13 @@ import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 
+/**
+ * Class that represents a panel used for changing app's settings, such as
+ * LookAndFeel and language.
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
 public class SettingsPanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
     public JComboBox<String> lookAndFeelsBox, languageBox;
@@ -46,6 +53,7 @@ public class SettingsPanel extends JPanel implements Observer {
         this.add(this.backBtn, "split 2");
         this.add(this.okBtn);
 
+        //after okBtn is clicked, parameters specified in combo boxes are used and changes are applied
         this.okBtn.addActionListener(ae->{
             managerFactory.lookAndFeelManager.changeLookAndFeel(parent, lookAndFeelsBox.getSelectedItem().toString());
             managerFactory.settingsManager.style = lookAndFeelsBox.getSelectedItem().toString();
@@ -53,6 +61,11 @@ public class SettingsPanel extends JPanel implements Observer {
         });
     }
 
+    /**
+     * Function that need to be defined after implementing {@link event.Observer} interface.
+     * @param e UpdateEvent : event's source is {@link managers.SettingsManager}. Text inside labels
+     * is changed according to specified language.
+     * */
     @Override
     public void updatePerformed(UpdateEvent e) {
             this.styleLabel.setText(managerFactory.settingsManager.getWord("style"));

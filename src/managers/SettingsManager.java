@@ -8,6 +8,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+/**
+ * Class that handles all settings relevant for the app.
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
+
 public class SettingsManager implements Publisher {
     private DatabaseManager databaseManager;
     public int x;
@@ -19,6 +26,9 @@ public class SettingsManager implements Publisher {
     private HashMap<String, Locale> localeHashMap;
 
 
+    /**
+     * Class constructor. Initializes map of locales and active ResourceBundle.
+     * */
     public SettingsManager(DatabaseManager databaseManager){
         this.databaseManager = databaseManager;
         this.localeHashMap = new HashMap<>();
@@ -29,6 +39,11 @@ public class SettingsManager implements Publisher {
     }
 
 
+    /**
+     * Function that loads all relevant settings. {@link SettingsManager#notifyObservers()} is called
+     * if the loading was successful
+     * @return indicator whether the loading was successful
+     * */
     public boolean loadSettings(){
         ResultSet rs = this.databaseManager.loadSettings();
         try {
@@ -45,15 +60,31 @@ public class SettingsManager implements Publisher {
 
     }
 
-
+    /**
+     * Function that saves settings.
+     * @param lookAndFeel String : current LookAndFeel
+     * @param  x int : frame's x coordinate
+     * @param y int : frame's y coordinate
+     * @param  language String : current language
+     * */
     public void saveSettings(String lookAndFeel, int x, int y, String language){
         this.databaseManager.saveSettings(lookAndFeel, x, y, language);
     }
 
+    /**
+     * Function that saves initial settings.
+     * @param lookAndFeel String : initial LookAndFeel
+     * @param x int : frame's initial x coordinate
+     * @param y int : frame's initial y coordinate
+     * */
     public void addInitialSettings(String lookAndFeel, int x, int y){
         this.databaseManager.addInitialSettings(lookAndFeel, x, y);
     }
 
+    /**
+     * Function that updates app's language. {@link SettingsManager#notifyObservers()} is called.
+     * @param language String : languages code
+     * */
     public void updateLocale(String language){
         String abbreviation = null;
         if(language.equalsIgnoreCase(this.getWord("serbian")))
@@ -67,6 +98,11 @@ public class SettingsManager implements Publisher {
         notifyObservers();
     }
 
+    /**
+     * Function that fetches word from the current language's resource file.
+     * @param key String : word's key in the resource file from {@link languages}.
+     * @return desired word
+     * */
     public String getWord(String key){
         return this.bundle.getString(key);
     }

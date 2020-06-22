@@ -2,11 +2,21 @@ package entities;
 
 import java.time.LocalDateTime;
 
+
+/**
+ * Class that represents balance(how much money in which currency at given time)
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
 public class Balance implements Comparable<Balance>{
     private LocalDateTime dateTime;
     private String currency;
     private int amount;
 
+    /**
+     * Class constructor.
+     * */
     public Balance(LocalDateTime dateTime, String currency, int amount) {
         this.dateTime = dateTime;
         this.currency = currency;

@@ -10,6 +10,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that handles operations tied with currencies.
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
+
 public class CurrencyManager implements Publisher {
     public static final int NUM_CHARACTERS = 0; //currency abbreviation must be exactly 3 characters
     public static final int NOT_NUMBER = 1;
@@ -24,7 +31,13 @@ public class CurrencyManager implements Publisher {
         this.databaseManager = databaseManager;
     }
 
-
+    /**
+     * Function that adds new currency. {@link CurrencyManager#notifyObservers()} is called
+     * after currency is successfully added.
+     * @param currency String : currency abbreviation
+     * @param balance String : string representation of the currency's balance
+     * @return indicator whether the currency was successfully added
+     * */
     public int addCurrency(String currency, String balance){
         //boolean res = true;
         if(currency.length() != 3)
@@ -58,6 +71,11 @@ public class CurrencyManager implements Publisher {
 
     }
 
+    /**
+     * Function that counts how many currencies are there.
+     * @throws SQLException if counting doesn't go like intended
+     * @return number of currencies
+     * */
     public int countCurrencies() throws SQLException {
         ResultSet rs = this.databaseManager.countCurrencies();
         if(rs == null)
@@ -68,6 +86,10 @@ public class CurrencyManager implements Publisher {
 
     }
 
+    /**
+     * Function that returns list of currencies.
+     * @return list of currencies
+     * */
     public ArrayList<String> getCurrencies() {
             ResultSet rs = this.databaseManager.getCurrencies();
             if(rs == null)

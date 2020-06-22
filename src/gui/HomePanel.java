@@ -18,6 +18,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Class that represents home panel, from which other activities are launched.
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
+
 public class HomePanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
     private ArrayList<String> currencies;
@@ -90,6 +97,14 @@ public class HomePanel extends JPanel implements Observer {
 
     }
 
+    /**
+     * Function that needs to be defined after implementing the {@link event.Observer} interface.
+     * @param e UpdateEvent : if the event's source is {@link managers.CurrencyManager},
+     * currency box's content is updated. If the source is {@link managers.ActivityManager},
+     *  current balance display is updated. If the source is {@link managers.SettingsManager},
+     *  buttons' tooltips are updated according to the specified language.
+     *
+     * */
     @Override
     public void updatePerformed(UpdateEvent e) {
         if(e.getSource() instanceof CurrencyManager){
@@ -125,6 +140,10 @@ public class HomePanel extends JPanel implements Observer {
         }
     }
 
+    /**
+     * Function that sets up editorPane used in help button's JOptionPane.
+     * @return JEditorPane : editorPane with HyperLinkListener.
+     * */
     //TODO: stavi u properties ovaj tekst koji ide uz link
     private JEditorPane setUpEditorPane(){
         Font font = this.helpBtn.getFont();
@@ -143,6 +162,12 @@ public class HomePanel extends JPanel implements Observer {
         return ep;
     }
 
+
+    /**
+     * Function that tries to open the uri passed from {@link gui.HomePanel#openWebpage(URL)} function.
+     * @param uri URI
+     * @return indicator whether the uri was opened successfully.
+     * */
     private boolean openWebpage(URI uri){
         Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
         if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
@@ -156,11 +181,15 @@ public class HomePanel extends JPanel implements Observer {
         return false;
     }
 
+    /**
+     * Function that tries to open url.
+     * @param url URL : url passed from JEditorPane's HyperLinkListener
+     * @return indicator whether the url was opened successfully.
+     * */
     private boolean openWebpage(URL url){
         try {
             return openWebpage(url.toURI());
         } catch (URISyntaxException e) {
-            //e.printStackTrace();
             return false;
         }
     }

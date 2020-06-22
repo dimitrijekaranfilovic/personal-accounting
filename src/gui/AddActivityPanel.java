@@ -18,6 +18,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Properties;
 
+
+/**
+ * Class that represents a panel which is used for adding a new activity.
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
+
 public class AddActivityPanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
     private ArrayList<String> currencies;
@@ -136,6 +143,9 @@ public class AddActivityPanel extends JPanel implements Observer {
         this.add(this.okBtn, "split 2");
         this.add(this.cancelBtn);
 
+
+         /* This listener checks the content of combo boxes and text fields, and if all is in
+          order it adds a new activity.*/
        this.okBtn.addActionListener(ae->{
                     String sign;
                     if(activitiesBox.getSelectedItem().toString().equalsIgnoreCase(this.managerFactory.settingsManager.getWord("income")))
@@ -159,6 +169,12 @@ public class AddActivityPanel extends JPanel implements Observer {
        });
     }
 
+    /**
+     * Function that needs to be defined after implementing {@link event.Observer} interface.
+     * @param e  UpdateEvent : if the event's source is {@link managers.CurrencyManager}
+     *  it updates currencies combo box. If the event's source id {@link managers.SettingsManager}
+     *  it updates the text inside combo boxes and labels accoring to specified language
+     * */
     @Override
     public void updatePerformed(UpdateEvent e) {
         if(e.getSource() instanceof CurrencyManager){

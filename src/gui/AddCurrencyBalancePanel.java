@@ -9,7 +9,11 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import java.awt.*;
 
-
+/**
+ * Class that represents panel used for adding a new currency.
+ * @author Dimitrije Karanfilovic
+ * @since 22.06.2020.
+ * */
 
 public class AddCurrencyBalancePanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
@@ -45,6 +49,9 @@ public class AddCurrencyBalancePanel extends JPanel implements Observer {
         this.add(addBtn, "split 2");
         this.add(finishBtn);
 
+
+
+        //Checks the parameters specified in the text fields and if everyhting is in order, adds a new currency and its balance.
         addBtn.addActionListener(ae->{
             int result = this.managerFactory.currencyManager.addCurrency(currencyField.getText(), balanceField.getText());
             switch (result){
@@ -69,6 +76,12 @@ public class AddCurrencyBalancePanel extends JPanel implements Observer {
         });
     }
 
+    /**
+     * Updates the finishBtn icon.
+     * @param firstTimeSetup boolean : if firstTimeSetup is true, the button and its icon represent activity 'next'.
+     * Otherwise, button and its icon represent activity 'back'
+     *
+     * */
     public void updateIcon(boolean firstTimeSetup){
         if(firstTimeSetup)
             this.finishBtn.setIcon(this.managerFactory.resourceManager.nextIcon);
@@ -76,6 +89,11 @@ public class AddCurrencyBalancePanel extends JPanel implements Observer {
             this.finishBtn.setIcon(this.managerFactory.resourceManager.backIcon);
     }
 
+    /**
+     * Function that needs to be defined after implementing {@link event.Observer} interface.
+     * @param e UpdateEvent : source is {@link managers.SettingsManager} and labels' texts are
+     * changed according to specified language.
+     * */
     @Override
     public void updatePerformed(UpdateEvent e) {
         this.currencyLabel.setText(this.managerFactory.settingsManager.getWord("currency"));

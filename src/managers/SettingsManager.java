@@ -77,8 +77,8 @@ public class SettingsManager implements Publisher {
      * @param x int : frame's initial x coordinate
      * @param y int : frame's initial y coordinate
      * */
-    public void addInitialSettings(String lookAndFeel, int x, int y){
-        this.databaseManager.addInitialSettings(lookAndFeel, x, y);
+    public void addInitialSettings(String lookAndFeel, int x, int y, String language){
+        this.databaseManager.addInitialSettings(lookAndFeel, x, y, language);
     }
 
     /**

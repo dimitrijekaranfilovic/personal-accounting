@@ -72,7 +72,8 @@ public class MainFrame extends JFrame{
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             this.setLocation((int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2);
             this.setVisible(true);
-            this.managerFactory.settingsManager.addInitialSettings(this.managerFactory.settingsManager.style, (int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2);
+            //System.out.println(this.managerFactory.settingsManager.currentLanguage);
+            this.managerFactory.settingsManager.addInitialSettings(this.managerFactory.settingsManager.style, (int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2, this.managerFactory.settingsManager.currentLanguage);
 
         }
 

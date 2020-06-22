@@ -13,8 +13,7 @@ import java.util.ArrayList;
 public class DisplayActivitiesPanel extends JPanel {
     private ArrayList<Activity> activities;
     private JTable table;
-    public JButton backBtn;
-    public JButton printBtn;
+    public JButton backBtn, printBtn;
     private ManagerFactory managerFactory;
 
     public DisplayActivitiesPanel(ManagerFactory managerFactory){
@@ -45,7 +44,6 @@ public class DisplayActivitiesPanel extends JPanel {
         mainPanel.add(panel2);
 
         this.add(mainPanel, BorderLayout.SOUTH);
-
     }
 
     public void setActivities(ArrayList<Activity> activities){
@@ -56,5 +54,4 @@ public class DisplayActivitiesPanel extends JPanel {
         this.table.setRowSorter(sorter);
         this.table.setModel(am);
     }
-
 }

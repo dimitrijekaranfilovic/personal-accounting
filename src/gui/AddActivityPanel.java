@@ -22,20 +22,10 @@ public class AddActivityPanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
     private ArrayList<String> currencies;
     private JComboBox<String> currenciesBox;
-    private JTextField descriptionField;
-    private JTextField amountField;
-    public JButton okBtn;
-    public JButton cancelBtn;
+    private JTextField descriptionField, amountField;
+    public JButton okBtn, cancelBtn;
     public JComboBox<String> activitiesBox;
-    public String incomeString = "income";
-    public String expenseString = "expense";
     public JLabel activitiesLabel, currencyLabel, dateLabel, timeLabel, descriptionLabel, amountLabel;
-    //public JLabel descriptionLabel;
-   // public JLabel amountLabel;
-    public String activityAdded = "Activity successfully added.";
-    public String information = "Information";
-    public String errorMessage = "Error adding activity!";
-
 
     public AddActivityPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
@@ -51,8 +41,8 @@ public class AddActivityPanel extends JPanel implements Observer {
             this.currenciesBox.addItem(s);
 
         this.activitiesBox = new JComboBox<>();
-        activitiesBox.addItem(incomeString);
-        activitiesBox.addItem(expenseString);
+        activitiesBox.addItem(this.managerFactory.settingsManager.getWord("income"));
+        activitiesBox.addItem(this.managerFactory.settingsManager.getWord("expense"));
 
         this.activitiesLabel = new JLabel(this.managerFactory.settingsManager.getWord("activity"));
 
@@ -118,11 +108,8 @@ public class AddActivityPanel extends JPanel implements Observer {
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
-
-
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-
 
         this.setLayout(new MigLayout());
         this.add(descriptionLabel, "split 2");
@@ -192,10 +179,6 @@ public class AddActivityPanel extends JPanel implements Observer {
 
             this.activitiesBox.addItem(this.managerFactory.settingsManager.getWord("income"));
             this.activitiesBox.addItem(this.managerFactory.settingsManager.getWord("expense"));
-
         }
-
     }
-
-
 }

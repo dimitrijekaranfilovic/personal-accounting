@@ -27,9 +27,5 @@ public class ResourceManager {
         this.printIcon = new ImageIcon("resources/printer-2.png");
         this.nextIcon = new ImageIcon("resources/play.png");
         this.moneyIcon = new ImageIcon("resources/wallet-1.png");
-
-
     }
-
-
 }

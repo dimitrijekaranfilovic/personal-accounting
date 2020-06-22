@@ -66,7 +66,6 @@ public class LookAndFeelManager {
             else if(name.equalsIgnoreCase("system default")){
                 UIManager.setLookAndFeel(UIManager
                         .getSystemLookAndFeelClassName());
-                //UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
                 updateDimension(this.homeDimension, 180, 150); //width 180
                 updateDimension(this.addActivityDimension, 310, 260);
                 updateDimension(this.activityHistoryDimension, 270, 330);
@@ -76,6 +75,20 @@ public class LookAndFeelManager {
                 updateDimension(this.displayActivitiesDimension, 500, 400);
                 updateDimension(this.welcomeDimension, 380, 180);
                 updateDimension(this.settingsDimension, 200, 130);
+            }
+
+            else if(name.equalsIgnoreCase("mcwin")){
+                UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
+                updateDimension(this.homeDimension, 180, 130); //width 180
+                updateDimension(this.addActivityDimension, 310, 260);
+                updateDimension(this.activityHistoryDimension, 270, 330);
+                updateDimension(this.balanceHistoryDimension, 270, 250);
+                updateDimension(this.addCurrencyDimension, 300, 150);
+                updateDimension(this.displayBalancesDimension, 400, 300);
+                updateDimension(this.displayActivitiesDimension, 500, 400);
+                updateDimension(this.welcomeDimension, 380, 180);
+                updateDimension(this.settingsDimension, 200, 130);
+
             }
         }
         catch(ClassNotFoundException | InstantiationException

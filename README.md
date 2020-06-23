@@ -138,9 +138,8 @@ Language changes are real time and are saved for the next startup.
 ### Installers
 
 If you do not wish to download the entire repository, installers are available
-*  <a download="PersonalAccounting.exe" href="/installers/PersonalAccounting.exe" title="Windows 64-bit">
-                     <img alt="Windows 64-bit" src="/installers/PersonalAccounting.exe">
-                 </a>
+*  <a id="raw-url" href="https://raw.githubusercontent.com/dimitrijekaranfilovic/personal-accounting/master/installers/PersonalAccounting-1.0.exe">Windows 64-bit</a>
+
 
 
 ### Additional information

@@ -122,7 +122,6 @@ Here you can tweak the app to your liking:
 ![picture](images/settings.png)
 
 Currently available languages:
-* serbian cyrillic
 * serbian latin
 * english
 
@@ -146,12 +145,14 @@ when run next time it will apply those settings
 ### Known bugs and issues
 
 * When loading previously saved LookAndFeel, NullException is thrown, so that feature is suspended for now.
+* Properties files containing UTF characters cannot be properly loaded when program is executed from a
+executable .jar file.
 
 ### Future updates
 
-* Enable printing functionality
-* When displaying activities, display difference between incomes and expenses for each currency for specified time period
-* Create standalone installer
+* Enable printing functionality.
+* When displaying activities, display difference between incomes and expenses for each currency for specified time period.
+* Create standalone installer.
 * Localisation for date display.
 
 

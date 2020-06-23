@@ -40,7 +40,7 @@ public class SettingsPanel extends JPanel implements Observer {
         //adding all available languages
         this.languageBox.addItem(this.managerFactory.settingsManager.getWord("serbian"));
         this.languageBox.addItem(this.managerFactory.settingsManager.getWord("english"));
-        this.languageBox.addItem(this.managerFactory.settingsManager.getWord("serbian_cyrillic"));
+        //this.languageBox.addItem(this.managerFactory.settingsManager.getWord("serbian_cyrillic"));
 
         this.styleLabel = new JLabel(this.managerFactory.settingsManager.getWord("style"));
         this.languageLabel = new JLabel(this.managerFactory.settingsManager.getWord("language"));
@@ -75,7 +75,7 @@ public class SettingsPanel extends JPanel implements Observer {
             //adding all available languages
             this.languageBox.addItem(managerFactory.settingsManager.getWord("serbian"));
             this.languageBox.addItem(managerFactory.settingsManager.getWord("english"));
-            this.languageBox.addItem(managerFactory.settingsManager.getWord("serbian_cyrillic"));
+            //this.languageBox.addItem(managerFactory.settingsManager.getWord("serbian_cyrillic"));
 
             //this.lookAndFeelsBox.removeAllItems();
             //this.lookAndFeelsBox.addItem(managerFactory.settingsManager.getWord("nimbus"));

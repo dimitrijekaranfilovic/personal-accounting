@@ -159,10 +159,7 @@ executable .jar file.
 
 * Enable printing functionality.
 * When displaying activities, display difference between incomes and expenses for each currency for specified time period.
-* Create standalone installer for Debian Linux.
 * Localisation for date display.
-
-
 
 
 ### Credits

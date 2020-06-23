@@ -21,8 +21,9 @@ public class ResourceManager {
     public ImageIcon printIcon;
     public ImageIcon nextIcon;
     public ImageIcon moneyIcon;
-    private String basePath = "./src/icons/";
-    //private String basePath = "icons/";
+    //private String basePath = "./src/icons/";
+    private String basePath = "icons/";
+    private ClassLoader classLoader;
 
 
     /**
@@ -30,17 +31,18 @@ public class ResourceManager {
      * */
 
     ResourceManager(){
-        this.okIcon = new ImageIcon(basePath + "accept.png");
-        this.backIcon = new ImageIcon(basePath  + "skip-back.png");
-        this.addIcon = new ImageIcon(basePath + "plus-2.png");
-        this.activitiesHistoryIcon = new ImageIcon(basePath + "stock-market-analysis.png");
-        this.balancesHistoryIcon = new ImageIcon(basePath + "balance-2.png");
-        this.settingsIcon = new ImageIcon(basePath + "settings.png");
-        this.helpIcon = new ImageIcon(basePath + "help-2.png");
-        this.addCurrencyIcon = new ImageIcon(basePath + "currency-1.png");
-        this.printIcon = new ImageIcon(basePath + "printer-2.png");
-        this.nextIcon = new ImageIcon(basePath + "play.png");
-        this.moneyIcon = new ImageIcon(basePath + "wallet-1.png");
+        this.classLoader = this.getClass().getClassLoader();
+        this.okIcon = new ImageIcon(this.classLoader.getResource(basePath + "accept.png"));
+        this.backIcon = new ImageIcon(this.classLoader.getResource(basePath + "skip-back.png"));
+        this.addIcon = new ImageIcon(this.classLoader.getResource(basePath + "plus-2.png"));
+        this.activitiesHistoryIcon = new ImageIcon(this.classLoader.getResource(basePath + "stock-market-analysis.png"));
+        this.balancesHistoryIcon = new ImageIcon(this.classLoader.getResource(basePath + "balance-2.png"));
+        this.settingsIcon = new ImageIcon(this.classLoader.getResource(basePath + "settings.png"));
+        this.helpIcon = new ImageIcon(this.classLoader.getResource(basePath + "help-2.png"));
+        this.addCurrencyIcon = new ImageIcon(this.classLoader.getResource(basePath + "currency-1.png"));
+        this.printIcon = new ImageIcon(this.classLoader.getResource(basePath + "printer-2.png"));
+        this.nextIcon = new ImageIcon(this.classLoader.getResource(basePath + "play.png"));
+        this.moneyIcon = new ImageIcon(this.classLoader.getResource(basePath + "wallet-1.png"));
 
 
         /*this.okIcon = new ImageIcon(getClass().getResource("src/icons/accept.png"));

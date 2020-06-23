@@ -24,9 +24,9 @@ Click on the next button, which will lead you to the configurations page
 Here, you enter currencies whose balances you wish to keep track of. Bear in mind, currency abbreviations
 must be exactly 3 characters long. In addition, you have to enter at least one before proceeding.
 
-If you entered everything correctly, click the add button:  ![picture](resources/plus-2.png)
+If you entered everything correctly, click the add button:  ![picture](src/icons/plus-2.png)
 
-After that, you can add more currencies, or you can finish the setup by clicking the next button: ![picture](resources/play.png)
+After that, you can add more currencies, or you can finish the setup by clicking the next button: ![picture](src/icons/play.png)
 
 Now, after the setup is complete, you are free to use the app however you want.
 
@@ -49,12 +49,12 @@ selecting a desired one through a menu
 ###### Home Panel Legend
 Home panel buttons will be explained. Other panels mentioned here will be explained shortly.
 
-* add activity button ![picture](resources/plus-2.png) takes you to add activity panel
-* activities history button ![picture](resources/stock-market-analysis.png) takes you to activities filter panel
-* balances history button ![picture](resources/balance-2.png) takes you to balances filter panel
-* add currency button ![picture](resources/currency-1.png) takes you to add currency panel
-* settings button ![picture](resources/settings.png) takes you to settings panel
-* help button ![picture](resources/help-2.png) will display help message which will take you to my github page
+* add activity button ![picture](src/icons/plus-2.png) takes you to add activity panel
+* activities history button ![picture](src/icons/stock-market-analysis.png) takes you to activities filter panel
+* balances history button ![picture](src/icons/balance-2.png) takes you to balances filter panel
+* add currency button ![picture](src/icons/currency-1.png) takes you to add currency panel
+* settings button ![picture](src/icons/settings.png) takes you to settings panel
+* help button ![picture](src/icons/help-2.png) will display help message which will take you to my github page
 
 If at any time you forget which button is which, tooltips are provided for each button.
 
@@ -66,8 +66,8 @@ If you click on the add activity button, you will be presented with the AddActiv
 ![picture](images/add_activity.png)
 
 Here you can choose which currency and type your activity has. After you've entered everything, you can confirm
-by clicking the ok button ![picture](resources/accept.png). You can go back to home panel by clicking 
-the back button ![picture](resources/skip-back.png)
+by clicking the ok button ![picture](src/icons/accept.png). You can go back to home panel by clicking 
+the back button ![picture](src/icons/skip-back.png)
 
 ##### Add Currency Panel
 
@@ -130,6 +130,7 @@ Currently available languages:
 Currently available styles:
 * nimbus
 * metal
+* mcwin
 * system default - it will look different on different platforms
 
 

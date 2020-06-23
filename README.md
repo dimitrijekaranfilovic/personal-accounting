@@ -135,6 +135,14 @@ Currently available styles:
 
 Language changes are real time and are saved for the next startup.
 
+### Installers
+
+If you do not wish to download the entire repository, installers are available
+*  <a download="PersonalAccounting.exe" href="/installers/PersonalAccounting.exe" title="Windows 64-bit">
+                     <img alt="Windows 64-bit" src="/installers/PersonalAccounting.exe">
+                 </a>
+
+
 ### Additional information
 
 * App will save data about your last used LookAndFeel, language and last position of the window and 
@@ -152,7 +160,7 @@ executable .jar file.
 
 * Enable printing functionality.
 * When displaying activities, display difference between incomes and expenses for each currency for specified time period.
-* Create standalone installer.
+* Create standalone installer for Debian Linux.
 * Localisation for date display.
 
 

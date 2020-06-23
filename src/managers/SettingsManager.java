@@ -25,7 +25,6 @@ public class SettingsManager implements Publisher {
     private List<Observer> observers;
     private HashMap<String, Locale> localeHashMap;
 
-
     /**
      * Class constructor. Initializes map of locales and active ResourceBundle.
      * */

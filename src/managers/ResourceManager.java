@@ -21,6 +21,7 @@ public class ResourceManager {
     public ImageIcon printIcon;
     public ImageIcon nextIcon;
     public ImageIcon moneyIcon;
+    private String basePath = "./src/icons/";
 
 
     /**
@@ -28,17 +29,17 @@ public class ResourceManager {
      * */
 
     ResourceManager(){
-        this.okIcon = new ImageIcon("resources/accept.png");
-        this.backIcon = new ImageIcon("resources/skip-back.png");
-        this.addIcon = new ImageIcon("resources/plus-2.png");
-        this.activitiesHistoryIcon = new ImageIcon("resources/stock-market-analysis.png");
-        this.balancesHistoryIcon = new ImageIcon("resources/balance-2.png");
-        this.settingsIcon = new ImageIcon("resources/settings.png");
-        this.helpIcon = new ImageIcon("resources/help-2.png");
-        this.addCurrencyIcon = new ImageIcon("resources/currency-1.png");
-        this.printIcon = new ImageIcon("resources/printer-2.png");
-        this.nextIcon = new ImageIcon("resources/play.png");
-        this.moneyIcon = new ImageIcon("resources/wallet-1.png");
+        this.okIcon = new ImageIcon(basePath + "accept.png");
+        this.backIcon = new ImageIcon(basePath  + "skip-back.png");
+        this.addIcon = new ImageIcon(basePath + "plus-2.png");
+        this.activitiesHistoryIcon = new ImageIcon(basePath + "stock-market-analysis.png");
+        this.balancesHistoryIcon = new ImageIcon(basePath + "balance-2.png");
+        this.settingsIcon = new ImageIcon(basePath + "settings.png");
+        this.helpIcon = new ImageIcon(basePath + "help-2.png");
+        this.addCurrencyIcon = new ImageIcon(basePath + "currency-1.png");
+        this.printIcon = new ImageIcon(basePath + "printer-2.png");
+        this.nextIcon = new ImageIcon(basePath + "play.png");
+        this.moneyIcon = new ImageIcon(basePath + "wallet-1.png");
 
 
         /*this.okIcon = new ImageIcon(getClass().getResource("src/icons/accept.png"));

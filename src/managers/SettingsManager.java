@@ -70,7 +70,6 @@ public class SettingsManager implements Publisher {
     public void saveSettings(String lookAndFeel, int x, int y, String language){
         this.databaseManager.saveSettings(lookAndFeel, x, y, language);
     }
-
     /**
      * Function that saves initial settings.
      * @param lookAndFeel String : initial LookAndFeel

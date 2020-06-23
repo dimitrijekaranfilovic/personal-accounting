@@ -45,6 +45,7 @@ public class ResourceManager {
         this.moneyIcon = new ImageIcon(this.classLoader.getResource(basePath + "wallet-1.png"));
 
 
+
         /*this.okIcon = new ImageIcon(getClass().getResource("src/icons/accept.png"));
         this.backIcon = new ImageIcon(getClass().getResource("../resources/skip-back.png"));
         this.addIcon = new ImageIcon(getClass().getResource("../resources/plus-2.png"));

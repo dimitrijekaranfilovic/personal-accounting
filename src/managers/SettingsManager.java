@@ -24,6 +24,7 @@ public class SettingsManager implements Publisher {
     public ResourceBundle bundle;
     private List<Observer> observers;
     private HashMap<String, Locale> localeHashMap;
+    private String basePath = "languages/words";
 
     /**
      * Class constructor. Initializes map of locales and active ResourceBundle.
@@ -34,7 +35,7 @@ public class SettingsManager implements Publisher {
         this.localeHashMap.put("en", new Locale("en", "EN"));
         this.localeHashMap.put("srb", new Locale("srb", "SRB"));
         this.localeHashMap.put("srb_CYR", new Locale("srb_CYR", "SRB_CYR"));
-        this.bundle = ResourceBundle.getBundle("languages/words",this.localeHashMap.get("en"));
+        this.bundle = ResourceBundle.getBundle(basePath,this.localeHashMap.get("en"));
     }
 
 
@@ -50,7 +51,7 @@ public class SettingsManager implements Publisher {
             this.x = rs.getInt("lastX");
             this.y = rs.getInt("lastY");
             this.currentLanguage = rs.getString("language");
-            this.bundle = ResourceBundle.getBundle("languages/words", this.localeHashMap.get(this.currentLanguage));
+            this.bundle = ResourceBundle.getBundle(basePath, this.localeHashMap.get(this.currentLanguage));
             notifyObservers();
             return true;
         } catch (SQLException e) {
@@ -93,7 +94,7 @@ public class SettingsManager implements Publisher {
         else if(language.equalsIgnoreCase(this.getWord("serbian_cyrillic")))
             abbreviation = "srb_CYR";
         this.currentLanguage = abbreviation;
-        this.bundle = ResourceBundle.getBundle("languages/words", this.localeHashMap.get(this.currentLanguage));
+        this.bundle = ResourceBundle.getBundle(basePath, this.localeHashMap.get(this.currentLanguage));
         notifyObservers();
     }
 

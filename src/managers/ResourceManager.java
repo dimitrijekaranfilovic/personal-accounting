@@ -22,6 +22,7 @@ public class ResourceManager {
     public ImageIcon nextIcon;
     public ImageIcon moneyIcon;
     private String basePath = "./src/icons/";
+    //private String basePath = "icons/";
 
 
     /**

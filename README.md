@@ -155,6 +155,10 @@ when run next time it will apply those settings
 * Properties files containing UTF characters cannot be properly loaded when program is executed from a
 executable .jar file.
 
+### Reporting bugs
+
+You are free to open issues and contact me on the e-mail displayed on my profile.
+
 ### Future updates
 
 * Enable printing functionality.

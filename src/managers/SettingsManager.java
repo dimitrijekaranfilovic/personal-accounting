@@ -98,6 +98,7 @@ public class SettingsManager implements Publisher {
         this.bundle = ResourceBundle.getBundle(basePath, this.localeHashMap.get(this.currentLanguage));
         Locale.setDefault(this.localeHashMap.get(this.currentLanguage));
         notifyObservers();
+
     }
 
     /**

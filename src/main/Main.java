@@ -26,11 +26,11 @@ public class Main {
             e.printStackTrace();
         }
 
-       /* try {
+       /*try {
             ManagerFactory mf = new ManagerFactory();
             ResultSet rs = mf.databaseManager.display();
             while(rs.next()){
-                System.out.println(rs.getString("language"));
+                System.out.println(rs.getString("description") + " " + rs.getInt("amount") + " " + rs.getString("currency") + " " + rs.getString("activity") + " " +rs.getTimestamp("time").toLocalDateTime());
             }
         }
         catch (SQLException | ClassNotFoundException se){

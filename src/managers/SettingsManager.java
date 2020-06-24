@@ -33,9 +33,10 @@ public class SettingsManager implements Publisher {
         this.databaseManager = databaseManager;
         this.localeHashMap = new HashMap<>();
         this.localeHashMap.put("en", new Locale("en", "EN"));
-        this.localeHashMap.put("srb", new Locale("srb", "SRB"));
+        this.localeHashMap.put("srb", Locale.forLanguageTag("sr-Latn-RS"));
         this.localeHashMap.put("srb_CYR", new Locale("srb_CYR", "SRB_CYR"));
-        this.bundle = ResourceBundle.getBundle(basePath,this.localeHashMap.get("en"));
+        this.bundle = ResourceBundle.getBundle(basePath,this.localeHashMap.get(this.currentLanguage));
+        Locale.setDefault(this.localeHashMap.get(this.currentLanguage));
     }
 
 
@@ -52,6 +53,7 @@ public class SettingsManager implements Publisher {
             this.y = rs.getInt("lastY");
             this.currentLanguage = rs.getString("language");
             this.bundle = ResourceBundle.getBundle(basePath, this.localeHashMap.get(this.currentLanguage));
+            Locale.setDefault(this.localeHashMap.get(this.currentLanguage));
             notifyObservers();
             return true;
         } catch (SQLException e) {
@@ -94,6 +96,7 @@ public class SettingsManager implements Publisher {
             abbreviation = "srb_CYR";
         this.currentLanguage = abbreviation;
         this.bundle = ResourceBundle.getBundle(basePath, this.localeHashMap.get(this.currentLanguage));
+        Locale.setDefault(this.localeHashMap.get(this.currentLanguage));
         notifyObservers();
     }
 

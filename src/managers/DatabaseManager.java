@@ -33,7 +33,7 @@ public class DatabaseManager {
             getConnection();
         }
         Statement statement = connection.createStatement();
-        return statement.executeQuery("select * from settings;");
+        return statement.executeQuery("select * from activities;");
     }
 
     //creates tables if there are none

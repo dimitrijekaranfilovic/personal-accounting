@@ -137,10 +137,7 @@ Language changes are real time and are saved for the next startup.
 
 ### Installers
 
-If you do not wish to download the entire repository, installers are available
-*  <a id="raw-url" href="https://raw.githubusercontent.com/dimitrijekaranfilovic/downloadable-content/master/personal-accounting-installers/PersonalAccounting.exe">Windows</a>
-
-*  <a id="raw-url" href="https://raw.githubusercontent.com/dimitrijekaranfilovic/downloadable-content/master/personal-accounting-installers/personalaccounting_amd64.deb">Debian Linux</a>
+If you do not wish to download the entire repository, installers are available in downloadable-content repository in the personal-accounting-installers package.
 
 ### Additional information
 

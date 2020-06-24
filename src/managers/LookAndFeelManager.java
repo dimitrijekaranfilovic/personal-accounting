@@ -87,20 +87,31 @@ public class LookAndFeelManager {
                 updateDimension(this.welcomeDimension, 380, 180);
                 updateDimension(this.settingsDimension, 200, 150);
             }
-            else if(name.equalsIgnoreCase("system default")){
+            else if(name.equalsIgnoreCase("system default")) {
                 UIManager.setLookAndFeel(UIManager
                         .getSystemLookAndFeelClassName());
-                updateDimension(this.homeDimension, 180, 150); //width 180
-                updateDimension(this.addActivityDimension, 310, 260);
-                updateDimension(this.activityHistoryDimension, 270, 330);
-                updateDimension(this.balanceHistoryDimension, 270, 250);
-                updateDimension(this.addCurrencyDimension, 300, 150);
-                updateDimension(this.displayBalancesDimension, 400, 300);
-                updateDimension(this.displayActivitiesDimension, 500, 400);
-                updateDimension(this.welcomeDimension, 380, 180);
-                updateDimension(this.settingsDimension, 200, 130);
+                if (System.getProperty("os.name").equalsIgnoreCase("linux")) {
+                    updateDimension(this.homeDimension, 180, 150); //width 180
+                    updateDimension(this.addActivityDimension, 310, 280);
+                    updateDimension(this.activityHistoryDimension, 270, 380);
+                    updateDimension(this.balanceHistoryDimension, 270, 270);
+                    updateDimension(this.addCurrencyDimension, 300, 150);
+                    updateDimension(this.displayBalancesDimension, 400, 300);
+                    updateDimension(this.displayActivitiesDimension, 500, 400);
+                    updateDimension(this.welcomeDimension, 380, 180);
+                    updateDimension(this.settingsDimension, 210, 142);
+                } else {
+                    updateDimension(this.homeDimension, 180, 150); //width 180
+                    updateDimension(this.addActivityDimension, 310, 260);
+                    updateDimension(this.activityHistoryDimension, 270, 330);
+                    updateDimension(this.balanceHistoryDimension, 270, 250);
+                    updateDimension(this.addCurrencyDimension, 300, 150);
+                    updateDimension(this.displayBalancesDimension, 400, 300);
+                    updateDimension(this.displayActivitiesDimension, 500, 400);
+                    updateDimension(this.welcomeDimension, 380, 180);
+                    updateDimension(this.settingsDimension, 200, 130);
+                }
             }
-
             else if(name.equalsIgnoreCase("mcwin")){
                 UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
                 updateDimension(this.homeDimension, 180, 130); //width 180

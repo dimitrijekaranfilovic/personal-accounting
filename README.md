@@ -158,8 +158,6 @@ executable .jar file.
 
 * Enable printing functionality.
 * When displaying activities, display difference between incomes and expenses for each currency for specified time period.
-* Localisation for date display.
-
 
 ### Credits
 * https://iconscout.com/icon/accept-149

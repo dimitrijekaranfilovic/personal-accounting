@@ -150,7 +150,6 @@ when run next time it will apply those settings
 
 ### Known bugs and issues
 
-* When loading previously saved LookAndFeel, NullException is thrown, so that feature is suspended for now.
 * Properties files containing UTF characters cannot be properly loaded when program is executed from a
 executable .jar file.
 

@@ -61,6 +61,7 @@ public class MainFrame extends JFrame{
         //if at least one currency is found, previous settings are loaded
         if(this.managerFactory.currencyManager.countCurrencies() > 0){
             this.managerFactory.settingsManager.loadSettings();
+            this.managerFactory.lookAndFeelManager.changeLookAndFeel(this, this.managerFactory.settingsManager.style);
             this.setLocation(this.managerFactory.settingsManager.x, this.managerFactory.settingsManager.y);
             this.setVisible(true);
             showCard("home");

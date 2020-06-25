@@ -78,7 +78,7 @@ public class HomePanel extends JPanel implements Observer {
             this.balanceField.setText(Display.amountDisplay(this.currencyValueMap.get(currency)));
 
         });
-        helpBtn.addActionListener(ae-> JOptionPane.showMessageDialog(null, editorPane, "Help", JOptionPane.INFORMATION_MESSAGE));
+        helpBtn.addActionListener(ae-> JOptionPane.showMessageDialog(null, editorPane, this.managerFactory.settingsManager.getWord("help"), JOptionPane.INFORMATION_MESSAGE));
 
         this.setLayout(new MigLayout());
 

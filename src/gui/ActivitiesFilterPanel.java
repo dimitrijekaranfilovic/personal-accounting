@@ -175,10 +175,10 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
      * Function that filters activities based on content in text fields, combo boxes and date pickers.
      * */
     public void search() {
-        String sign;
+        String sign = "";
         if(activitiesBox.getSelectedItem().toString().equalsIgnoreCase(this.managerFactory.settingsManager.getWord("income")))
             sign = "+";
-        else
+        else if(activitiesBox.getSelectedItem().toString().equalsIgnoreCase(this.managerFactory.settingsManager.getWord("expense")))
             sign = "-";
         this.activities = this.managerFactory.activityManager.getActivities(sign, this.datePicker.getJFormattedTextField().getText(), this.datePicker1.getJFormattedTextField().getText(), (String) currenciesBox.getSelectedItem(), this.searchField.getText());
     }

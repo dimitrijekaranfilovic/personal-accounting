@@ -158,6 +158,11 @@ executable .jar file.
 * Enable printing functionality.
 * When displaying activities, display difference between incomes and expenses for each currency for specified time period.
 
+### Documentation 
+
+Documentation is available at:
+https://dimitrijekaranfilovic.github.io/personal-accounting/
+
 ### Credits
 * https://iconscout.com/icon/accept-149
 

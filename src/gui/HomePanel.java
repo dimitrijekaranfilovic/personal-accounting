@@ -27,6 +27,9 @@ import java.util.HashMap;
 
 public class HomePanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
+    /**
+     * available currencies
+     * */
     private ArrayList<String> currencies;
     public JButton addActivityBtn, balancesHistoryBtn, activitiesHistoryBtn, addCurrencyButton, settingsButton, helpBtn;
     public JComboBox<String> currenciesBox;

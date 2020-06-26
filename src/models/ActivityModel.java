@@ -7,6 +7,13 @@ import managers.ManagerFactory;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
+/**
+ * Class that creates a model to be used when displaying activities.
+ * @author Dimitrije Karanfilovic
+ * @since 26.06.2020.
+ * */
+
+
 public class ActivityModel extends AbstractTableModel {
     private static final int DESCRIPTION_COLUMN = 0;
     private static final int AMOUNT_COLUMN = 1;

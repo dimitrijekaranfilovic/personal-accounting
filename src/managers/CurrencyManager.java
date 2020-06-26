@@ -18,15 +18,40 @@ import java.util.List;
 
 
 public class CurrencyManager implements Publisher {
-    public static final int NUM_CHARACTERS = 0; //currency abbreviation must be exactly 3 characters
+    /**
+     * indicates that currency abbreviation to be added doesn't consist of 3 characters
+     * */
+    public static final int NUM_CHARACTERS = 0;
+    /**
+     * indicates that balance amount is not a number
+     * */
     public static final int NOT_NUMBER = 1;
+    /**
+     * indicates that currency abbreviation contains numbers
+     * */
     public static final int NOT_CHARACTER = 2;
+    /**
+     * indicates that adding the currency was successful
+     * */
     public static final int OK = 3;
+    /**
+     * indicates that adding the currency failed
+     * */
     public static final int WRONG = 4;
 
+    /**
+     * list of observers
+     * */
     private List<Observer> observers;
+    /**
+     * enables indirect communication with the database
+     * */
     private DatabaseManager databaseManager;
 
+    /**
+     * Class constructor.
+     * @param databaseManager : parameter for databaseManager field.
+     * */
     public CurrencyManager(DatabaseManager databaseManager){
         this.databaseManager = databaseManager;
     }
@@ -36,7 +61,7 @@ public class CurrencyManager implements Publisher {
      * after currency is successfully added.
      * @param currency String : currency abbreviation
      * @param balance String : string representation of the currency's balance
-     * @return indicator whether the currency was successfully added
+     * @return number which indicates which message will be displayed.
      * */
     public int addCurrency(String currency, String balance){
         //boolean res = true;

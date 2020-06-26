@@ -11,14 +11,41 @@ import java.awt.*;
 
 
 public class LookAndFeelManager {
+    /**
+     * home panel dimension
+     * */
     public Dimension homeDimension;
+    /**
+     * add activity panel dimension
+     * */
     public Dimension addActivityDimension;
+    /**
+     * activity history panel dimension
+     * */
     public Dimension activityHistoryDimension;
+    /**
+     * balance panel dimension
+     * */
     public Dimension balanceHistoryDimension;
+    /**
+     * add currency panel dimension
+     * */
     public Dimension addCurrencyDimension;
+    /**
+     * display balances panel dimension
+     * */
     public Dimension displayBalancesDimension;
+    /**
+     * display activities dimension
+     * */
     public Dimension displayActivitiesDimension;
+    /**
+     * welcome panel dimension
+     * */
     public Dimension welcomeDimension;
+    /**
+     * settings panel dimension
+     * */
     public Dimension settingsDimension;
 
     /**

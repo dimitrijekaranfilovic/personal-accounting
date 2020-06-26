@@ -10,7 +10,14 @@ import java.util.Calendar;
  * @since 22.06.2020.
  * */
 public class DateLabelFormatter extends JFormattedTextField.AbstractFormatter {
+    /**
+     * pattern to be used when formatting and parsing
+     * */
     private String datePattern = "dd.MM.yyyy.";
+
+    /**
+     * formatter
+     * */
     private SimpleDateFormat dateFormatter = new SimpleDateFormat(datePattern);
 
     /**

@@ -18,6 +18,9 @@ import java.util.ArrayList;
 
 
 public class DisplayBalancesPanel extends JPanel{
+    /**
+     * list of balances to be displayed
+     * */
     private ArrayList<Balance> balances;
     private JTable table;
     private ManagerFactory managerFactory;
@@ -51,7 +54,7 @@ public class DisplayBalancesPanel extends JPanel{
     /**
      * Function called after {@link BalancesFilterPanel#search()} function finishes and
      * if the {@link BalancesFilterPanel#balances} size is larger than zero.
-     * @param balances ArrayList<Balance> : activities to be displayed
+     * @param balances ArrayList : activities to be displayed
      * */
     public void setBalances(ArrayList<Balance> balances){
         this.balances = balances;

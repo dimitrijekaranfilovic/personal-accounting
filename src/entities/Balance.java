@@ -16,6 +16,9 @@ public class Balance implements Comparable<Balance>{
 
     /**
      * Class constructor.
+     * @param dateTime LocalDateTime : time when balance was saved
+     * @param currency String : balance currency
+     * @param amount int : balance amount
      * */
     public Balance(LocalDateTime dateTime, String currency, int amount) {
         this.dateTime = dateTime;

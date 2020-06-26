@@ -16,18 +16,46 @@ import java.util.*;
 
 
 public class SettingsManager implements Publisher {
+    /**
+     * enables indirect communication with the database
+     * */
     private DatabaseManager databaseManager;
+    /**
+     * frame's x coordinate
+     * */
     public int x;
+    /**
+     * frame's y coordinate
+     * */
     public int y;
+    /**
+     * frame's current lookAndFeel
+     * */
     public String style = "nimbus";
+    /**
+     * current language
+     * */
     public String currentLanguage = "en";
+    /**
+     * bundle to be used to fetch words
+     * */
     public ResourceBundle bundle;
+    /**
+     * list of observers
+     * */
     private List<Observer> observers;
+    /**
+     * map of locales(key: locale abbreviation, value: locale)
+     * */
     private HashMap<String, Locale> localeHashMap;
+    /**
+     * relative path to properties files
+     * */
     private String basePath = "languages/words";
 
     /**
      * Class constructor. Initializes map of locales and active ResourceBundle.
+     * @param databaseManager DatabaseManager : database manager
      * */
     public SettingsManager(DatabaseManager databaseManager){
         this.databaseManager = databaseManager;
@@ -77,6 +105,7 @@ public class SettingsManager implements Publisher {
      * @param lookAndFeel String : initial LookAndFeel
      * @param x int : frame's initial x coordinate
      * @param y int : frame's initial y coordinate
+     * @param language String : initial language
      * */
     public void addInitialSettings(String lookAndFeel, int x, int y, String language){
         this.databaseManager.addInitialSettings(lookAndFeel, x, y, language);
@@ -103,7 +132,7 @@ public class SettingsManager implements Publisher {
 
     /**
      * Function that fetches word from the current language's resource file.
-     * @param key String : word's key in the resource file from {@link languages}.
+     * @param key String : word's key in the resource file from languages package.
      * @return desired word
      * */
     public String getWord(String key){

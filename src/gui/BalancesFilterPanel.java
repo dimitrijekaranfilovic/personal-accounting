@@ -28,6 +28,9 @@ import java.util.Properties;
 public class BalancesFilterPanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
     private JComboBox<String> currenciesBox;
+    /**
+     * available currencies
+     * */
     private ArrayList<String> currencies;
     public JButton okBtn, cancelBtn;
     public ArrayList<Balance> balances;

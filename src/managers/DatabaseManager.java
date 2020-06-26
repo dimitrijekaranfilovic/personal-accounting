@@ -11,7 +11,13 @@ import java.time.LocalDateTime;
 
 
 public class DatabaseManager {
+    /**
+     * currently established connection
+     * */
     private Connection connection;
+    /**
+     * flag that indicates whether tables have been created
+     * */
     public boolean hasData = false;
 
     /**
@@ -264,6 +270,7 @@ public class DatabaseManager {
 
     /**
      * Function that adds new currency in the currencies table.
+     * @param abbreviation String : currency abbreviation
      * @return indicator whether the currency was successfully added/
      * */
     boolean addCurrency(String abbreviation){
@@ -437,6 +444,7 @@ public class DatabaseManager {
      * @param lookAndFeel String : initial LookAndFeel
      * @param x int : frame's initial x coordinate
      * @param y int : frame's initial y coordinate
+     * @param language String : initial language
      * @return indicator whether the adding was successful
      * */
     boolean addInitialSettings(String lookAndFeel, int x, int y, String language){

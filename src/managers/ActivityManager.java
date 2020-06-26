@@ -22,8 +22,17 @@ import java.util.List;
 
 
 public class ActivityManager implements Publisher {
+    /**
+     * enables indirect communication with the database
+     * */
     private DatabaseManager databaseManager;
+    /**
+     * List of observers
+     * */
     private List<Observer> observers;
+    /**
+     * Last added activity(used by this class' observers)
+     * */
     public Activity activity;
 
     public ActivityManager(DatabaseManager databaseManager) {

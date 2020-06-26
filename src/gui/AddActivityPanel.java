@@ -27,6 +27,9 @@ import java.util.Properties;
 
 public class AddActivityPanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
+    /**
+     * available currencies
+     * */
     private ArrayList<String> currencies;
     private JComboBox<String> currenciesBox;
     private JTextField descriptionField, amountField;

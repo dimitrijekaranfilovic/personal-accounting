@@ -18,6 +18,9 @@ import java.util.ArrayList;
 
 
 public class DisplayActivitiesPanel extends JPanel {
+    /**
+     * list of activities to be displayed
+     * */
     private ArrayList<Activity> activities;
     private JTable table;
     public JButton backBtn, printBtn;
@@ -56,7 +59,7 @@ public class DisplayActivitiesPanel extends JPanel {
     /**
      * Function called after {@link ActivitiesFilterPanel#search()} function finishes and
      * if the {@link ActivitiesFilterPanel#activities} size is larger than zero.
-     * @param activities ArrayList<Activity> : activities to be displayed
+     * @param activities ArrayList : activities to be displayed
      * */
     public void setActivities(ArrayList<Activity> activities){
         this.activities = activities;

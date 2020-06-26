@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 /**
  * Wrapper class for managers. Managers aren't created one by one separately,
+ * All existing managers all this class' fields.
  * they are created together.
  * @author Dimitrije Kaanfilovic
  * @since 22.06.2020.
@@ -11,6 +12,9 @@ import java.sql.SQLException;
 
 
 public class ManagerFactory {
+    /**
+     * parameter for all other managers
+     * */
     public DatabaseManager databaseManager;
     public CurrencyManager currencyManager;
     public BalanceManager balanceManager;
@@ -22,6 +26,8 @@ public class ManagerFactory {
 
     /**
      * Class constructor which initializes all managers.
+     * @throws SQLException : when establishing connection fails
+     * @throws ClassNotFoundException : when specified drivers cannot be found
      * */
     public ManagerFactory() throws SQLException, ClassNotFoundException {
         this.databaseManager = new DatabaseManager();

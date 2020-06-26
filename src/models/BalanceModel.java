@@ -7,6 +7,12 @@ import managers.ManagerFactory;
 import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
+/**
+ * Class that creates a model to be used when displaying balances.
+ * @author Dimitrije Karanfilovic
+ * @since 26.06.2020.
+ * */
+
 public class BalanceModel extends AbstractTableModel{
     public static final int AMOUNT_COLUMN = 0;
     public static final int CURRENCY_COLUMN = 1;

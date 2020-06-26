@@ -1,6 +1,14 @@
 package event;
 
+import entities.Publisher;
+
 import java.util.EventObject;
+
+/**
+ * Class that represents an event which {@link entities.Publisher} sends
+ * its {@link event.Observer} when {@link Publisher#notifyObservers()} is
+ * called.
+ * */
 
 public class UpdateEvent extends EventObject {
     /**

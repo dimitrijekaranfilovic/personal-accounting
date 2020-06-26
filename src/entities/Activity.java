@@ -10,15 +10,35 @@ import java.time.LocalDateTime;
 
 
 public class Activity implements Comparable<Activity>{
+    /**
+     * activity description
+     */
     private String description;
+    /**
+     * time when activity was made
+     */
     private LocalDateTime time;
+    /**
+     * activity amount
+     */
     private int amount;
+    /**
+     * activity currency
+     */
     private String currency;
+    /**
+     * version(income or expense)
+     */
     private String activityVersion;
 
 
     /**
      * Class constructor.
+     * @param description String : activity description
+     * @param time LocalDateTime : time when activity was made
+     * @param amount int : activity amount
+     * @param currency String : activity currency
+     * @param activityVersion String : version(income or expense)
      * */
     public Activity(String description, LocalDateTime time, int amount, String currency, String activityVersion) {
         this.description = description;
@@ -30,6 +50,9 @@ public class Activity implements Comparable<Activity>{
 
     /**
      * Class constructor.
+     * @param currency String : activity currency
+     * @param amount int : activity amount
+     * @param activity String : version(income or expense)
      * */
     public Activity(String currency, int amount, String activity){
         this.currency = currency;

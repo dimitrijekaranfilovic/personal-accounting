@@ -102,7 +102,7 @@ public class HomePanel extends JPanel implements Observer {
 
     /**
      * Function that needs to be defined after implementing the {@link event.Observer} interface.
-     * @param e UpdateEvent : if the event's source is {@link managers.CurrencyManager},
+     * @param e if the event's source is {@link managers.CurrencyManager},
      * currency box's content is updated. If the source is {@link managers.ActivityManager},
      *  current balance display is updated. If the source is {@link managers.SettingsManager},
      *  buttons' tooltips are updated according to the specified language.
@@ -145,7 +145,7 @@ public class HomePanel extends JPanel implements Observer {
 
     /**
      * Function that sets up editorPane used in help button's JOptionPane.
-     * @return JEditorPane : editorPane with HyperLinkListener.
+     * @return editorPane with HyperLinkListener.
      * */
     //TODO: stavi u properties ovaj tekst koji ide uz link
     private JEditorPane setUpEditorPane(){
@@ -186,7 +186,7 @@ public class HomePanel extends JPanel implements Observer {
 
     /**
      * Function that tries to open url.
-     * @param url URL : url passed from JEditorPane's HyperLinkListener
+     * @param url url passed from JEditorPane's HyperLinkListener
      * @return indicator whether the url was opened successfully.
      * */
     private boolean openWebpage(URL url){

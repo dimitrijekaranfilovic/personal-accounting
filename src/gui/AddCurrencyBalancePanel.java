@@ -78,7 +78,7 @@ public class AddCurrencyBalancePanel extends JPanel implements Observer {
 
     /**
      * Updates the finishBtn icon.
-     * @param firstTimeSetup boolean : if firstTimeSetup is true, the button and its icon represent activity 'next'.
+     * @param firstTimeSetup if firstTimeSetup is true, the button and its icon represent activity 'next'.
      * Otherwise, button and its icon represent activity 'back'
      *
      * */
@@ -91,7 +91,7 @@ public class AddCurrencyBalancePanel extends JPanel implements Observer {
 
     /**
      * Function that needs to be defined after implementing {@link event.Observer} interface.
-     * @param e UpdateEvent : source is {@link managers.SettingsManager} and labels' texts are
+     * @param e source is {@link managers.SettingsManager} and labels' texts are
      * changed according to specified language.
      * */
     @Override

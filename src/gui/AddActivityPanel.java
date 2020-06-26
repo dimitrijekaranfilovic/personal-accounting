@@ -174,7 +174,7 @@ public class AddActivityPanel extends JPanel implements Observer {
 
     /**
      * Function that needs to be defined after implementing {@link event.Observer} interface.
-     * @param e  UpdateEvent : if the event's source is {@link managers.CurrencyManager}
+     * @param e  if the event's source is {@link managers.CurrencyManager}
      *  it updates currencies combo box. If the event's source id {@link managers.SettingsManager}
      *  it updates the text inside combo boxes and labels accoring to specified language
      * */

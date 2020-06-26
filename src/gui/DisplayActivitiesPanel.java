@@ -59,7 +59,7 @@ public class DisplayActivitiesPanel extends JPanel {
     /**
      * Function called after {@link ActivitiesFilterPanel#search()} function finishes and
      * if the {@link ActivitiesFilterPanel#activities} size is larger than zero.
-     * @param activities ArrayList : activities to be displayed
+     * @param activities activities to be displayed
      * */
     public void setActivities(ArrayList<Activity> activities){
         this.activities = activities;

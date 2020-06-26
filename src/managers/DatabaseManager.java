@@ -116,7 +116,7 @@ public class DatabaseManager {
 
     /**
      * Function that returns the latest balance of the desired currency from the currentBalances table
-     * @param currency String : desired currency
+     * @param currency desired currency
      * @return ResultSet of the prepared statement
      * */
     ResultSet getLatestBalance(String currency){
@@ -136,8 +136,8 @@ public class DatabaseManager {
 
     /**
      * Function that adds balance in the balances table.
-     * @param currency String : currency whose balance it is
-     * @param amount int : balance amount
+     * @param currency  currency whose balance it is
+     * @param amount  balance amount
      * @return indicator whether adding was successful
      * */
     boolean addBalance(String currency, int amount){
@@ -160,8 +160,8 @@ public class DatabaseManager {
 
     /**
      * Function that adds current balance in the currentBalances table.
-     * @param currency String : currency whose balance it is
-     * @param amount int : balance amount
+     * @param currency currency whose balance it is
+     * @param amount balance amount
      * @return indicator whether adding was successful
      * */
     boolean addCurrentBalance(String currency, int amount){
@@ -184,8 +184,8 @@ public class DatabaseManager {
     }
     /**
      * Function that updates current balance.
-     * @param currency String : currency which is to be updated
-     * @param amount int : balance amount
+     * @param currency  currency which is to be updated
+     * @param amount  balance amount
      * @return indicator whether adding was successful
      * */
     boolean updateCurrentBalance(String currency, int amount){
@@ -207,9 +207,9 @@ public class DatabaseManager {
 
     /**
      * Functions that fetches balances that fulfill the conditions.
-     * @param currency String : currency whose balances are to be fetched
-     * @param from LocalDateTime: starting date
-     * @param to LocalDateTime : ending date
+     * @param currency  currency whose balances are to be fetched
+     * @param from  starting date
+     * @param to  ending date
      * @return ResultSet of the prepared statement
      * */
     ResultSet getBalances(String currency, LocalDateTime from, LocalDateTime to){
@@ -270,7 +270,7 @@ public class DatabaseManager {
 
     /**
      * Function that adds new currency in the currencies table.
-     * @param abbreviation String : currency abbreviation
+     * @param abbreviation currency abbreviation
      * @return indicator whether the currency was successfully added/
      * */
     boolean addCurrency(String abbreviation){
@@ -309,11 +309,11 @@ public class DatabaseManager {
 
     /**
      * Function that adds a new activity in the activities table.
-     * @param description String : activity description
-     * @param amount int : activity amount
-     * @param currency String : activity currency
-     * @param activity String : activity version
-     * @param date LocalDateTime : date and time of the activity
+     * @param description  activity description
+     * @param amount activity amount
+     * @param currency  activity currency
+     * @param activity  activity version
+     * @param date  date and time of the activity
      * @return indicator whether the adding was successful
      * */
     boolean addActivity(String description, int amount, String currency, String activity, LocalDateTime date){
@@ -376,11 +376,11 @@ public class DatabaseManager {
 
     /**
      * Function that fetches activities that meet the conditions.
-     * @param activity String : activity version
-     * @param from LocalDateTime : starting date and time
-     * @param to LocalDateTime :  ending date and time
-     * @param currency String : currency
-     * @param description String : activity description
+     * @param activity  activity version
+     * @param from  starting date and time
+     * @param to   ending date and time
+     * @param currency  currency
+     * @param description  activity description
      * @return ResultSet of the prepared statement
      * */
     ResultSet getActivities(String activity, LocalDateTime from, LocalDateTime to, String currency, String description){
@@ -441,10 +441,10 @@ public class DatabaseManager {
 
     /**
      * Function that adds initial settings.
-     * @param lookAndFeel String : initial LookAndFeel
-     * @param x int : frame's initial x coordinate
-     * @param y int : frame's initial y coordinate
-     * @param language String : initial language
+     * @param lookAndFeel initial LookAndFeel
+     * @param x  frame's initial x coordinate
+     * @param y  frame's initial y coordinate
+     * @param language initial language
      * @return indicator whether the adding was successful
      * */
     boolean addInitialSettings(String lookAndFeel, int x, int y, String language){
@@ -468,10 +468,10 @@ public class DatabaseManager {
 
     /**
      * Function that saves current settings.
-     * @param lookAndFeel String : initial LookAndFeel
-     * @param x int : frame's last x coordinate
-     * @param y int : frame's last y coordinate
-     * @param language : last used language
+     * @param lookAndFeel  initial LookAndFeel
+     * @param x  frame's last x coordinate
+     * @param y  frame's last y coordinate
+     * @param language  last used language
      * @return indicator whether the saving was successful
      * */
     boolean saveSettings(String lookAndFeel, int x, int y, String language){

@@ -141,7 +141,7 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
 
     /**
      * Function that needs to be defined after implementing {@link event.Observer} interface.
-     * @param e UpdateEvent: if the event comes from {@link managers.CurrencyManager} it
+     * @param e  if the event comes from {@link managers.CurrencyManager} it
      * updates combo box containing all currencies. If the event comes from {@link managers.SettingsManager},
      * it changes the text inside combo boxes and labels according to the specified language using.
      *

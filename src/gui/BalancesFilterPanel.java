@@ -116,7 +116,7 @@ public class BalancesFilterPanel extends JPanel implements Observer {
 
     /**
      * Function that needs to be defined after implementing the {@link event.Observer} interface.
-     * @param e UpdateEvent : if the event's source is {@link managers.CurrencyManager} the
+     * @param e  if the event's source is {@link managers.CurrencyManager} the
      * content of combo boxes is updated. If the source is {@link managers.SettingsManager},
      * the text inside labels is updated according to the specified language.
      * */

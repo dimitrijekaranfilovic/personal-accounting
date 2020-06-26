@@ -66,9 +66,9 @@ public class LookAndFeelManager {
 
     /**
      * Function that updates a dimension.
-     * @param d Dimension : dimension to be updated
-     * @param width int : new dimension width
-     * @param height int : new dimension height
+     * @param d  dimension to be updated
+     * @param width  new dimension width
+     * @param height  new dimension height
      * */
 
     private void updateDimension(Dimension d, int width, int height){
@@ -79,8 +79,8 @@ public class LookAndFeelManager {
 
     /**
      * Function that changes LookAndFeel and updates dimensions.
-     * @param frame JFrame :  frame to be updated
-     * @param name String : LookAndFeel name
+     * @param frame   frame to be updated
+     * @param name  LookAndFeel name
      * @return indicator whether the change was successful
      * */
     public boolean changeLookAndFeel(JFrame frame, String name){

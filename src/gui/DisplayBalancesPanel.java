@@ -54,7 +54,7 @@ public class DisplayBalancesPanel extends JPanel{
     /**
      * Function called after {@link BalancesFilterPanel#search()} function finishes and
      * if the {@link BalancesFilterPanel#balances} size is larger than zero.
-     * @param balances ArrayList : activities to be displayed
+     * @param balances activities to be displayed
      * */
     public void setBalances(ArrayList<Balance> balances){
         this.balances = balances;

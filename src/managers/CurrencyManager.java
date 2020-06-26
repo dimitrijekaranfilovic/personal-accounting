@@ -50,7 +50,7 @@ public class CurrencyManager implements Publisher {
 
     /**
      * Class constructor.
-     * @param databaseManager : parameter for databaseManager field.
+     * @param databaseManager  parameter for databaseManager field.
      * */
     public CurrencyManager(DatabaseManager databaseManager){
         this.databaseManager = databaseManager;
@@ -59,8 +59,8 @@ public class CurrencyManager implements Publisher {
     /**
      * Function that adds new currency. {@link CurrencyManager#notifyObservers()} is called
      * after currency is successfully added.
-     * @param currency String : currency abbreviation
-     * @param balance String : string representation of the currency's balance
+     * @param currency  currency abbreviation
+     * @param balance string representation of the currency's balance
      * @return number which indicates which message will be displayed.
      * */
     public int addCurrency(String currency, String balance){

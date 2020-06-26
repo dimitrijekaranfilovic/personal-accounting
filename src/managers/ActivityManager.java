@@ -43,13 +43,13 @@ public class ActivityManager implements Publisher {
      * Function that takes all parameters needed to add an activity, checks them, parses if needed and
      * calls {@link managers.DatabaseManager#addActivity(String, int, String, String, LocalDateTime)} method.
      * {@link ActivityManager#notifyObservers()} is called after successfully adding the activity.
-     * @param description String : activity's description
-     * @param amount String : string representation of the activity's amount
-     * @param currency String : activity's currency
-     * @param activity String : activity's version(income or expense)
-     * @param  date String : string representation of activity's date
-     * @param hours int : activity's hour
-     * @param minutes int : activity's minutes
+     * @param description activity's description
+     * @param amount string representation of the activity's amount
+     * @param currency  activity's currency
+     * @param activity  activity's version(income or expense)
+     * @param  date  string representation of activity's date
+     * @param hours  activity's hour
+     * @param minutes  activity's minutes
      * @return indicator whether the activity was successfully added
      * */
 
@@ -100,11 +100,11 @@ public class ActivityManager implements Publisher {
 
     /**
      * Function that returns activities that fulfill the specified parameters.
-     * @param activity String : activity's version
-     * @param fromDate String : activities after this date
-     * @param toDate String : activities before this date
-     * @param currency String : activity's currency
-     * @param description String : activity's description
+     * @param activity  activity's version
+     * @param fromDate  activities after this date
+     * @param toDate  activities before this date
+     * @param currency  activity's currency
+     * @param description  activity's description
      * @return list of activities
      * */
 

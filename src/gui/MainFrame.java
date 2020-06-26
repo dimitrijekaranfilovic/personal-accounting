@@ -157,7 +157,7 @@ public class MainFrame extends JFrame{
 
     /**
      * Function that shows desired panel from frame's CardLayout and sets frame's size and title accordingly.
-     * @param name String : card's name within the Cardlayout
+     * @param name card's name within the Cardlayout
      * */
     private void showCard(String name){
         CardLayout cl = (CardLayout)(mainPanel.getLayout());

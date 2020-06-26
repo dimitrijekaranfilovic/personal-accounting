@@ -63,7 +63,7 @@ public class SettingsPanel extends JPanel implements Observer {
 
     /**
      * Function that need to be defined after implementing {@link event.Observer} interface.
-     * @param e UpdateEvent : event's source is {@link managers.SettingsManager}. Text inside labels
+     * @param e event's source is {@link managers.SettingsManager}. Text inside labels
      * is changed according to specified language.
      * */
     @Override

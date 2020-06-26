@@ -92,20 +92,20 @@ public class SettingsManager implements Publisher {
 
     /**
      * Function that saves settings.
-     * @param lookAndFeel String : current LookAndFeel
-     * @param  x int : frame's x coordinate
-     * @param y int : frame's y coordinate
-     * @param  language String : current language
+     * @param lookAndFeel  current LookAndFeel
+     * @param  x  frame's x coordinate
+     * @param y  frame's y coordinate
+     * @param  language  current language
      * */
     public void saveSettings(String lookAndFeel, int x, int y, String language){
         this.databaseManager.saveSettings(lookAndFeel, x, y, language);
     }
     /**
      * Function that saves initial settings.
-     * @param lookAndFeel String : initial LookAndFeel
-     * @param x int : frame's initial x coordinate
-     * @param y int : frame's initial y coordinate
-     * @param language String : initial language
+     * @param lookAndFeel  initial LookAndFeel
+     * @param x  frame's initial x coordinate
+     * @param y  frame's initial y coordinate
+     * @param language  initial language
      * */
     public void addInitialSettings(String lookAndFeel, int x, int y, String language){
         this.databaseManager.addInitialSettings(lookAndFeel, x, y, language);
@@ -113,7 +113,7 @@ public class SettingsManager implements Publisher {
 
     /**
      * Function that updates app's language. {@link SettingsManager#notifyObservers()} is called.
-     * @param language String : languages code
+     * @param language  language's code
      * */
     public void updateLocale(String language){
         String abbreviation = null;
@@ -132,7 +132,7 @@ public class SettingsManager implements Publisher {
 
     /**
      * Function that fetches word from the current language's resource file.
-     * @param key String : word's key in the resource file from languages package.
+     * @param key  word's key in the resource file from languages package.
      * @return desired word
      * */
     public String getWord(String key){

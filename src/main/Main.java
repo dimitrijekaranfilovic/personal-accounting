@@ -27,6 +27,10 @@ public class Main {
         }
 
     }
+    /**
+     * checks whether the given string is a number
+     * @param str string to be checked
+     * */
     public static boolean isNumeric(String str) {
         try {
             Double.parseDouble(str);

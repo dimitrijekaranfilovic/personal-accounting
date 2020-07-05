@@ -140,7 +140,7 @@ public class LookAndFeelManager {
                     updateDimension(this.displayActivitiesDimension, 500, 400);
                     updateDimension(this.welcomeDimension, 380, 180);
                     updateDimension(this.settingsDimension, 210, 142);
-                    updateDimension(this.pieChartDimension, 820, 500);
+                    updateDimension(this.pieChartDimension, 820, 505);
                     updateDimension(this.balancesGraphDimenion, 840, 510);
 
 

@@ -1,6 +1,11 @@
 package managers;
 
+import org.jfree.chart.JFreeChart;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 
 /**
@@ -22,6 +27,7 @@ public class ResourceManager {
     public ImageIcon nextIcon;
     public ImageIcon moneyIcon;
     public ImageIcon pieChartIcon;
+    public ImageIcon saveIcon;
     //private String basePath = "./src/icons/";
     private String basePath = "icons/";
     private ClassLoader classLoader;
@@ -45,5 +51,27 @@ public class ResourceManager {
         this.nextIcon = new ImageIcon(this.classLoader.getResource(basePath + "play.png"));
         this.moneyIcon = new ImageIcon(this.classLoader.getResource(basePath + "wallet-1.png"));
         this.pieChartIcon = new ImageIcon(this.classLoader.getResource(basePath + "piechart.png"));
+        this.saveIcon = new ImageIcon(this.classLoader.getResource(basePath  + "save.png"));
+    }
+
+    public void saveChart(JFreeChart chart, String path, String filename){
+        BufferedImage objBufferedImage=chart.createBufferedImage(600,800);
+        ByteArrayOutputStream bas = new ByteArrayOutputStream();
+        try {
+            ImageIO.write(objBufferedImage, "png", bas);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        byte[] byteArray=bas.toByteArray();
+        InputStream in = new ByteArrayInputStream(byteArray);
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(in);
+            File outputFile = new File(path + System.getProperty("file.separator") + filename + ".png");
+            ImageIO.write(image, "png", outputFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -96,6 +96,11 @@ public class MainFrame extends JFrame{
             showCard("group_activities");
         });
         groupActivitiesPanel.backButton.addActionListener(ae->showCard("display_activities"));
+        groupActivitiesPanel.saveImageBtn.addActionListener(ае->{
+            String pictureName = JOptionPane.showInputDialog(null, this.managerFactory.settingsManager.getWord("file_name"));
+            ChooseFolderPanel panel = new ChooseFolderPanel(this, this.managerFactory, this.managerFactory.settingsManager.getWord("choose_folder"), pictureName, groupActivitiesPanel.chart);
+
+        });
 
 
         //checks whether at least one currency was added in the initial setup

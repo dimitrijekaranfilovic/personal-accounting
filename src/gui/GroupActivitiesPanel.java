@@ -1,5 +1,7 @@
 package gui;
 
+import event.Observer;
+import event.UpdateEvent;
 import managers.ManagerFactory;
 import net.miginfocom.swing.MigLayout;
 import org.jfree.chart.ChartFactory;
@@ -18,17 +20,28 @@ import java.util.HashMap;
  * @since 05.07.2020.
  * */
 
-public class GroupActivitiesPanel extends JPanel {
+public class GroupActivitiesPanel extends JPanel implements Observer {
     private ManagerFactory managerFactory;
     private JScrollPane pane;
-    public JButton backButton;
+    public JButton backButton, saveImageBtn;
+    public JFreeChart chart;
+    public JTextField totalField;
+    private JLabel totalLabel;
 
     GroupActivitiesPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
+        this.managerFactory.settingsManager.addObserver(this);
         this.pane = new JScrollPane();
         this.backButton = new JButton(this.managerFactory.resourceManager.backIcon);
+        this.saveImageBtn = new JButton(this.managerFactory.resourceManager.saveIcon);
+        this.totalLabel = new JLabel(this.managerFactory.settingsManager.getWord("total"));
+        this.totalField = new JTextField(30);
+        this.totalField.setEditable(false);
         JPanel panel = new JPanel(new MigLayout());
-        panel.add(this.backButton, "wrap");
+        panel.add(this.backButton, "split 4");
+        panel.add(this.saveImageBtn);
+        panel.add(this.totalLabel);
+        panel.add(this.totalField);
         this.add(this.pane, BorderLayout.CENTER);
         this.add(panel, BorderLayout.SOUTH);
     }
@@ -38,11 +51,14 @@ public class GroupActivitiesPanel extends JPanel {
      * @param groupedActivities map whose key is activity description and value is the sum of amounts of activities with that description
      * */
     public void setUpChart(HashMap<String, Double> groupedActivities){
+        double sum = 0.0;
         DefaultPieDataset dataSet = new DefaultPieDataset();
         for(String key : groupedActivities.keySet()){
             dataSet.setValue(key, groupedActivities.get(key));
+            sum += groupedActivities.get(key);
         }
-        JFreeChart chart = ChartFactory.createPieChart(
+        this.totalField.setText(sum + "");
+        this.chart = ChartFactory.createPieChart(
           this.managerFactory.settingsManager.getWord("group_activities"),
           dataSet,
           true,
@@ -53,10 +69,13 @@ public class GroupActivitiesPanel extends JPanel {
         PiePlot plot = (PiePlot)chart.getPlot();
         plot.setSectionOutlinesVisible(false);
         plot.setNoDataMessage("No data available");
-        JPanel panel = new ChartPanel(chart);
+        JPanel panel = new ChartPanel(this.chart);
         this.pane.getViewport().removeAll();
         this.pane.getViewport().add(panel);
     }
 
-
+    @Override
+    public void updatePerformed(UpdateEvent e) {
+        this.totalLabel.setText(this.managerFactory.settingsManager.getWord("total"));
+    }
 }

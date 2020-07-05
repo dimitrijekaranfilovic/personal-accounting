@@ -12,7 +12,6 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
-        //TODO: odradi da se sumiraju aktivnosti prilikom njihovog prikaza
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 

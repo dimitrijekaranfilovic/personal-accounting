@@ -101,7 +101,7 @@ public class LookAndFeelManager {
                 updateDimension(this.displayActivitiesDimension, 500, 400);
                 updateDimension(this.welcomeDimension, 380, 180);
                 updateDimension(this.settingsDimension, 200, 150);
-                updateDimension(this.pieChartDimension, 1000, 920);
+                updateDimension(this.pieChartDimension, 1000, 870);
 
             }
             else if(name.equalsIgnoreCase("metal")){
@@ -117,7 +117,7 @@ public class LookAndFeelManager {
                 updateDimension(this.displayActivitiesDimension, 500, 400);
                 updateDimension(this.welcomeDimension, 380, 180);
                 updateDimension(this.settingsDimension, 200, 150);
-                updateDimension(this.pieChartDimension, 1000, 920);
+                updateDimension(this.pieChartDimension, 1000, 870);
 
             }
             else if(name.equalsIgnoreCase("system default")) {
@@ -133,7 +133,7 @@ public class LookAndFeelManager {
                     updateDimension(this.displayActivitiesDimension, 500, 400);
                     updateDimension(this.welcomeDimension, 380, 180);
                     updateDimension(this.settingsDimension, 210, 142);
-                    updateDimension(this.pieChartDimension, 1000, 920);
+                    updateDimension(this.pieChartDimension, 1000, 870);
 
                 } else {
                     updateDimension(this.homeDimension, 180, 150); //width 180
@@ -145,7 +145,7 @@ public class LookAndFeelManager {
                     updateDimension(this.displayActivitiesDimension, 500, 400);
                     updateDimension(this.welcomeDimension, 380, 180);
                     updateDimension(this.settingsDimension, 200, 130);
-                    updateDimension(this.pieChartDimension, 1000, 920);
+                    updateDimension(this.pieChartDimension, 1000, 870);
 
                 }
             }
@@ -160,7 +160,7 @@ public class LookAndFeelManager {
                 updateDimension(this.displayActivitiesDimension, 500, 400);
                 updateDimension(this.welcomeDimension, 380, 180);
                 updateDimension(this.settingsDimension, 200, 130);
-                updateDimension(this.pieChartDimension, 1000, 920);
+                updateDimension(this.pieChartDimension, 1000, 870);
 
 
             }

@@ -45,4 +45,14 @@ public class Display {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm");
         return time.format(formatter);
     }
+
+    /**
+     * Displays day, month and year(hours and minutes are omitted)
+     * @param time time to be formatted
+     * @return date's string representation
+     * */
+    public static String shortenedDisplay(LocalDateTime time){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+        return time.format(formatter);
+    }
 }

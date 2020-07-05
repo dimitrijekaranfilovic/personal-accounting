@@ -188,4 +188,7 @@ https://dimitrijekaranfilovic.github.io/personal-accounting/
 
 * https://iconscout.com/icon/piechart-82
 
+* https://iconscout.com/icon/save-saveas-tool-inkscape-storage-store-9
+
+* https://iconscout.com/icon/graph-1567975
 

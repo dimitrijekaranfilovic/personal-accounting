@@ -24,7 +24,7 @@ public class DisplayBalancesPanel extends JPanel{
     private ArrayList<Balance> balances;
     private JTable table;
     private ManagerFactory managerFactory;
-    public JButton backBtn, printBtn;
+    public JButton backBtn, printBtn, graphBtn;
 
     DisplayBalancesPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
@@ -34,6 +34,7 @@ public class DisplayBalancesPanel extends JPanel{
 
         this.backBtn = new JButton(this.managerFactory.resourceManager.backIcon);
         this.printBtn = new JButton(this.managerFactory.resourceManager.printIcon);
+        this.graphBtn = new JButton(this.managerFactory.resourceManager.graphIcon);
 
         this.setLayout(new BorderLayout());
         JScrollPane tablePane = new JScrollPane(this.table);
@@ -42,8 +43,9 @@ public class DisplayBalancesPanel extends JPanel{
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         JPanel panel1 = new JPanel(new MigLayout());
-        panel1.add(this.backBtn, "split 2");
-        panel1.add(this.printBtn, "wrap");
+        panel1.add(this.backBtn, "split 3");
+        panel1.add(this.printBtn);
+        panel1.add(this.graphBtn, "wrap");
         mainPanel.add(panel1);
 
         this.printBtn.setEnabled(false);

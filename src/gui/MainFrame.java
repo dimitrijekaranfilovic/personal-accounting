@@ -40,6 +40,7 @@ public class MainFrame extends JFrame{
         WelcomePanel welcomePanel = new WelcomePanel(this.managerFactory);
         SettingsPanel settingsPanel = new SettingsPanel(this.managerFactory, this);
         GroupActivitiesPanel groupActivitiesPanel = new GroupActivitiesPanel(this.managerFactory);
+        BalancesGraphPanel balancesGraphPanel = new BalancesGraphPanel(this.managerFactory);
 
 
         mainPanel = new JPanel(new CardLayout());
@@ -53,6 +54,7 @@ public class MainFrame extends JFrame{
         mainPanel.add(welcomePanel, "welcome");
         mainPanel.add(settingsPanel, "settings");
         mainPanel.add(groupActivitiesPanel, "group_activities");
+        mainPanel.add(balancesGraphPanel, "balances_graph");
 
         this.add(mainPanel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,11 +98,20 @@ public class MainFrame extends JFrame{
             showCard("group_activities");
         });
         groupActivitiesPanel.backButton.addActionListener(ae->showCard("display_activities"));
-        groupActivitiesPanel.saveImageBtn.addActionListener(ае->{
+
+        groupActivitiesPanel.saveImageBtn.addActionListener(ae->{
             String pictureName = JOptionPane.showInputDialog(null, this.managerFactory.settingsManager.getWord("file_name"));
             ChooseFolderPanel panel = new ChooseFolderPanel(this, this.managerFactory, this.managerFactory.settingsManager.getWord("choose_folder"), pictureName, groupActivitiesPanel.chart);
 
         });
+
+        displayBalancesPanel.graphBtn.addActionListener(ae->{
+            balancesGraphPanel.setUpChart(balancesFilterPanel.balances);
+            showCard("balances_graph");
+
+        });
+
+        balancesGraphPanel.backButton.addActionListener(ae->showCard("display_balances"));
 
 
         //checks whether at least one currency was added in the initial setup
@@ -167,6 +178,10 @@ public class MainFrame extends JFrame{
                 JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("no_result"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
             else{
                 displayBalancesPanel.setBalances(balancesFilterPanel.balances);
+                if(balancesFilterPanel.currency.equalsIgnoreCase(""))
+                    displayBalancesPanel.graphBtn.setEnabled(false);
+                else
+                    displayBalancesPanel.graphBtn.setEnabled(true);
                 showCard("display_balances");
             }
         });
@@ -197,13 +212,16 @@ public class MainFrame extends JFrame{
             this.setSize(this.managerFactory.lookAndFeelManager.welcomeDimension);
         else if(name.equalsIgnoreCase("settings"))
             this.setSize(this.managerFactory.lookAndFeelManager.settingsDimension);
-        else if(name.equalsIgnoreCase("group_activities"))
+        /*else if(name.equalsIgnoreCase("group_activities"))
             this.setSize(this.managerFactory.lookAndFeelManager.pieChartDimension);
+        else if(name.equalsIgnoreCase("balances_graph"))
+            this.setSize(this.managerFactory.lookAndFeelManager.balancesGraphDimenion);*/
 
-        /*if(name.equalsIgnoreCase("group_activities"))
+        if(name.equalsIgnoreCase("group_activities") || name.equalsIgnoreCase("balances_graph"))
             this.setResizable(true);
         else
-            this.setResizable(false);*/
+            this.setResizable(false);
+
         this.setTitle(this.managerFactory.settingsManager.getWord(name));
     }
 }

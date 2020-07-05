@@ -33,7 +33,7 @@ public class GroupActivitiesPanel extends JPanel implements Observer {
         this.managerFactory.settingsManager.addObserver(this);
         this.pane = new JScrollPane();
         this.backButton = new JButton(this.managerFactory.resourceManager.backIcon);
-        this.saveImageBtn = new JButton("Save");
+        this.saveImageBtn = new JButton(this.managerFactory.resourceManager.saveIcon);
         this.totalLabel = new JLabel(this.managerFactory.settingsManager.getWord("total"));
         this.totalField = new JTextField(30);
         this.totalField.setEditable(false);

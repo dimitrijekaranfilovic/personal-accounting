@@ -36,6 +36,7 @@ public class BalancesFilterPanel extends JPanel implements Observer {
     public ArrayList<Balance> balances;
     private JDatePickerImpl datePicker, datePicker1;
     private JLabel currencyLabel, fromLabel, toLabel, timeLabel;
+    public String currency;
 
     public BalancesFilterPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
@@ -110,7 +111,8 @@ public class BalancesFilterPanel extends JPanel implements Observer {
      * Function that filters balances based on parameters specified in combo boxes and text fields.
      * */
     public void search() {
-        this.balances = this.managerFactory.balanceManager.getBalances((String)currenciesBox.getSelectedItem(), this.datePicker.getJFormattedTextField().getText(), this.datePicker1.getJFormattedTextField().getText());
+        this.currency = (String)currenciesBox.getSelectedItem();
+        this.balances = this.managerFactory.balanceManager.getBalances(currency, this.datePicker.getJFormattedTextField().getText(), this.datePicker1.getJFormattedTextField().getText());
     }
 
 

@@ -48,11 +48,14 @@ public class LookAndFeelManager {
      * */
     public Dimension settingsDimension;
 
+
+    //public Dimension pieChartDimension;
+    //public Dimension balancesGraphDimenion;
+
     /**
      * Class constructor. Initializes default dimension values.
      * */
 
-    public Dimension pieChartDimension;
     LookAndFeelManager(){
         this.homeDimension = new Dimension(180,150);
         this.addActivityDimension = new Dimension(330, 270);
@@ -63,7 +66,8 @@ public class LookAndFeelManager {
         this.displayActivitiesDimension = new Dimension(500, 400);
         this.welcomeDimension = new Dimension(380, 180);
         this.settingsDimension = new Dimension(200, 150);
-        this.pieChartDimension = new Dimension(1000, 920);
+        //this.pieChartDimension = new Dimension(1000, 920);
+        //this.balancesGraphDimenion = new Dimension(1200, 1000);
 
     }
 
@@ -101,7 +105,8 @@ public class LookAndFeelManager {
                 updateDimension(this.displayActivitiesDimension, 500, 400);
                 updateDimension(this.welcomeDimension, 380, 180);
                 updateDimension(this.settingsDimension, 200, 150);
-                updateDimension(this.pieChartDimension, 1000, 870);
+               // updateDimension(this.pieChartDimension, 1000, 870);
+                //updateDimension(this.balancesGraphDimenion, 1200, 1000);
 
             }
             else if(name.equalsIgnoreCase("metal")){
@@ -117,7 +122,9 @@ public class LookAndFeelManager {
                 updateDimension(this.displayActivitiesDimension, 500, 400);
                 updateDimension(this.welcomeDimension, 380, 180);
                 updateDimension(this.settingsDimension, 200, 150);
-                updateDimension(this.pieChartDimension, 1000, 870);
+               // updateDimension(this.pieChartDimension, 1000, 870);
+               // updateDimension(this.balancesGraphDimenion, 1200, 1000);
+
 
             }
             else if(name.equalsIgnoreCase("system default")) {
@@ -133,7 +140,9 @@ public class LookAndFeelManager {
                     updateDimension(this.displayActivitiesDimension, 500, 400);
                     updateDimension(this.welcomeDimension, 380, 180);
                     updateDimension(this.settingsDimension, 210, 142);
-                    updateDimension(this.pieChartDimension, 1000, 870);
+                   // updateDimension(this.pieChartDimension, 1000, 870);
+                   // updateDimension(this.balancesGraphDimenion, 1200, 1000);
+
 
                 } else {
                     updateDimension(this.homeDimension, 180, 150); //width 180
@@ -145,7 +154,9 @@ public class LookAndFeelManager {
                     updateDimension(this.displayActivitiesDimension, 500, 400);
                     updateDimension(this.welcomeDimension, 380, 180);
                     updateDimension(this.settingsDimension, 200, 130);
-                    updateDimension(this.pieChartDimension, 1000, 870);
+                   // updateDimension(this.pieChartDimension, 1000, 870);
+                   // updateDimension(this.balancesGraphDimenion, 1200, 1000);
+
 
                 }
             }
@@ -160,7 +171,8 @@ public class LookAndFeelManager {
                 updateDimension(this.displayActivitiesDimension, 500, 400);
                 updateDimension(this.welcomeDimension, 380, 180);
                 updateDimension(this.settingsDimension, 200, 130);
-                updateDimension(this.pieChartDimension, 1000, 870);
+                //updateDimension(this.pieChartDimension, 1000, 870);
+                //updateDimension(this.balancesGraphDimenion, 1200, 1000);
 
 
             }

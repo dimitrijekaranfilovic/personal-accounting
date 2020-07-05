@@ -70,6 +70,7 @@ public class GroupActivitiesPanel extends JPanel implements Observer {
         plot.setSectionOutlinesVisible(false);
         plot.setNoDataMessage("No data available");
         JPanel panel = new ChartPanel(this.chart);
+        panel.setSize(400, 400);
         this.pane.getViewport().removeAll();
         this.pane.getViewport().add(panel);
     }

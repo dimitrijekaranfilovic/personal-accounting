@@ -158,8 +158,7 @@ executable .jar file.
 ### Future updates
 
 * Enable printing functionality.
-* When displaying activities, display difference between incomes and expenses for each currency for specified time period.
-
+* Enable backing up and importing data from .json files.
 ### Documentation 
 
 Documentation is available at:

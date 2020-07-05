@@ -153,6 +153,8 @@ when run next time it will apply those settings
 * Properties files containing UTF characters cannot be properly loaded when program is executed from a
 executable .jar file.
 
+* graph.png and save.png cannot be loaded using ClassLoader.
+
 ### Future updates
 
 * Enable printing functionality.

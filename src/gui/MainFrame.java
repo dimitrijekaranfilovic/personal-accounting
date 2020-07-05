@@ -4,6 +4,8 @@ import managers.ManagerFactory;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
@@ -59,7 +61,7 @@ public class MainFrame extends JFrame{
         this.add(mainPanel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
-        this.setResizable(false);
+        //this.setResizable(false);
 
 
         //if at least one currency is found, previous settings are loaded
@@ -98,7 +100,7 @@ public class MainFrame extends JFrame{
         });
         groupActivitiesPanel.backButton.addActionListener(ae->showCard("display_activities"));
 
-        groupActivitiesPanel.saveImageBtn.addActionListener(ae->{
+        /*groupActivitiesPanel.saveImageBtn.addActionListener(ae->{
             String pictureName = JOptionPane.showInputDialog(null, this.managerFactory.settingsManager.getWord("file_name"));
             if(pictureName != null){
                 ChooseFolderPanel panel = new ChooseFolderPanel(this, this.managerFactory.settingsManager.getWord("choose_folder"));
@@ -107,7 +109,7 @@ public class MainFrame extends JFrame{
                     JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("saved"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-        });
+        });*/
 
         displayBalancesPanel.graphBtn.addActionListener(ae->{
             balancesGraphPanel.setUpChart(balancesFilterPanel.balances);
@@ -189,7 +191,17 @@ public class MainFrame extends JFrame{
                 showCard("display_balances");
             }
         });
+
+    this.addComponentListener(new ComponentAdapter() {
+        @Override
+        public void componentResized(ComponentEvent e) {
+            super.componentResized(e);
+            System.out.println(getWidth() + ", " + getHeight());
+        }
+    });
     }
+
+
 
     /**
      * Function that shows desired panel from frame's CardLayout and sets frame's size and title accordingly.
@@ -216,12 +228,15 @@ public class MainFrame extends JFrame{
             this.setSize(this.managerFactory.lookAndFeelManager.welcomeDimension);
         else if(name.equalsIgnoreCase("settings"))
             this.setSize(this.managerFactory.lookAndFeelManager.settingsDimension);
-
-        if(name.equalsIgnoreCase("group_activities") || name.equalsIgnoreCase("balances_graph"))
+        else if(name.equalsIgnoreCase("group_activities"))
+            this.setSize(this.managerFactory.lookAndFeelManager.pieChartDimension);
+        else if(name.equalsIgnoreCase("balances_graph"))
+            this.setSize(this.managerFactory.lookAndFeelManager.balancesGraphDimenion);
+        /*if(name.equalsIgnoreCase("balances_graph"))
             this.setResizable(true);
         else
             this.setResizable(false);
-
+        */
         this.setTitle(this.managerFactory.settingsManager.getWord(name));
     }
 }

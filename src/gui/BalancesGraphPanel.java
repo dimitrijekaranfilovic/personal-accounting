@@ -24,10 +24,10 @@ public class BalancesGraphPanel extends JPanel {
         this.managerFactory = managerFactory;
         this.pane = new JScrollPane();
         this.backButton = new JButton(this.managerFactory.resourceManager.backIcon);
-        this.saveImageBtn = new JButton(this.managerFactory.resourceManager.saveIcon);
+        //this.saveImageBtn = new JButton(this.managerFactory.resourceManager.saveIcon);
         JPanel panel = new JPanel(new MigLayout());
         panel.add(this.backButton, "split 2");
-        panel.add(this.saveImageBtn);
+        //panel.add(this.saveImageBtn);
         this.add(this.pane, BorderLayout.CENTER);
         this.add(panel, BorderLayout.SOUTH);
     }
@@ -51,6 +51,9 @@ public class BalancesGraphPanel extends JPanel {
         ChartPanel panel = new ChartPanel(chart);
         this.pane.getViewport().removeAll();
         this.pane.getViewport().add(panel);
+        this.pane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        this.pane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        this.pane.getViewport().setPreferredSize(new Dimension(780, 400));
     }
 
 

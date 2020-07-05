@@ -44,8 +44,9 @@ public class DisplayBalancesPanel extends JPanel{
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         JPanel panel1 = new JPanel(new MigLayout());
         panel1.add(this.backBtn, "split 3");
-        panel1.add(this.printBtn);
-        panel1.add(this.graphBtn, "wrap");
+        panel1.add(this.graphBtn);
+        panel1.add(this.printBtn, "wrap");
+
         mainPanel.add(panel1);
 
         this.printBtn.setEnabled(false);

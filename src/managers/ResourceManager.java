@@ -52,8 +52,8 @@ public class ResourceManager {
         this.nextIcon = new ImageIcon(this.classLoader.getResource(basePath + "play.png"));
         this.moneyIcon = new ImageIcon(this.classLoader.getResource(basePath + "wallet-1.png"));
         this.pieChartIcon = new ImageIcon(this.classLoader.getResource(basePath + "piechart.png"));
-        this.saveIcon = new ImageIcon("./src/icons/save.png");
-        this.graphIcon = new ImageIcon( "./src/icons/graph.png");
+        this.saveIcon = new ImageIcon(this.classLoader.getResource(basePath + "save.png"));
+        this.graphIcon = new ImageIcon(this.classLoader.getResource(basePath + "graph.png"));
     }
 
     public void saveChart(JFreeChart chart, String path, String filename){

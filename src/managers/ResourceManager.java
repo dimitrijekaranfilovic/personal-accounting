@@ -21,6 +21,7 @@ public class ResourceManager {
     public ImageIcon printIcon;
     public ImageIcon nextIcon;
     public ImageIcon moneyIcon;
+    public ImageIcon pieChartIcon;
     //private String basePath = "./src/icons/";
     private String basePath = "icons/";
     private ClassLoader classLoader;
@@ -43,5 +44,6 @@ public class ResourceManager {
         this.printIcon = new ImageIcon(this.classLoader.getResource(basePath + "printer-2.png"));
         this.nextIcon = new ImageIcon(this.classLoader.getResource(basePath + "play.png"));
         this.moneyIcon = new ImageIcon(this.classLoader.getResource(basePath + "wallet-1.png"));
+        this.pieChartIcon = new ImageIcon(this.classLoader.getResource(basePath + "piechart.png"));
     }
 }

@@ -23,7 +23,7 @@ public class DisplayActivitiesPanel extends JPanel {
      * */
     private ArrayList<Activity> activities;
     private JTable table;
-    public JButton backBtn, printBtn;
+    public JButton backBtn, printBtn, pieBtn;
     private ManagerFactory managerFactory;
 
     public DisplayActivitiesPanel(ManagerFactory managerFactory){
@@ -34,6 +34,7 @@ public class DisplayActivitiesPanel extends JPanel {
 
         this.backBtn = new JButton(this.managerFactory.resourceManager.backIcon);
         this.printBtn = new JButton(this.managerFactory.resourceManager.printIcon);
+        this.pieBtn = new JButton(this.managerFactory.resourceManager.pieChartIcon);
 
         this.setLayout(new BorderLayout());
 
@@ -44,7 +45,8 @@ public class DisplayActivitiesPanel extends JPanel {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        panel2.add(this.backBtn, "split 2");
+        panel2.add(this.backBtn, "split 3");
+        panel2.add(this.pieBtn);
         panel2.add(this.printBtn);
 
         mainPanel.add(new JSeparator(SwingConstants.HORIZONTAL));

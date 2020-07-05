@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -149,24 +150,33 @@ public class ActivityManager implements Publisher {
         return descriptions;
     }
 
-    //TODO: implementirati kada provalis kako scrollpane da stavis u displayActivitiesPanel
-    public int getActivitiesSum(String activity, String fromDate, String toDate, String currency, String description){
-        int result;
+    /**
+     * Function that returns map of grouped activities(key: activity description, value: sum of amounts of activities with that description) that fulfill the specified parameters.
+     * @param activity  activity's version
+     * @param fromDate  activities after this date
+     * @param toDate  activities before this date
+     * @param currency  activity's currency
+     * @param description  activity's description
+     * @return list of activities
+     * */
+    public HashMap<String, Double> groupActivities(String activity, String fromDate, String toDate, String currency, String description){
+        HashMap<String, Double> groupedActivities = new HashMap<>();
         if(fromDate.equalsIgnoreCase("") || toDate.equalsIgnoreCase(""))
-            return 0;
+            return null;
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm");
         LocalDateTime from = LocalDateTime.parse(fromDate + " 00:01", dateTimeFormatter);
         LocalDateTime to = LocalDateTime.parse(toDate + " 23:59", dateTimeFormatter);
 
-        ResultSet rs = this.databaseManager.getActivitiesSum(activity, from, to, currency, description);
+        ResultSet rs = this.databaseManager.groupActivities(activity, from, to, currency, description);
         try{
-            result = rs.getInt("total");
+            while(rs.next()){
+                groupedActivities.put(rs.getString("description"), (double)rs.getInt("am") / 100);
+            }
         }
         catch (SQLException se){
-            return 0;
+            return null;
         }
-
-        return result;
+        return groupedActivities;
     }
 
 

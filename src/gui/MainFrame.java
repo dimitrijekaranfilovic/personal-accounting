@@ -39,6 +39,7 @@ public class MainFrame extends JFrame{
         DisplayBalancesPanel displayBalancesPanel = new DisplayBalancesPanel(this.managerFactory);
         WelcomePanel welcomePanel = new WelcomePanel(this.managerFactory);
         SettingsPanel settingsPanel = new SettingsPanel(this.managerFactory, this);
+        GroupActivitiesPanel groupActivitiesPanel = new GroupActivitiesPanel(this.managerFactory);
 
 
         mainPanel = new JPanel(new CardLayout());
@@ -51,6 +52,7 @@ public class MainFrame extends JFrame{
         mainPanel.add(displayBalancesPanel, "display_balances");
         mainPanel.add(welcomePanel, "welcome");
         mainPanel.add(settingsPanel, "settings");
+        mainPanel.add(groupActivitiesPanel, "group_activities");
 
         this.add(mainPanel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,6 +91,12 @@ public class MainFrame extends JFrame{
         displayActivitiesPanel.backBtn.addActionListener(ae->showCard("activities_filter"));
         displayBalancesPanel.backBtn.addActionListener(ae->showCard("balances_filter"));
         settingsPanel.backBtn.addActionListener(ae->showCard("home"));
+        displayActivitiesPanel.pieBtn.addActionListener(ae->{
+            groupActivitiesPanel.setUpChart(activitiesFilterPanel.groupedActivities);
+            showCard("group_activities");
+        });
+        groupActivitiesPanel.backButton.addActionListener(ae->showCard("display_activities"));
+
 
         //checks whether at least one currency was added in the initial setup
         addCurrencyBalancePanel.finishBtn.addActionListener(ae->{
@@ -136,6 +144,10 @@ public class MainFrame extends JFrame{
                 JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("no_result"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
             else {
                 displayActivitiesPanel.setActivities(activitiesFilterPanel.activities);
+                if(activitiesFilterPanel.sign.equalsIgnoreCase("") || activitiesFilterPanel.currency.equalsIgnoreCase("") || activitiesFilterPanel.groupedActivities == null)
+                    displayActivitiesPanel.pieBtn.setEnabled(false);
+                else
+                    displayActivitiesPanel.pieBtn.setEnabled(true);
                 showCard("display_activities");
             }
 
@@ -180,6 +192,13 @@ public class MainFrame extends JFrame{
             this.setSize(this.managerFactory.lookAndFeelManager.welcomeDimension);
         else if(name.equalsIgnoreCase("settings"))
             this.setSize(this.managerFactory.lookAndFeelManager.settingsDimension);
+        else if(name.equalsIgnoreCase("group_activities"))
+            this.setSize(this.managerFactory.lookAndFeelManager.pieChartDimension);
+
+        /*if(name.equalsIgnoreCase("group_activities"))
+            this.setResizable(true);
+        else
+            this.setResizable(false);*/
         this.setTitle(this.managerFactory.settingsManager.getWord(name));
     }
 }

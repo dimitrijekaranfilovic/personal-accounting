@@ -51,6 +51,8 @@ public class LookAndFeelManager {
     /**
      * Class constructor. Initializes default dimension values.
      * */
+
+    public Dimension pieChartDimension;
     LookAndFeelManager(){
         this.homeDimension = new Dimension(180,150);
         this.addActivityDimension = new Dimension(330, 270);
@@ -61,6 +63,7 @@ public class LookAndFeelManager {
         this.displayActivitiesDimension = new Dimension(500, 400);
         this.welcomeDimension = new Dimension(380, 180);
         this.settingsDimension = new Dimension(200, 150);
+        this.pieChartDimension = new Dimension(1000, 920);
 
     }
 
@@ -98,6 +101,7 @@ public class LookAndFeelManager {
                 updateDimension(this.displayActivitiesDimension, 500, 400);
                 updateDimension(this.welcomeDimension, 380, 180);
                 updateDimension(this.settingsDimension, 200, 150);
+                updateDimension(this.pieChartDimension, 1000, 920);
 
             }
             else if(name.equalsIgnoreCase("metal")){
@@ -113,6 +117,8 @@ public class LookAndFeelManager {
                 updateDimension(this.displayActivitiesDimension, 500, 400);
                 updateDimension(this.welcomeDimension, 380, 180);
                 updateDimension(this.settingsDimension, 200, 150);
+                updateDimension(this.pieChartDimension, 1000, 920);
+
             }
             else if(name.equalsIgnoreCase("system default")) {
                 UIManager.setLookAndFeel(UIManager
@@ -127,6 +133,8 @@ public class LookAndFeelManager {
                     updateDimension(this.displayActivitiesDimension, 500, 400);
                     updateDimension(this.welcomeDimension, 380, 180);
                     updateDimension(this.settingsDimension, 210, 142);
+                    updateDimension(this.pieChartDimension, 1000, 920);
+
                 } else {
                     updateDimension(this.homeDimension, 180, 150); //width 180
                     updateDimension(this.addActivityDimension, 310, 260);
@@ -137,6 +145,8 @@ public class LookAndFeelManager {
                     updateDimension(this.displayActivitiesDimension, 500, 400);
                     updateDimension(this.welcomeDimension, 380, 180);
                     updateDimension(this.settingsDimension, 200, 130);
+                    updateDimension(this.pieChartDimension, 1000, 920);
+
                 }
             }
             else if(name.equalsIgnoreCase("mcwin")){
@@ -150,6 +160,8 @@ public class LookAndFeelManager {
                 updateDimension(this.displayActivitiesDimension, 500, 400);
                 updateDimension(this.welcomeDimension, 380, 180);
                 updateDimension(this.settingsDimension, 200, 130);
+                updateDimension(this.pieChartDimension, 1000, 920);
+
 
             }
         }

@@ -15,6 +15,7 @@ import org.jdatepicker.impl.UtilDateModel;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -41,6 +42,8 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
     public JDatePickerImpl datePicker, datePicker1;
     public JTextField searchField;
     public ArrayList<Activity> activities;
+    public HashMap<String, Double> groupedActivities;
+    public String sign, currency;
     public JLabel activityLabel, fromLabel, toLabel, timeLabel, currencyLabel, descriptionLabel;
 
     public ActivitiesFilterPanel(ManagerFactory managerFactory) {
@@ -175,11 +178,14 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
      * Function that filters activities based on content in text fields, combo boxes and date pickers.
      * */
     public void search() {
-        String sign = "";
+        this.sign = "";
         if(activitiesBox.getSelectedItem().toString().equalsIgnoreCase(this.managerFactory.settingsManager.getWord("income")))
-            sign = "+";
+            this.sign = "+";
         else if(activitiesBox.getSelectedItem().toString().equalsIgnoreCase(this.managerFactory.settingsManager.getWord("expense")))
-            sign = "-";
+            this.sign = "-";
         this.activities = this.managerFactory.activityManager.getActivities(sign, this.datePicker.getJFormattedTextField().getText(), this.datePicker1.getJFormattedTextField().getText(), (String) currenciesBox.getSelectedItem(), this.searchField.getText());
+        this.currency = (String) currenciesBox.getSelectedItem();
+        if(!this.sign.equalsIgnoreCase("") && !currency.equalsIgnoreCase(""))
+            this.groupedActivities = this.managerFactory.activityManager.groupActivities(this.sign, this.datePicker.getJFormattedTextField().getText(), this.datePicker1.getJFormattedTextField().getText(), this.currency, this.searchField.getText());
     }
 }

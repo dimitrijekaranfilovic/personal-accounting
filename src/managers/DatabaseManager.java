@@ -335,44 +335,6 @@ public class DatabaseManager {
         }
     }
 
-    //TODO: provjeriti nakon sto dodas scrollPane u displayActivities panel
-    ResultSet getActivitiesSum(String activity, LocalDateTime from, LocalDateTime to, String currency, String description){
-        try {
-            if(connection == null){
-                getConnection();
-            }
-            PreparedStatement ps = connection.prepareStatement("select sum(amount) as total from activities where time between ? and ? and activity like ? escape '!' and currency like ? escape '!' and description like ? escape '!';");
-            activity = activity
-                    .replace("!", "!!")
-                    .replace("%", "%%")
-                    .replace("_", "!_")
-                    .replace("[", "![");
-
-            currency = currency
-                    .replace("!", "!!")
-                    .replace("%", "%%")
-                    .replace("_", "!_")
-                    .replace("[", "![");
-
-            description = description
-                    .replace("!", "!!")
-                    .replace("%", "%%")
-                    .replace("_", "!_")
-                    .replace("[", "![");
-
-
-            ps.setTimestamp(1, Timestamp.valueOf(from));
-            ps.setTimestamp(2, Timestamp.valueOf(to));
-            ps.setString(3, "%" + activity + "%");
-            ps.setString(4, "%" + currency + "%");
-            ps.setString(5, "%" + description + "%");
-            ps.execute();
-            return ps.getResultSet();
-
-        } catch (SQLException | ClassNotFoundException e) {
-            return null;
-        }
-    }
 
     /**
      * Function that fetches activities that meet the conditions.
@@ -419,6 +381,54 @@ public class DatabaseManager {
         } catch (SQLException | ClassNotFoundException e) {
             return null;
         }
+    }
+
+    /**
+     * Function that groups activities that meet the conditions.
+     * @param activity  activity version
+     * @param from  starting date and time
+     * @param to   ending date and time
+     * @param currency  currency
+     * @param description  activity description
+     * @return ResultSet of the prepared statement
+     * */
+    ResultSet groupActivities(String activity, LocalDateTime from, LocalDateTime to, String currency, String description){
+        try {
+            if(connection == null){
+                getConnection();
+            }
+            PreparedStatement ps = connection.prepareStatement("select description, sum(amount) as am from activities where time between ? and ? and activity like ? escape '!' and currency like ? escape '!' and description like ? escape '!' group by description;");
+            activity = activity
+                    .replace("!", "!!")
+                    .replace("%", "%%")
+                    .replace("_", "!_")
+                    .replace("[", "![");
+
+            currency = currency
+                    .replace("!", "!!")
+                    .replace("%", "%%")
+                    .replace("_", "!_")
+                    .replace("[", "![");
+
+            description = description
+                    .replace("!", "!!")
+                    .replace("%", "%%")
+                    .replace("_", "!_")
+                    .replace("[", "![");
+
+
+            ps.setTimestamp(1, Timestamp.valueOf(from));
+            ps.setTimestamp(2, Timestamp.valueOf(to));
+            ps.setString(3, "%" + activity + "%");
+            ps.setString(4, "%" + currency + "%");
+            ps.setString(5, "%" + description + "%");
+            ps.execute();
+            return ps.getResultSet();
+
+        } catch (SQLException | ClassNotFoundException e) {
+            return null;
+        }
+
     }
 
     /**

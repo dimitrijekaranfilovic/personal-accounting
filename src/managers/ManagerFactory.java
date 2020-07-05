@@ -22,8 +22,6 @@ public class ManagerFactory {
     public ResourceManager resourceManager;
     public LookAndFeelManager lookAndFeelManager;
     public SettingsManager settingsManager;
-    public BackupRestoreManager backupRestoreManager;
-
 
     /**
      * Class constructor which initializes all managers.
@@ -39,7 +37,6 @@ public class ManagerFactory {
         this.resourceManager = new ResourceManager();
         this.lookAndFeelManager = new LookAndFeelManager();
         this.settingsManager = new SettingsManager(this.databaseManager);
-        this.backupRestoreManager = new BackupRestoreManager(this.databaseManager);
     }
 
 }

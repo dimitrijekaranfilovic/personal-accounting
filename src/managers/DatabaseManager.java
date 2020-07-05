@@ -58,17 +58,6 @@ public class DatabaseManager {
                 Statement createTables = connection.createStatement();
 
                 //build 'activities' table
-                /*createTables.execute("create table activities(" +
-                        "description varchar(40)," +
-                        "time Date," +
-                        "amount integer," +
-                        "currency varchar(3),"+
-                        "activity varchar(10)," +
-                        "constraint actPK primary key (description, amount, time)," +
-                        "constraint actFK foreign key (currency) references currency(abbreviation)" +
-                        "" +
-                        ");");*/
-
                 createTables.execute("create table activities(" +
                         "description varchar(40)," +
                         "time Date," +
@@ -511,7 +500,6 @@ public class DatabaseManager {
         return statement.executeQuery("select * from balances;");
     }
 
-
     ResultSet getAllActivities() throws SQLException, ClassNotFoundException {
         if(connection == null){
             getConnection();
@@ -519,7 +507,4 @@ public class DatabaseManager {
         Statement statement = connection.createStatement();
         return statement.executeQuery("select * from activities;");
     }
-
-
-
 }

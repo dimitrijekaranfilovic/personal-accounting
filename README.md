@@ -158,7 +158,7 @@ executable .jar file.
 ### Future updates
 
 * Enable printing functionality.
-* Enable backing up and importing data from .json files.
+
 ### Documentation 
 
 Documentation is available at:

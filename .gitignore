@@ -3,5 +3,4 @@
 *.iml
 .idea
 /src/META-INF/
-/src/json/
 uuid.txt

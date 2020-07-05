@@ -48,9 +48,14 @@ public class LookAndFeelManager {
      * */
     public Dimension settingsDimension;
 
-
+    /**
+     * pie chart panel dimension
+     * */
     public Dimension pieChartDimension;
-    public Dimension balancesGraphDimenion;
+    /**
+     * balances graph panel dimension
+     * */
+    public Dimension balancesGraphDimension;
 
     /**
      * Class constructor. Initializes default dimension values.
@@ -67,7 +72,7 @@ public class LookAndFeelManager {
         this.welcomeDimension = new Dimension(380, 180);
         this.settingsDimension = new Dimension(200, 150);
         this.pieChartDimension = new Dimension(820, 500);
-        this.balancesGraphDimenion = new Dimension(840, 510);
+        this.balancesGraphDimension = new Dimension(840, 510);
 
     }
 
@@ -94,7 +99,6 @@ public class LookAndFeelManager {
         try{
             if(name.equalsIgnoreCase("nimbus"))
             {
-
                 UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
                 updateDimension(this.homeDimension, 180, 150); //width 180
                 updateDimension(this.addActivityDimension, 330, 270);
@@ -106,8 +110,7 @@ public class LookAndFeelManager {
                 updateDimension(this.welcomeDimension, 380, 180);
                 updateDimension(this.settingsDimension, 200, 150);
                 updateDimension(this.pieChartDimension, 820, 510);
-                updateDimension(this.balancesGraphDimenion, 840, 510);
-
+                updateDimension(this.balancesGraphDimension, 840, 510);
             }
             else if(name.equalsIgnoreCase("metal")){
 
@@ -123,9 +126,7 @@ public class LookAndFeelManager {
                 updateDimension(this.welcomeDimension, 380, 180);
                 updateDimension(this.settingsDimension, 200, 150);
                 updateDimension(this.pieChartDimension, 820, 500);
-                updateDimension(this.balancesGraphDimenion, 840, 510);
-
-
+                updateDimension(this.balancesGraphDimension, 840, 510);
             }
             else if(name.equalsIgnoreCase("system default")) {
                 UIManager.setLookAndFeel(UIManager
@@ -141,9 +142,7 @@ public class LookAndFeelManager {
                     updateDimension(this.welcomeDimension, 380, 180);
                     updateDimension(this.settingsDimension, 210, 142);
                     updateDimension(this.pieChartDimension, 820, 505);
-                    updateDimension(this.balancesGraphDimenion, 840, 510);
-
-
+                    updateDimension(this.balancesGraphDimension, 840, 510);
                 } else {
                     updateDimension(this.homeDimension, 180, 150); //width 180
                     updateDimension(this.addActivityDimension, 310, 260);
@@ -155,9 +154,7 @@ public class LookAndFeelManager {
                     updateDimension(this.welcomeDimension, 380, 180);
                     updateDimension(this.settingsDimension, 200, 130);
                     updateDimension(this.pieChartDimension, 820, 500);
-                    updateDimension(this.balancesGraphDimenion, 840, 510);
-
-
+                    updateDimension(this.balancesGraphDimension, 840, 510);
                 }
             }
             else if(name.equalsIgnoreCase("mcwin")){
@@ -172,9 +169,7 @@ public class LookAndFeelManager {
                 updateDimension(this.welcomeDimension, 380, 180);
                 updateDimension(this.settingsDimension, 200, 130);
                 updateDimension(this.pieChartDimension, 820, 500);
-                updateDimension(this.balancesGraphDimenion, 840, 510);
-
-
+                updateDimension(this.balancesGraphDimension, 840, 510);
             }
         }
         catch(ClassNotFoundException | InstantiationException

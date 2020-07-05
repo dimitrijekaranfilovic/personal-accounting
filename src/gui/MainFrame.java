@@ -33,6 +33,7 @@ public class MainFrame extends JFrame{
     private  MainFrame(ManagerFactory managerFactory) throws SQLException {
         this.managerFactory = managerFactory;
         this.homePanel = new HomePanel(this.managerFactory);
+
         AddCurrencyBalancePanel addCurrencyBalancePanel = new AddCurrencyBalancePanel(this.managerFactory);
         AddActivityPanel addActivityPanel = new AddActivityPanel(this.managerFactory);
         ActivitiesFilterPanel activitiesFilterPanel = new ActivitiesFilterPanel(this.managerFactory);
@@ -43,7 +44,6 @@ public class MainFrame extends JFrame{
         SettingsPanel settingsPanel = new SettingsPanel(this.managerFactory, this);
         GroupActivitiesPanel groupActivitiesPanel = new GroupActivitiesPanel(this.managerFactory);
         BalancesGraphPanel balancesGraphPanel = new BalancesGraphPanel(this.managerFactory);
-
 
         mainPanel = new JPanel(new CardLayout());
         mainPanel.add(this.homePanel, "home");
@@ -61,8 +61,7 @@ public class MainFrame extends JFrame{
         this.add(mainPanel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
-        //this.setResizable(false);
-
+        this.setResizable(false);
 
         //if at least one currency is found, previous settings are loaded
         if(this.managerFactory.currencyManager.countCurrencies() > 0){
@@ -94,30 +93,19 @@ public class MainFrame extends JFrame{
         displayActivitiesPanel.backBtn.addActionListener(ae->showCard("activities_filter"));
         displayBalancesPanel.backBtn.addActionListener(ae->showCard("balances_filter"));
         settingsPanel.backBtn.addActionListener(ae->showCard("home"));
+        groupActivitiesPanel.backButton.addActionListener(ae->showCard("display_activities"));
+        balancesGraphPanel.backButton.addActionListener(ae->showCard("display_balances"));
+
         displayActivitiesPanel.pieBtn.addActionListener(ae->{
             groupActivitiesPanel.setUpChart(activitiesFilterPanel.groupedActivities);
             showCard("group_activities");
         });
-        groupActivitiesPanel.backButton.addActionListener(ae->showCard("display_activities"));
-
-        /*groupActivitiesPanel.saveImageBtn.addActionListener(ae->{
-            String pictureName = JOptionPane.showInputDialog(null, this.managerFactory.settingsManager.getWord("file_name"));
-            if(pictureName != null){
-                ChooseFolderPanel panel = new ChooseFolderPanel(this, this.managerFactory.settingsManager.getWord("choose_folder"));
-                if(panel.path != null){
-                    managerFactory.resourceManager.saveChart(groupActivitiesPanel.chart, panel.path, pictureName);
-                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("saved"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
-                }
-            }
-        });*/
 
         displayBalancesPanel.graphBtn.addActionListener(ae->{
             balancesGraphPanel.setUpChart(balancesFilterPanel.balances);
             showCard("balances_graph");
 
         });
-
-        balancesGraphPanel.backButton.addActionListener(ae->showCard("display_balances"));
 
 
         //checks whether at least one currency was added in the initial setup
@@ -133,17 +121,7 @@ public class MainFrame extends JFrame{
 
         });
 
-        //saves current balance, adds it to balances history and saves current language used and window position right before closing
-        this.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                for(String key : homePanel.currencyValueMap.keySet()){
-                    managerFactory.balanceManager.addBalance(key, homePanel.currencyValueMap.get(key));
-                    managerFactory.balanceManager.updateCurrentBalance(key, homePanel.currencyValueMap.get(key));
-                    managerFactory.settingsManager.saveSettings(managerFactory.settingsManager.style, getX(), getY(), managerFactory.settingsManager.currentLanguage);
-                }
-            }
-        });
+
 
         //updates the addCurrencyPanel's icon
         this.homePanel.addCurrencyButton.addActionListener(ae->{
@@ -192,16 +170,28 @@ public class MainFrame extends JFrame{
             }
         });
 
-    this.addComponentListener(new ComponentAdapter() {
+        this.addComponentListener(new ComponentAdapter() {
         @Override
         public void componentResized(ComponentEvent e) {
             super.componentResized(e);
-            System.out.println(getWidth() + ", " + getHeight());
-        }
-    });
+            //System.out.println(getWidth() + ", " + getHeight());
+            }
+        });
+
+
+        //saves current balance, adds it to balances history and saves current language used and window position right before closing
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                for(String key : homePanel.currencyValueMap.keySet()){
+                    managerFactory.balanceManager.addBalance(key, homePanel.currencyValueMap.get(key));
+                    managerFactory.balanceManager.updateCurrentBalance(key, homePanel.currencyValueMap.get(key));
+                    managerFactory.settingsManager.saveSettings(managerFactory.settingsManager.style, getX(), getY(), managerFactory.settingsManager.currentLanguage);
+                }
+            }
+        });
+
     }
-
-
 
     /**
      * Function that shows desired panel from frame's CardLayout and sets frame's size and title accordingly.
@@ -231,12 +221,7 @@ public class MainFrame extends JFrame{
         else if(name.equalsIgnoreCase("group_activities"))
             this.setSize(this.managerFactory.lookAndFeelManager.pieChartDimension);
         else if(name.equalsIgnoreCase("balances_graph"))
-            this.setSize(this.managerFactory.lookAndFeelManager.balancesGraphDimenion);
-        /*if(name.equalsIgnoreCase("balances_graph"))
-            this.setResizable(true);
-        else
-            this.setResizable(false);
-        */
+            this.setSize(this.managerFactory.lookAndFeelManager.balancesGraphDimension);
         this.setTitle(this.managerFactory.settingsManager.getWord(name));
     }
 }

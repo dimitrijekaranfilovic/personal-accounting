@@ -17,17 +17,15 @@ import java.util.ArrayList;
 public class BalancesGraphPanel extends JPanel {
     private ManagerFactory managerFactory;
     private JScrollPane pane;
-    public JButton backButton, saveImageBtn;
+    public JButton backButton;
     public JFreeChart chart;
 
     public BalancesGraphPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
         this.pane = new JScrollPane();
         this.backButton = new JButton(this.managerFactory.resourceManager.backIcon);
-        //this.saveImageBtn = new JButton(this.managerFactory.resourceManager.saveIcon);
         JPanel panel = new JPanel(new MigLayout());
         panel.add(this.backButton, "split 2");
-        //panel.add(this.saveImageBtn);
         this.add(this.pane, BorderLayout.CENTER);
         this.add(panel, BorderLayout.SOUTH);
     }

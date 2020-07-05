@@ -77,7 +77,6 @@ public class MainFrame extends JFrame{
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             this.setLocation((int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2);
             this.setVisible(true);
-            //System.out.println(this.managerFactory.settingsManager.currentLanguage);
             this.managerFactory.settingsManager.addInitialSettings(this.managerFactory.settingsManager.style, (int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2, this.managerFactory.settingsManager.currentLanguage);
 
         }
@@ -101,8 +100,13 @@ public class MainFrame extends JFrame{
 
         groupActivitiesPanel.saveImageBtn.addActionListener(ae->{
             String pictureName = JOptionPane.showInputDialog(null, this.managerFactory.settingsManager.getWord("file_name"));
-            ChooseFolderPanel panel = new ChooseFolderPanel(this, this.managerFactory, this.managerFactory.settingsManager.getWord("choose_folder"), pictureName, groupActivitiesPanel.chart);
-
+            if(pictureName != null){
+                ChooseFolderPanel panel = new ChooseFolderPanel(this, this.managerFactory.settingsManager.getWord("choose_folder"));
+                if(panel.path != null){
+                    managerFactory.resourceManager.saveChart(groupActivitiesPanel.chart, panel.path, pictureName);
+                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("saved"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
         });
 
         displayBalancesPanel.graphBtn.addActionListener(ae->{
@@ -212,10 +216,6 @@ public class MainFrame extends JFrame{
             this.setSize(this.managerFactory.lookAndFeelManager.welcomeDimension);
         else if(name.equalsIgnoreCase("settings"))
             this.setSize(this.managerFactory.lookAndFeelManager.settingsDimension);
-        /*else if(name.equalsIgnoreCase("group_activities"))
-            this.setSize(this.managerFactory.lookAndFeelManager.pieChartDimension);
-        else if(name.equalsIgnoreCase("balances_graph"))
-            this.setSize(this.managerFactory.lookAndFeelManager.balancesGraphDimenion);*/
 
         if(name.equalsIgnoreCase("group_activities") || name.equalsIgnoreCase("balances_graph"))
             this.setResizable(true);

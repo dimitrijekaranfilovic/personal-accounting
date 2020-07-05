@@ -502,4 +502,24 @@ public class DatabaseManager {
         }
 
     }
+
+    ResultSet getAllBalances() throws SQLException, ClassNotFoundException {
+        if(connection == null){
+            getConnection();
+        }
+        Statement statement = connection.createStatement();
+        return statement.executeQuery("select * from balances;");
+    }
+
+
+    ResultSet getAllActivities() throws SQLException, ClassNotFoundException {
+        if(connection == null){
+            getConnection();
+        }
+        Statement statement = connection.createStatement();
+        return statement.executeQuery("select * from activities;");
+    }
+
+
+
 }

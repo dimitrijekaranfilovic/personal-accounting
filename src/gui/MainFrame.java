@@ -170,11 +170,25 @@ public class MainFrame extends JFrame{
             }
         });
 
-        this.addComponentListener(new ComponentAdapter() {
-        @Override
-        public void componentResized(ComponentEvent e) {
-            super.componentResized(e);
-            //System.out.println(getWidth() + ", " + getHeight());
+        displayActivitiesPanel.printBtn.addActionListener(ae->{
+            String filename = JOptionPane.showInputDialog(null, managerFactory.settingsManager.getWord("file_name"));
+            if(filename != null){
+                ChooseFolderPanel panel = new ChooseFolderPanel(this, this.managerFactory.settingsManager.getWord("choose_folder"));
+                if(panel.path != null){
+                    displayActivitiesPanel.createTable(panel.path, filename);
+                    JOptionPane.showMessageDialog(null, managerFactory.settingsManager.getWord("saved"), managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+
+        displayBalancesPanel.printBtn.addActionListener(ae->{
+            String filename = JOptionPane.showInputDialog(null, managerFactory.settingsManager.getWord("file_name"));
+            if(filename != null){
+                ChooseFolderPanel panel = new ChooseFolderPanel(this, this.managerFactory.settingsManager.getWord("choose_folder"));
+                if(panel.path != null){
+                    displayBalancesPanel.createTable(panel.path, filename);
+                    JOptionPane.showMessageDialog(null, managerFactory.settingsManager.getWord("saved"), managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         });
 
@@ -189,6 +203,13 @@ public class MainFrame extends JFrame{
                     managerFactory.balanceManager.addBalance(key, homePanel.currencyValueMap.get(key));
                     //managerFactory.balanceManager.updateCurrentBalance(key, homePanel.currencyValueMap.get(key));
                 }
+            }
+        });
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                //System.out.println(getWidth() + ", " + getHeight());
             }
         });
 

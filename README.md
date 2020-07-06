@@ -91,10 +91,12 @@ error message will be displayed. Otherwise, you will be presented with a Display
 
 Here all filtered activities are displayed and can be sorted at will.
 
-![picture](images/image.png)
+![picture](images/display_activities.png)
 
-By pressing the chart button ![picture](src/icons/piechart.png) you can view the activities in the form of a pie chart.
+By clicking the chart button ![picture](src/icons/piechart.png), you can view the activities in the form of a pie chart.
 Be aware, graph can be displayed only if one currency is selected and one kind of activity.
+
+By clicking the save button ![picture](src/icons/save.png), you can export the table as pdf to a desired location.
 
 Plus represents income and minus represent expense.
 
@@ -113,11 +115,12 @@ error message will be displayed. Otherwise, you will be presented with a Display
 
 Here all filtered balances are displayed and can be sorted at will.
 
-![picture](images/image-2.png)
+![picture](images/display_balances.png)
 
-By clicking the graph button ![picture](src/icons/graph.png) balances history will be displayed in the form of a graph.
+By clicking the graph button ![picture](src/icons/graph.png), balances history will be displayed in the form of a graph.
 Be aware, graph can be displayed if only one currency is selected.
 
+By clicking the save button ![picture](src/icons/save.png), you can export the table as pdf to a desired location.
 
 #### Settings Panel
 
@@ -162,10 +165,6 @@ executable .jar file.
 * Loading last saved look and feel sometimes produces NullPointerException. Cannot determine the steps which lead to the bug.
 
 
-### Future updates
-
-* Enable printing functionality.
-
 ### Documentation 
 
 Documentation is available at:
@@ -195,8 +194,6 @@ https://dimitrijekaranfilovic.github.io/personal-accounting/
 * https://iconscout.com/icon/save-saveas-tool-inkscape-storage-store-9
 
 * https://iconscout.com/icon/piechart-82
-
-* https://iconscout.com/icon/save-saveas-tool-inkscape-storage-store-9
 
 * https://iconscout.com/icon/graph-1567975
 

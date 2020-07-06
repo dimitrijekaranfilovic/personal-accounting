@@ -1,5 +1,13 @@
 package gui;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import display.Display;
 import entities.Balance;
 import managers.ManagerFactory;
 import models.BalanceModel;
@@ -8,7 +16,10 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.*;
 import javax.swing.table.TableRowSorter;
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 /**
  * Class that represents panel used for displaying filtered balances.
@@ -33,7 +44,7 @@ public class DisplayBalancesPanel extends JPanel{
         this.table.getTableHeader().setReorderingAllowed(false);
 
         this.backBtn = new JButton(this.managerFactory.resourceManager.backIcon);
-        this.printBtn = new JButton(this.managerFactory.resourceManager.printIcon);
+        this.printBtn = new JButton(this.managerFactory.resourceManager.saveIcon);
         this.graphBtn = new JButton(this.managerFactory.resourceManager.graphIcon);
 
         this.setLayout(new BorderLayout());
@@ -49,10 +60,44 @@ public class DisplayBalancesPanel extends JPanel{
 
         mainPanel.add(panel1);
 
-        this.printBtn.setEnabled(false);
         this.add(mainPanel, BorderLayout.SOUTH);
     }
+    public boolean createTable(String path, String filename){
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(path + System.getProperty("file.separator") + filename + ".pdf"));
+            document.open();
 
+            PdfPTable table = new PdfPTable(3);
+            addTableHeader(table);
+            addRows(table);
+            document.add(table);
+            document.close();
+            return true;
+        } catch (DocumentException | FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private void addTableHeader(PdfPTable table){
+        Stream.of(this.managerFactory.settingsManager.getWord("amount"), this.managerFactory.settingsManager.getWord("currency"), this.managerFactory.settingsManager.getWord("date"))
+                .forEach(columnTitle -> {
+                    PdfPCell header = new PdfPCell();
+                    header.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                    header.setBorderWidth(2);
+                    header.setPhrase(new Phrase(columnTitle));
+                    table.addCell(header);
+                });
+    }
+
+    private void addRows(PdfPTable table){
+        for(Balance b : this.balances){
+            table.addCell(Display.amountDisplay(b.getAmount()));
+            table.addCell(b.getCurrency());
+            table.addCell(Display.dateDisplay(b.getDateTime()));
+        }
+    }
 
     /**
      * Function called after {@link BalancesFilterPanel#search()} function finishes and
@@ -66,5 +111,6 @@ public class DisplayBalancesPanel extends JPanel{
         TableRowSorter<BalanceModel> sorter = new TableRowSorter<>(bm);
         this.table.setRowSorter(sorter);
         this.table.setModel(bm);
+        sorter.setComparator(0, (String s1, String s2)-> (int) (Double.parseDouble(s1) - Double.parseDouble(s2)));
     }
 }

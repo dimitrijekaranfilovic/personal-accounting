@@ -15,11 +15,11 @@ If you haven't set up the app, or it is your first time
 starting it, you will be met with the following
 screen
 
-![picture](images/welcome.png)
+![picture](images/welcome-panel.png)
 
 Click on the next button, which will lead you to the configurations page
 
-![picture](images/configurations.png)
+![picture](images/add-currency-panel.png)
 
 Here, you enter currencies whose balances you wish to keep track of. Bear in mind, currency abbreviations
 must be exactly 3 characters long. In addition, you have to enter at least one before proceeding.

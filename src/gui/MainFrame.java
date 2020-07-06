@@ -180,13 +180,14 @@ public class MainFrame extends JFrame{
 
 
         //saves current balance, adds it to balances history and saves current language used and window position right before closing
+        //TODO: pazi na ovaj adapter
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                managerFactory.settingsManager.saveSettings(managerFactory.settingsManager.style, getX(), getY(), managerFactory.settingsManager.currentLanguage);
                 for(String key : homePanel.currencyValueMap.keySet()){
                     managerFactory.balanceManager.addBalance(key, homePanel.currencyValueMap.get(key));
-                    managerFactory.balanceManager.updateCurrentBalance(key, homePanel.currencyValueMap.get(key));
-                    managerFactory.settingsManager.saveSettings(managerFactory.settingsManager.style, getX(), getY(), managerFactory.settingsManager.currentLanguage);
+                    //managerFactory.balanceManager.updateCurrentBalance(key, homePanel.currencyValueMap.get(key));
                 }
             }
         });

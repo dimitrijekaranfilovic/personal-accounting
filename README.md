@@ -159,7 +159,8 @@ when run next time it will apply those settings
 * Properties files containing UTF characters cannot be properly loaded when program is executed from a
 executable .jar file.
 
-* Charts and graphs cannot be properly added to scroll pane and it causes difficulties with laptop screen sizes.
+* Loading last saved look and feel is buggy immediately after app configuration.
+
 
 ### Future updates
 

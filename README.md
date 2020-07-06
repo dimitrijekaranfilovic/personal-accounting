@@ -155,7 +155,6 @@ If you do not wish to download the entire repository, installers are available:
 * App will save data about your last used LookAndFeel, language and last position of the window and 
 when run next time it will apply those settings
 * App was written using jdk-14.0.1 and jdk-12.0.2 and can be run by them.
-* Default LookAndFeel is Nimbus and default language is english.
 
 ### Known bugs and issues
 

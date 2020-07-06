@@ -3,17 +3,18 @@ package main;
 import gui.MainFrame;
 import managers.ManagerFactory;
 
-import javax.swing.*;
 import java.sql.SQLException;
 
 /**
  * Program's entry point.
  * */
 
+//TODO: testiraj ove promjene za look and feel. Postavi nove instalere.
+
 public class Main {
     public static void main(String[] args) {
         try {
-            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+            //UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 
         } catch (Exception e) {
             // If Nimbus is not available, you can set the GUI to another look and feel

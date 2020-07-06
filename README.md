@@ -91,7 +91,10 @@ error message will be displayed. Otherwise, you will be presented with a Display
 
 Here all filtered activities are displayed and can be sorted at will.
 
-![picture](images/display_activities.png)
+![picture](images/image.png)
+
+By pressing the chart button ![picture](src/icons/piechart.png) you can view the activities in the form of a pie chart.
+Be aware, graph can be displayed only if one currency is selected and one kind of activity.
 
 Plus represents income and minus represent expense.
 
@@ -110,7 +113,10 @@ error message will be displayed. Otherwise, you will be presented with a Display
 
 Here all filtered balances are displayed and can be sorted at will.
 
-![picture](images/display_balances.png)
+![picture](images/image-2.png)
+
+By clicking the graph button ![picture](src/icons/graph.png) balances history will be displayed in the form of a graph.
+Be aware, graph can be displayed if only one currency is selected.
 
 
 #### Settings Panel

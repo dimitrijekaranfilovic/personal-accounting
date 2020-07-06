@@ -159,7 +159,7 @@ when run next time it will apply those settings
 * Properties files containing UTF characters cannot be properly loaded when program is executed from a
 executable .jar file.
 
-* Loading last saved look and feel is buggy immediately after app configuration.
+* Loading last saved look and feel sometimes produces NullPointerException. Cannot determine the steps which lead to the bug.
 
 
 ### Future updates

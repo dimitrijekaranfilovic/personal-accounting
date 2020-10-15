@@ -130,7 +130,7 @@ public class HomePanel extends JPanel implements Observer {
                 }
                 this.currencyValueMap.put(am.activity.getCurrency(), newValue);
                 //TODO: pazi na sledece 2 linije
-                this.managerFactory.balanceManager.addBalance(am.activity.getCurrency(), newValue);
+                //this.managerFactory.balanceManager.addBalance(am.activity.getCurrency(), newValue);
                 this.managerFactory.balanceManager.updateCurrentBalance(am.activity.getCurrency(), newValue);
                 int balance = this.currencyValueMap.get((String)currenciesBox.getSelectedItem());
                 this.balanceField.setText(Display.amountDisplay(balance));

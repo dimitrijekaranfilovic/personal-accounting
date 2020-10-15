@@ -63,6 +63,7 @@ public class SettingsManager implements Publisher {
         this.localeHashMap.put("en", new Locale("en", "EN"));
         this.localeHashMap.put("srb", Locale.forLanguageTag("sr-Latn-RS"));
         this.localeHashMap.put("srb_CYR", new Locale("srb_CYR", "SRB_CYR"));
+        this.localeHashMap.put("sl", Locale.forLanguageTag("sl-Sl"));
         this.bundle = ResourceBundle.getBundle(basePath,this.localeHashMap.get(this.currentLanguage));
         Locale.setDefault(this.localeHashMap.get(this.currentLanguage));
     }
@@ -123,6 +124,8 @@ public class SettingsManager implements Publisher {
             abbreviation = "en";
         else if(language.equalsIgnoreCase(this.getWord("serbian_cyrillic")))
             abbreviation = "srb_CYR";
+        else if(language.equalsIgnoreCase(this.getWord("slovenian")))
+            abbreviation = "sl";
         this.currentLanguage = abbreviation;
         this.bundle = ResourceBundle.getBundle(basePath, this.localeHashMap.get(this.currentLanguage));
         Locale.setDefault(this.localeHashMap.get(this.currentLanguage));

@@ -148,8 +148,7 @@ Language changes are real time and are saved for the next startup.
 
 If you do not wish to download the entire repository, installers are available:
 * [Windows](https://github.com/dimitrijekaranfilovic/downloadable-content/raw/master/personal-accounting-installers/PersonalAccounting.exe)
-* [Debian Linux](https://github.com/dimitrijekaranfilovic/downloadable-content/raw/master/personal-accounting-installers/personalaccounting_amd64.deb)
-
+* Debian installer is temporarily removed.
 ### Additional information
 
 * App will save data about your last used LookAndFeel, language and last position of the window and 

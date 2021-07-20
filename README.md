@@ -36,12 +36,12 @@ In this section, all app's and panels and functionalities will be explained.
 
 ##### Home Panel
 
-After setup and every time after that, once you start the app you will be greeted with a home screen
+After setup and every time after that, once you start the app you will be greeted with a home screen:
 
 ![picture](images/home.png)
 
 Here you can see the current balance of each of your currencies. Currently displayed currency can be changed by
-selecting a desired one through a menu
+selecting a desired one through a menu:
 
 ![picture](images/menu.png)
 
@@ -72,14 +72,14 @@ the back button ![picture](src/icons/skip-back.png)
 ##### Add Currency Panel
 
 If you forgot to add a currency during the initial setup, it is no problem. You can always add additional currencies
-by clicking on the home panel's add currency button
+by clicking on the home panel's add currency button:
 
 ![picture](images/currency.png)
 
 
 #### Activities History Panel
 
-Here you can search and filter all of your past activities
+Here you can search and filter all of your past activities:
 
 ![picture](images/activities_filter.png)
 
@@ -133,6 +133,7 @@ Here you can tweak the app to your liking:
 Currently available languages:
 * serbian latin
 * english
+* slovenian
 
 
 Currently available styles:

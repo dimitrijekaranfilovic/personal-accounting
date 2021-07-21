@@ -5,29 +5,37 @@ import java.time.LocalDateTime;
 
 /**
  * Class that directly communicates with the database.
+ *
  * @author Dimitrije Karanfilovic
  * @since 22.06.2020.
- * */
+ */
 
 
 public class DatabaseManager {
     /**
      * currently established connection
-     * */
+     */
     private Connection connection;
     /**
      * flag that indicates whether tables have been created
-     * */
+     */
     public boolean hasData = false;
+
+    public boolean useTestDb = true;
 
     /**
      * Function that establishes a connection wih the database.
+     *
      * @throws ClassNotFoundException if the driver cannot be found
-     * @throws SQLException if the tables cannot be created
-     * */
+     * @throws SQLException           if the tables cannot be created
+     */
     public void getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("org.sqlite.JDBC");
-        String url = System.getProperty("user.home") + System.getProperty("file.separator") + "personal-accounting-database.db";
+        String home = System.getProperty("user.home");
+        String separator = System.getProperty("file.separator");
+        String db = this.useTestDb ? "pa-test-db.db" : "personal-accounting-database.db";
+        String url = home + separator + db;
+
         connection = DriverManager.getConnection("jdbc:sqlite:" + url);
         initialize();
     }
@@ -35,7 +43,7 @@ public class DatabaseManager {
 
     //test function for the database
     public ResultSet display() throws SQLException, ClassNotFoundException {
-        if(connection == null){
+        if (connection == null) {
             getConnection();
         }
         Statement statement = connection.createStatement();
@@ -43,18 +51,18 @@ public class DatabaseManager {
     }
 
     //creates tables if there are none
+
     /**
      * Function that creates tables in the database if there are none.
-     * @throws SQLException if the tables cannot be created
      *
-     * */
+     * @throws SQLException if the tables cannot be created
+     */
     private void initialize() throws SQLException {
-        if(!hasData){
+        if (!hasData) {
             hasData = true;
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select name from sqlite_master where type='table' and name='activities'");
-            if(!resultSet.next())
-            {
+            if (!resultSet.next()) {
                 Statement createTables = connection.createStatement();
 
                 //build 'activities' table
@@ -62,7 +70,7 @@ public class DatabaseManager {
                         "description varchar(40)," +
                         "time Date," +
                         "amount integer," +
-                        "currency varchar(3),"+
+                        "currency varchar(3)," +
                         "activity varchar(10)," +
                         "constraint actFK foreign key (currency) references currency(abbreviation)" +
                         "" +
@@ -105,12 +113,13 @@ public class DatabaseManager {
 
     /**
      * Function that returns the latest balance of the desired currency from the currentBalances table
+     *
      * @param currency desired currency
      * @return ResultSet of the prepared statement
-     * */
-    ResultSet getLatestBalance(String currency){
+     */
+    ResultSet getLatestBalance(String currency) {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("select amount from currentBalances where currency=?");
@@ -125,13 +134,14 @@ public class DatabaseManager {
 
     /**
      * Function that adds balance in the balances table.
-     * @param currency  currency whose balance it is
-     * @param amount  balance amount
+     *
+     * @param currency currency whose balance it is
+     * @param amount   balance amount
      * @return indicator whether adding was successful
-     * */
-    boolean addBalance(String currency, int amount){
+     */
+    boolean addBalance(String currency, int amount) {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("insert into balances(time, currency, amount) values(?, ?, ?);");
@@ -149,13 +159,14 @@ public class DatabaseManager {
 
     /**
      * Function that adds current balance in the currentBalances table.
+     *
      * @param currency currency whose balance it is
-     * @param amount balance amount
+     * @param amount   balance amount
      * @return indicator whether adding was successful
-     * */
-    boolean addCurrentBalance(String currency, int amount){
+     */
+    boolean addCurrentBalance(String currency, int amount) {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("insert into currentBalances(currency, amount) values(?, ?);");
@@ -171,15 +182,17 @@ public class DatabaseManager {
         }
 
     }
+
     /**
      * Function that updates current balance.
-     * @param currency  currency which is to be updated
-     * @param amount  balance amount
+     *
+     * @param currency currency which is to be updated
+     * @param amount   balance amount
      * @return indicator whether adding was successful
-     * */
-    boolean updateCurrentBalance(String currency, int amount){
+     */
+    boolean updateCurrentBalance(String currency, int amount) {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("update currentBalances set amount=? where currency=?;");
@@ -196,14 +209,15 @@ public class DatabaseManager {
 
     /**
      * Functions that fetches balances that fulfill the conditions.
-     * @param currency  currency whose balances are to be fetched
-     * @param from  starting date
-     * @param to  ending date
+     *
+     * @param currency currency whose balances are to be fetched
+     * @param from     starting date
+     * @param to       ending date
      * @return ResultSet of the prepared statement
-     * */
-    ResultSet getBalances(String currency, LocalDateTime from, LocalDateTime to){
+     */
+    ResultSet getBalances(String currency, LocalDateTime from, LocalDateTime to) {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("select * from balances where time between ? and ? and currency like ? escape '!';");
@@ -226,11 +240,12 @@ public class DatabaseManager {
 
     /**
      * Function that fetches all currencies.
+     *
      * @return ResultSet of the prepared statement.
-     * */
-    ResultSet getCurrencies(){
+     */
+    ResultSet getCurrencies() {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             Statement statement = connection.createStatement();
@@ -242,11 +257,12 @@ public class DatabaseManager {
 
     /**
      * Function that counts how many currencies there are.
+     *
      * @return ResultSet of the prepared statement
-     * */
-    ResultSet countCurrencies(){
+     */
+    ResultSet countCurrencies() {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             Statement statement = connection.createStatement();
@@ -259,12 +275,13 @@ public class DatabaseManager {
 
     /**
      * Function that adds new currency in the currencies table.
+     *
      * @param abbreviation currency abbreviation
      * @return indicator whether the currency was successfully added/
-     * */
-    boolean addCurrency(String abbreviation){
+     */
+    boolean addCurrency(String abbreviation) {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("insert into currencies(abbreviation) values(?);");
@@ -280,11 +297,12 @@ public class DatabaseManager {
 
     /**
      * Function that fetches all activities' descriptions.
+     *
      * @return ResultSet of the prepared statement.
-     * */
-    ResultSet getActivitiesDescriptions(){
+     */
+    ResultSet getActivitiesDescriptions() {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("select description from activities;");
@@ -298,16 +316,17 @@ public class DatabaseManager {
 
     /**
      * Function that adds a new activity in the activities table.
-     * @param description  activity description
-     * @param amount activity amount
-     * @param currency  activity currency
-     * @param activity  activity version
-     * @param date  date and time of the activity
+     *
+     * @param description activity description
+     * @param amount      activity amount
+     * @param currency    activity currency
+     * @param activity    activity version
+     * @param date        date and time of the activity
      * @return indicator whether the adding was successful
-     * */
-    boolean addActivity(String description, int amount, String currency, String activity, LocalDateTime date){
+     */
+    boolean addActivity(String description, int amount, String currency, String activity, LocalDateTime date) {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("insert into activities(description, amount, currency, activity, time) values(?, ?, ?, ?, ?);");
@@ -327,16 +346,17 @@ public class DatabaseManager {
 
     /**
      * Function that fetches activities that meet the conditions.
-     * @param activity  activity version
-     * @param from  starting date and time
-     * @param to   ending date and time
-     * @param currency  currency
-     * @param description  activity description
+     *
+     * @param activity    activity version
+     * @param from        starting date and time
+     * @param to          ending date and time
+     * @param currency    currency
+     * @param description activity description
      * @return ResultSet of the prepared statement
-     * */
-    ResultSet getActivities(String activity, LocalDateTime from, LocalDateTime to, String currency, String description){
+     */
+    ResultSet getActivities(String activity, LocalDateTime from, LocalDateTime to, String currency, String description) {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("select * from activities where time between ? and ? and activity like ? escape '!' and currency like ? escape '!' and description like ? escape '!';");
@@ -374,16 +394,17 @@ public class DatabaseManager {
 
     /**
      * Function that groups activities that meet the conditions.
-     * @param activity  activity version
-     * @param from  starting date and time
-     * @param to   ending date and time
-     * @param currency  currency
-     * @param description  activity description
+     *
+     * @param activity    activity version
+     * @param from        starting date and time
+     * @param to          ending date and time
+     * @param currency    currency
+     * @param description activity description
      * @return ResultSet of the prepared statement
-     * */
-    ResultSet groupActivities(String activity, LocalDateTime from, LocalDateTime to, String currency, String description){
+     */
+    ResultSet groupActivities(String activity, LocalDateTime from, LocalDateTime to, String currency, String description) {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("select description, sum(amount) as am from activities where time between ? and ? and activity like ? escape '!' and currency like ? escape '!' and description like ? escape '!' group by description;");
@@ -422,11 +443,12 @@ public class DatabaseManager {
 
     /**
      * Function that load all necessary settings.
+     *
      * @return ResultSet of the prepared statement.
-     * */
-    ResultSet loadSettings(){
+     */
+    ResultSet loadSettings() {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("select * from settings;");
@@ -440,15 +462,16 @@ public class DatabaseManager {
 
     /**
      * Function that adds initial settings.
+     *
      * @param lookAndFeel initial LookAndFeel
-     * @param x  frame's initial x coordinate
-     * @param y  frame's initial y coordinate
-     * @param language initial language
+     * @param x           frame's initial x coordinate
+     * @param y           frame's initial y coordinate
+     * @param language    initial language
      * @return indicator whether the adding was successful
-     * */
-    boolean addInitialSettings(String lookAndFeel, int x, int y, String language){
+     */
+    boolean addInitialSettings(String lookAndFeel, int x, int y, String language) {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("insert into settings(style, lastX, lastY, language) values(?,?,?,?);");
@@ -467,15 +490,16 @@ public class DatabaseManager {
 
     /**
      * Function that saves current settings.
-     * @param lookAndFeel  initial LookAndFeel
-     * @param x  frame's last x coordinate
-     * @param y  frame's last y coordinate
-     * @param language  last used language
+     *
+     * @param lookAndFeel initial LookAndFeel
+     * @param x           frame's last x coordinate
+     * @param y           frame's last y coordinate
+     * @param language    last used language
      * @return indicator whether the saving was successful
-     * */
-    boolean saveSettings(String lookAndFeel, int x, int y, String language){
+     */
+    boolean saveSettings(String lookAndFeel, int x, int y, String language) {
         try {
-            if(connection == null){
+            if (connection == null) {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("update settings set style=?, lastX=?, lastY=?, language=?;");
@@ -493,7 +517,7 @@ public class DatabaseManager {
     }
 
     ResultSet getAllBalances() throws SQLException, ClassNotFoundException {
-        if(connection == null){
+        if (connection == null) {
             getConnection();
         }
         Statement statement = connection.createStatement();
@@ -501,7 +525,7 @@ public class DatabaseManager {
     }
 
     ResultSet getAllActivities() throws SQLException, ClassNotFoundException {
-        if(connection == null){
+        if (connection == null) {
             getConnection();
         }
         Statement statement = connection.createStatement();

@@ -86,26 +86,16 @@
             <version>1.6.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>5.0.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
         <plugins>
-<!--            <plugin>-->
-<!--                &lt;!&ndash; Build an executable JAR &ndash;&gt;-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-jar-plugin</artifactId>-->
-<!--                <version>3.1.0</version>-->
-<!--                <configuration>-->
-<!--                    <archive>-->
-<!--                        <manifestFile>META-INF/MANIFEST.MF</manifestFile>-->
-<!--&lt;!&ndash;                        <manifest>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <addClasspath>true</addClasspath>&ndash;&gt;-->
-<!--&lt;!&ndash;                            <mainClass>main.Main</mainClass>&ndash;&gt;-->
-<!--&lt;!&ndash;                        </manifest>&ndash;&gt;-->
-<!--                    </archive>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <executions>

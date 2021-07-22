@@ -23,9 +23,9 @@ import java.util.HashMap;
 public class GroupActivitiesPanel extends JPanel implements Observer {
     private final ManagerFactory managerFactory;
     private final JScrollPane pane;
-    public JButton backButton;
+    public final JButton backButton;
     public JFreeChart chart;
-    public JTextField totalField;
+    public final JTextField totalField;
     private final JLabel totalLabel;
 
     GroupActivitiesPanel(ManagerFactory managerFactory){

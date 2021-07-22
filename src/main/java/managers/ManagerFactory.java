@@ -15,7 +15,7 @@ public class ManagerFactory {
     /**
      * parameter for all other managers
      * */
-    public DatabaseManager databaseManager;
+    public final DatabaseManager databaseManager;
     public CurrencyManager currencyManager;
     public BalanceManager balanceManager;
     public ActivityManager activityManager;

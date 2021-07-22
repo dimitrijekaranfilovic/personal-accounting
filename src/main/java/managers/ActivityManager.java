@@ -5,7 +5,6 @@ import entities.Publisher;
 import event.Observer;
 import event.UpdateEvent;
 import gui.HomePanel;
-import main.Main;
 import util.Util;
 
 import java.sql.ResultSet;
@@ -58,7 +57,8 @@ public class ActivityManager implements Publisher {
     public boolean addActivity(String description, String amount, String currency, String activity, String date, int hours, int minutes){
         if(description.length() > 40)
             return false;
-        if(!Main.isNumeric(amount))
+        //if(!Main.isNumeric(amount))
+        if(Util.isNotNumeric(amount))
             return false;
         if(description.equalsIgnoreCase("") || amount.equalsIgnoreCase("") || date.equalsIgnoreCase(""))
             return false;

@@ -19,17 +19,5 @@ public class Main {
         }
 
     }
-    /**
-     * checks whether the given string is a number
-     * @param str string to be checked
-     * @return indicator whether a given string is a number
-     * */
-    public static boolean isNumeric(String str) {
-        try {
-            Double.parseDouble(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
-    }
+
 }

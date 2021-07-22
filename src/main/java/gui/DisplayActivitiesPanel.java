@@ -34,7 +34,9 @@ public class DisplayActivitiesPanel extends JPanel {
      * */
     private ArrayList<Activity> activities;
     private final JTable table;
-    public JButton backBtn, printBtn, pieBtn;
+    public final JButton backBtn;
+    public final JButton printBtn;
+    public final JButton pieBtn;
     private final ManagerFactory managerFactory;
 
     public DisplayActivitiesPanel(ManagerFactory managerFactory){

@@ -18,9 +18,9 @@ public class BalanceModel extends AbstractTableModel{
     public static final int CURRENCY_COLUMN = 1;
     public static final int DATE_COLUMN = 2;
 
-    public ArrayList<Balance> balances;
-    public String[] columnNames = {"Amount", "Currency", "Date"};
-    private ManagerFactory managerFactory;
+    public final ArrayList<Balance> balances;
+    public final String[] columnNames = {"Amount", "Currency", "Date"};
+    private final ManagerFactory managerFactory;
 
     public BalanceModel(ArrayList<Balance> balances, ManagerFactory managerFactory) {
         this.balances = balances;
@@ -48,15 +48,12 @@ public class BalanceModel extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Balance balance = this.balances.get(rowIndex);
-        switch (columnIndex){
-            case AMOUNT_COLUMN:
-                return Display.amountDisplay(balance.getAmount());
-            case CURRENCY_COLUMN:
-                return balance.getCurrency();
-            case DATE_COLUMN:
-                return Display.dateDisplay(balance.getDateTime());
-        }
-        return null;
+        return switch (columnIndex) {
+            case AMOUNT_COLUMN -> Display.amountDisplay(balance.getAmount());
+            case CURRENCY_COLUMN -> balance.getCurrency();
+            case DATE_COLUMN -> Display.dateDisplay(balance.getDateTime());
+            default -> null;
+        };
     }
 
     @Override

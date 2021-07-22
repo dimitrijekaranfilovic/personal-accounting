@@ -11,20 +11,20 @@ import javax.swing.*;
  */
 
 public class ResourceManager {
-    public ImageIcon okIcon;
-    public ImageIcon backIcon;
-    public ImageIcon addIcon;
-    public ImageIcon activitiesHistoryIcon;
-    public ImageIcon balancesHistoryIcon;
-    public ImageIcon settingsIcon;
-    public ImageIcon helpIcon;
-    public ImageIcon addCurrencyIcon;
-    public ImageIcon printIcon;
-    public ImageIcon nextIcon;
-    public ImageIcon moneyIcon;
-    public ImageIcon pieChartIcon;
-    public ImageIcon saveIcon;
-    public ImageIcon graphIcon;
+    public final ImageIcon okIcon;
+    public final ImageIcon backIcon;
+    public final ImageIcon addIcon;
+    public final ImageIcon activitiesHistoryIcon;
+    public final ImageIcon balancesHistoryIcon;
+    public final ImageIcon settingsIcon;
+    public final ImageIcon helpIcon;
+    public final ImageIcon addCurrencyIcon;
+    public final ImageIcon printIcon;
+    public final ImageIcon nextIcon;
+    public final ImageIcon moneyIcon;
+    public final ImageIcon pieChartIcon;
+    public final ImageIcon saveIcon;
+    public final ImageIcon graphIcon;
     private final ClassLoader classLoader;
 
 
@@ -51,9 +51,6 @@ public class ResourceManager {
     }
 
 
-//    private ImageIcon loadIcon(String iconName) {
-//        return new ImageIcon("icons/" + iconName);
-//    }
 
     private ImageIcon loadIcon(String iconName) {
         return new ImageIcon(this.classLoader.getResource("icons/" + iconName));

@@ -34,17 +34,24 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
     private ArrayList<String> currencies;
     private final ManagerFactory managerFactory;
     private final JComboBox<String> activitiesBox, currenciesBox;
-    public JButton okBtn, cancelBtn;
+    public final JButton okBtn;
+    public final JButton cancelBtn;
 
     /**
      * Date pickers for date range.
      * */
-    public JDatePickerImpl datePicker, datePicker1;
-    public JTextField searchField;
+    public final JDatePickerImpl datePicker;
+    public final JDatePickerImpl datePicker1;
+    public final JTextField searchField;
     public ArrayList<Activity> activities;
     public HashMap<String, Double> groupedActivities;
     public String sign, currency;
-    public JLabel activityLabel, fromLabel, toLabel, timeLabel, currencyLabel, descriptionLabel;
+    public final JLabel activityLabel;
+    public final JLabel fromLabel;
+    public final JLabel toLabel;
+    public final JLabel timeLabel;
+    public final JLabel currencyLabel;
+    public final JLabel descriptionLabel;
 
     public ActivitiesFilterPanel(ManagerFactory managerFactory) {
         super();

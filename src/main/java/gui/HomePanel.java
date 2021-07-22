@@ -31,10 +31,15 @@ public class HomePanel extends JPanel implements Observer {
      * available currencies
      * */
     private ArrayList<String> currencies;
-    public JButton addActivityBtn, balancesHistoryBtn, activitiesHistoryBtn, addCurrencyButton, settingsButton, helpBtn;
-    public JComboBox<String> currenciesBox;
-    public JTextField balanceField;
-    public HashMap<String, Integer> currencyValueMap;
+    public final JButton addActivityBtn;
+    public final JButton balancesHistoryBtn;
+    public final JButton activitiesHistoryBtn;
+    public final JButton addCurrencyButton;
+    public final JButton settingsButton;
+    public final JButton helpBtn;
+    public final JComboBox<String> currenciesBox;
+    public final JTextField balanceField;
+    public final HashMap<String, Integer> currencyValueMap;
     private final JEditorPane editorPane;
 
     public HomePanel(ManagerFactory managerFactory){
@@ -152,9 +157,8 @@ public class HomePanel extends JPanel implements Observer {
     //TODO: stavi u properties ovaj tekst koji ide uz link
     private JEditorPane setUpEditorPane(){
         Font font = this.helpBtn.getFont();
-        StringBuilder style = new StringBuilder("font-family:" + font.getFamily() + ";");
-        style.append("font-weight:" + (font.isBold() ? "bold" : "normal") + ";");
-        style.append("font-size:" + font.getSize() + "pt;");
+        String style = "font-family:" + font.getFamily() + ";" + "font-weight:" + (font.isBold() ? "bold" : "normal") + ";" +
+                "font-size:" + font.getSize() + "pt;";
         JEditorPane ep = new JEditorPane("text/html", "<html><body style=\"" + style + "\">" //
                 + "If you have any difficulties, visit <a href=\"https://github.com/dimitrijekaranfilovic/personal-accounting/\"> this page.</a><br>" +
                 "Dimitrije Karanfilovic 2020" //

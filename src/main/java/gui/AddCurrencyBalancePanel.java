@@ -17,7 +17,7 @@ import java.awt.*;
 
 public class AddCurrencyBalancePanel extends JPanel implements Observer {
     private final  ManagerFactory managerFactory;
-    public JButton finishBtn;
+    public final JButton finishBtn;
     private final JLabel currencyLabel, balanceLabel;
 
     AddCurrencyBalancePanel(ManagerFactory managerFactory){

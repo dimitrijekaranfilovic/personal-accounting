@@ -33,9 +33,15 @@ public class AddActivityPanel extends JPanel implements Observer {
     private ArrayList<String> currencies;
     private final JComboBox<String> currenciesBox;
     private final JTextField descriptionField, amountField;
-    public JButton okBtn, cancelBtn;
-    public JComboBox<String> activitiesBox;
-    public JLabel activitiesLabel, currencyLabel, dateLabel, timeLabel, descriptionLabel, amountLabel;
+    public final JButton okBtn;
+    public final JButton cancelBtn;
+    public final JComboBox<String> activitiesBox;
+    public final JLabel activitiesLabel;
+    public final JLabel currencyLabel;
+    public final JLabel dateLabel;
+    public final JLabel timeLabel;
+    public final JLabel descriptionLabel;
+    public final JLabel amountLabel;
 
     public AddActivityPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;

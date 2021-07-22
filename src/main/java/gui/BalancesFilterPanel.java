@@ -32,7 +32,8 @@ public class BalancesFilterPanel extends JPanel implements Observer {
      * available currencies
      * */
     private ArrayList<String> currencies;
-    public JButton okBtn, cancelBtn;
+    public final JButton okBtn;
+    public final JButton cancelBtn;
     public ArrayList<Balance> balances;
     private final JDatePickerImpl datePicker, datePicker1;
     private final JLabel currencyLabel, fromLabel, toLabel, timeLabel;

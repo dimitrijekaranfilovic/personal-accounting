@@ -25,4 +25,29 @@ public class Util {
         }
         return amountNum;
     }
+
+    /**
+     * checks whether the given string is a number
+     * @param s string to be checked
+     * @return indicator whether a given string is a number
+     * */
+    public static boolean isNumeric(String s){
+        try{
+            Double.parseDouble(s);
+            return true;
+        }
+        catch (NumberFormatException e){
+            return false;
+        }
+    }
+
+    /**
+     * checks whether the given string is  not a number
+     * @param s string to be checked
+     * @return indicator whether a given string is not a number
+     * */
+    public static boolean isNotNumeric(String s){
+        return !isNumeric(s);
+    }
+
 }

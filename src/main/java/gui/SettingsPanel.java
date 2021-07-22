@@ -16,8 +16,10 @@ import javax.swing.*;
 
 public class SettingsPanel extends JPanel implements Observer {
     private final ManagerFactory managerFactory;
-    public JComboBox<String> lookAndFeelsBox, languageBox;
-    public JButton backBtn, okBtn;
+    public final JComboBox<String> lookAndFeelsBox;
+    public final JComboBox<String> languageBox;
+    public final JButton backBtn;
+    public final JButton okBtn;
     private final JLabel styleLabel, languageLabel;
 
     public SettingsPanel(ManagerFactory managerFactory, JFrame parent){

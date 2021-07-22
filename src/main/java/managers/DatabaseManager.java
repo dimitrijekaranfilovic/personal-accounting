@@ -23,7 +23,7 @@ public class DatabaseManager {
      */
     public boolean hasData = false;
 
-    public boolean useTestDb = true;
+    public final boolean useTestDb = true;
 
     /**
      * Function that establishes a connection wih the database.

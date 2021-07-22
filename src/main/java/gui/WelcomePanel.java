@@ -13,7 +13,7 @@ import java.awt.*;
  * */
 
 public class WelcomePanel extends JPanel {
-        public JButton nextBtn;
+        public final JButton nextBtn;
         //private ManagerFactory managerFactory;
 
         public WelcomePanel(ManagerFactory managerFactory) {
@@ -26,9 +26,10 @@ public class WelcomePanel extends JPanel {
             welcomeLabel.setFont(new FontUIResource(welcomeLabel.getFont().getName(), Font.BOLD, 16));
             this.add(welcomeLabel);
 
-            String text = "We've detected that application has not been " +
-                    "configured.\nYou will have to enter at least one currency " +
-                    "on the next \npanel before actual usage.";
+            String text = """
+                    We've detected that application has not been configured.
+                    You will have to enter at least one currency on the next\s
+                    panel before actual usage.""";
             JTextArea field = new JTextArea();
             field.setText(text);
             field.setEditable(false);

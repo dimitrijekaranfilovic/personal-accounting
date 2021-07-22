@@ -21,9 +21,9 @@ public class ActivityModel extends AbstractTableModel {
     private static final int DATE_COLUMN = 3;
     private static final int VERSION_COLUMN = 4;
 
-    public ArrayList<Activity> activities;
-    private String[] columnNames = {"Description", "Amount", "Currency", "Date", "Version"};
-    private ManagerFactory managerFactory;
+    public final ArrayList<Activity> activities;
+    private final String[] columnNames = {"Description", "Amount", "Currency", "Date", "Version"};
+    private final ManagerFactory managerFactory;
 
     public ActivityModel(ArrayList<Activity> activities, ManagerFactory managerFactory) {
         this.activities = activities;

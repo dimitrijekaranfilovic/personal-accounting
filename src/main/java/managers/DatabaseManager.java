@@ -1,5 +1,7 @@
 package managers;
 
+import util.Util;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 
@@ -170,7 +172,7 @@ public class DatabaseManager {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("insert into currentBalances(currency, amount) values(?, ?);");
-            Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
+            //Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
             //ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
             ps.setString(1, currency);
             ps.setInt(2, amount);
@@ -196,7 +198,7 @@ public class DatabaseManager {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("update currentBalances set amount=? where currency=?;");
-            Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
+            //Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
             ps.setInt(1, amount);
             ps.setString(2, currency);
             ps.execute();
@@ -221,11 +223,8 @@ public class DatabaseManager {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("select * from balances where time between ? and ? and currency like ? escape '!';");
-            currency = currency
-                    .replace("!", "!!")
-                    .replace("%", "%%")
-                    .replace("_", "!_")
-                    .replace("[", "![");
+
+            currency = Util.formatStringForQuery(currency);
 
             ps.setTimestamp(1, Timestamp.valueOf(from));
             ps.setTimestamp(2, Timestamp.valueOf(to));
@@ -360,24 +359,9 @@ public class DatabaseManager {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("select * from activities where time between ? and ? and activity like ? escape '!' and currency like ? escape '!' and description like ? escape '!';");
-            activity = activity
-                    .replace("!", "!!")
-                    .replace("%", "%%")
-                    .replace("_", "!_")
-                    .replace("[", "![");
-
-            currency = currency
-                    .replace("!", "!!")
-                    .replace("%", "%%")
-                    .replace("_", "!_")
-                    .replace("[", "![");
-
-            description = description
-                    .replace("!", "!!")
-                    .replace("%", "%%")
-                    .replace("_", "!_")
-                    .replace("[", "![");
-
+            activity = Util.formatStringForQuery(activity);
+            currency = Util.formatStringForQuery(currency);
+            description = Util.formatStringForQuery(description);
 
             ps.setTimestamp(1, Timestamp.valueOf(from));
             ps.setTimestamp(2, Timestamp.valueOf(to));
@@ -408,24 +392,9 @@ public class DatabaseManager {
                 getConnection();
             }
             PreparedStatement ps = connection.prepareStatement("select description, sum(amount) as am from activities where time between ? and ? and activity like ? escape '!' and currency like ? escape '!' and description like ? escape '!' group by description;");
-            activity = activity
-                    .replace("!", "!!")
-                    .replace("%", "%%")
-                    .replace("_", "!_")
-                    .replace("[", "![");
-
-            currency = currency
-                    .replace("!", "!!")
-                    .replace("%", "%%")
-                    .replace("_", "!_")
-                    .replace("[", "![");
-
-            description = description
-                    .replace("!", "!!")
-                    .replace("%", "%%")
-                    .replace("_", "!_")
-                    .replace("[", "![");
-
+            activity = Util.formatStringForQuery(activity);
+            currency = Util.formatStringForQuery(currency);
+            description = Util.formatStringForQuery(description);
 
             ps.setTimestamp(1, Timestamp.valueOf(from));
             ps.setTimestamp(2, Timestamp.valueOf(to));

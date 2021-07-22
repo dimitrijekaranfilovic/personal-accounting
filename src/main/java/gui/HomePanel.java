@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 
 public class HomePanel extends JPanel implements Observer {
-    private ManagerFactory managerFactory;
+    private final ManagerFactory managerFactory;
     /**
      * available currencies
      * */
@@ -35,7 +35,7 @@ public class HomePanel extends JPanel implements Observer {
     public JComboBox<String> currenciesBox;
     public JTextField balanceField;
     public HashMap<String, Integer> currencyValueMap;
-    private JEditorPane editorPane;
+    private final JEditorPane editorPane;
 
     public HomePanel(ManagerFactory managerFactory){
         this.currencyValueMap = new HashMap<>();
@@ -119,9 +119,8 @@ public class HomePanel extends JPanel implements Observer {
             }
             balanceField.setText(Display.amountDisplay(this.managerFactory.balanceManager.getLatestBalance(this.currencies.get(0))));
         }
-        else if(e.getSource() instanceof ActivityManager){
-                ActivityManager am = (ActivityManager)e.getSource();
-                int newValue = 0;
+        else if(e.getSource() instanceof ActivityManager am){
+            int newValue = 0;
                 if(am.activity.getActivityVersion().equalsIgnoreCase("-")){
                     newValue = this.currencyValueMap.get(am.activity.getCurrency()) - am.activity.getAmount();
                 }

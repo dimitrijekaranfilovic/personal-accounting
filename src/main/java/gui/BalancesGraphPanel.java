@@ -15,8 +15,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class BalancesGraphPanel extends JPanel {
-    private ManagerFactory managerFactory;
-    private JScrollPane pane;
+    private final ManagerFactory managerFactory;
+    private final JScrollPane pane;
     public JButton backButton;
     public JFreeChart chart;
 

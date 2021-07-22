@@ -4,6 +4,7 @@ import entities.Publisher;
 import event.Observer;
 import event.UpdateEvent;
 import main.Main;
+import util.Util;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,7 +47,7 @@ public class CurrencyManager implements Publisher {
     /**
      * enables indirect communication with the database
      * */
-    private DatabaseManager databaseManager;
+    private final DatabaseManager databaseManager;
 
     /**
      * Class constructor.
@@ -72,18 +73,7 @@ public class CurrencyManager implements Publisher {
                 return NOT_CHARACTER;
             if(!Main.isNumeric(balance))
                 return NOT_NUMBER;
-            int amount = 0;
-            String[] tokens = balance.split("\\.");
-            amount += 100 * Integer.parseInt(tokens[0]);
-            if(tokens.length == 2){
-                String parts = tokens[1];
-                if(parts.length() == 1){
-                    amount += Integer.parseInt(parts) * 10;
-                }
-                else if(parts.length() == 2){
-                    amount += Integer.parseInt(parts);
-                }
-            }
+            int amount = Util.parseString(balance);
 
            if(this.databaseManager.addCurrency(currency) && this.databaseManager.addBalance(currency, amount) && this.databaseManager.addCurrentBalance(currency, amount)){
                notifyObservers();

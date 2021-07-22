@@ -20,7 +20,7 @@ public class BalanceManager  {
     /**
      * enables indirect communication with the database
      * */
-    private DatabaseManager databaseManager;
+    private final DatabaseManager databaseManager;
 
     public BalanceManager(DatabaseManager databaseManager) {
         this.databaseManager = databaseManager;

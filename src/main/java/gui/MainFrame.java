@@ -19,9 +19,9 @@ import java.sql.SQLException;
 
 
 public class MainFrame extends JFrame{
-    private JPanel mainPanel;
-    private ManagerFactory managerFactory;
-    private HomePanel homePanel;
+    private final JPanel mainPanel;
+    private final ManagerFactory managerFactory;
+    private final HomePanel homePanel;
 
     private static MainFrame instance = null;
 
@@ -144,10 +144,7 @@ public class MainFrame extends JFrame{
                 JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("no_result"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
             else {
                 displayActivitiesPanel.setActivities(activitiesFilterPanel.activities);
-                if(activitiesFilterPanel.sign.equalsIgnoreCase("") || activitiesFilterPanel.currency.equalsIgnoreCase("") || activitiesFilterPanel.groupedActivities == null)
-                    displayActivitiesPanel.pieBtn.setEnabled(false);
-                else
-                    displayActivitiesPanel.pieBtn.setEnabled(true);
+                displayActivitiesPanel.pieBtn.setEnabled(!activitiesFilterPanel.sign.equalsIgnoreCase("") && !activitiesFilterPanel.currency.equalsIgnoreCase("") && activitiesFilterPanel.groupedActivities != null);
                 showCard("display_activities");
             }
 
@@ -162,10 +159,7 @@ public class MainFrame extends JFrame{
                 JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("no_result"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
             else{
                 displayBalancesPanel.setBalances(balancesFilterPanel.balances);
-                if(balancesFilterPanel.currency.equalsIgnoreCase(""))
-                    displayBalancesPanel.graphBtn.setEnabled(false);
-                else
-                    displayBalancesPanel.graphBtn.setEnabled(true);
+                displayBalancesPanel.graphBtn.setEnabled(!balancesFilterPanel.currency.equalsIgnoreCase(""));
                 showCard("display_balances");
             }
         });

@@ -15,15 +15,13 @@ import javax.swing.*;
  * */
 
 public class SettingsPanel extends JPanel implements Observer {
-    private ManagerFactory managerFactory;
+    private final ManagerFactory managerFactory;
     public JComboBox<String> lookAndFeelsBox, languageBox;
     public JButton backBtn, okBtn;
-    private JFrame parent;
-    private JLabel styleLabel, languageLabel;
+    private final JLabel styleLabel, languageLabel;
 
     public SettingsPanel(ManagerFactory managerFactory, JFrame parent){
         this.managerFactory = managerFactory;
-        this.parent = parent;
         this.setLayout(new MigLayout());
         this.lookAndFeelsBox = new JComboBox<>();
         this.languageBox = new JComboBox<>();

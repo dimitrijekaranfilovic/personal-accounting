@@ -19,7 +19,7 @@ public class SettingsManager implements Publisher {
     /**
      * enables indirect communication with the database
      * */
-    private DatabaseManager databaseManager;
+    private final DatabaseManager databaseManager;
     /**
      * frame's x coordinate
      * */
@@ -47,11 +47,11 @@ public class SettingsManager implements Publisher {
     /**
      * map of locales(key: locale abbreviation, value: locale)
      * */
-    private HashMap<String, Locale> localeHashMap;
+    private final HashMap<String, Locale> localeHashMap;
     /**
      * relative path to properties files
      * */
-    private String basePath = "languages/words";
+    private final String basePath = "languages/words";
 
     /**
      * Class constructor. Initializes map of locales and active ResourceBundle.

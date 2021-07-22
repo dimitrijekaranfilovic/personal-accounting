@@ -33,8 +33,8 @@ public class DisplayBalancesPanel extends JPanel{
      * list of balances to be displayed
      * */
     private ArrayList<Balance> balances;
-    private JTable table;
-    private ManagerFactory managerFactory;
+    private final JTable table;
+    private final ManagerFactory managerFactory;
     public JButton backBtn, printBtn, graphBtn;
 
     DisplayBalancesPanel(ManagerFactory managerFactory){

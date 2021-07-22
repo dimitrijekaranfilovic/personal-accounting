@@ -14,11 +14,11 @@ import java.awt.*;
 
 public class WelcomePanel extends JPanel {
         public JButton nextBtn;
-        private ManagerFactory managerFactory;
+        //private ManagerFactory managerFactory;
 
         public WelcomePanel(ManagerFactory managerFactory) {
-            this.managerFactory = managerFactory;
-            this.nextBtn = new JButton(this.managerFactory.resourceManager.nextIcon);
+            //this.managerFactory = managerFactory;
+            this.nextBtn = new JButton(managerFactory.resourceManager.nextIcon);
 
             JLabel welcomeLabel = new JLabel("Welcome", SwingConstants.CENTER);
 

@@ -32,8 +32,8 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
      * Available currencies.
      * */
     private ArrayList<String> currencies;
-    private ManagerFactory managerFactory;
-    private JComboBox<String> activitiesBox, currenciesBox;
+    private final ManagerFactory managerFactory;
+    private final JComboBox<String> activitiesBox, currenciesBox;
     public JButton okBtn, cancelBtn;
 
     /**

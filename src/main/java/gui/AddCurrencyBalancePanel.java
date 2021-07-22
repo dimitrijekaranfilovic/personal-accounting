@@ -16,9 +16,9 @@ import java.awt.*;
  * */
 
 public class AddCurrencyBalancePanel extends JPanel implements Observer {
-    private ManagerFactory managerFactory;
+    private final  ManagerFactory managerFactory;
     public JButton finishBtn;
-    private JLabel currencyLabel, balanceLabel;
+    private final JLabel currencyLabel, balanceLabel;
 
     AddCurrencyBalancePanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;
@@ -54,24 +54,16 @@ public class AddCurrencyBalancePanel extends JPanel implements Observer {
         //Checks the parameters specified in the text fields and if everyhting is in order, adds a new currency and its balance.
         addBtn.addActionListener(ae->{
             int result = this.managerFactory.currencyManager.addCurrency(currencyField.getText(), balanceField.getText());
-            switch (result){
-                case CurrencyManager.NUM_CHARACTERS:
-                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_1"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
-                    break;
-                case CurrencyManager.NOT_CHARACTER:
-                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_2"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
-                    break;
-                case CurrencyManager.NOT_NUMBER:
-                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_3"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
-                    break;
-                case CurrencyManager.OK:
+            switch (result) {
+                case CurrencyManager.NUM_CHARACTERS -> JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_1"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
+                case CurrencyManager.NOT_CHARACTER -> JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_2"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
+                case CurrencyManager.NOT_NUMBER -> JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_3"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
+                case CurrencyManager.OK -> {
                     JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_information"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
                     currencyField.setText("");
                     balanceField.setText("");
-                    break;
-                case CurrencyManager.WRONG:
-                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_error"), this.managerFactory.settingsManager.getWord("error"), JOptionPane.ERROR_MESSAGE);
-                    break;
+                }
+                case CurrencyManager.WRONG -> JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_error"), this.managerFactory.settingsManager.getWord("error"), JOptionPane.ERROR_MESSAGE);
             }
         });
     }

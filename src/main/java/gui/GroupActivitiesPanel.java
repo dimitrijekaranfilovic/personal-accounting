@@ -21,12 +21,12 @@ import java.util.HashMap;
  * */
 
 public class GroupActivitiesPanel extends JPanel implements Observer {
-    private ManagerFactory managerFactory;
-    private JScrollPane pane;
+    private final ManagerFactory managerFactory;
+    private final JScrollPane pane;
     public JButton backButton;
     public JFreeChart chart;
     public JTextField totalField;
-    private JLabel totalLabel;
+    private final JLabel totalLabel;
 
     GroupActivitiesPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;

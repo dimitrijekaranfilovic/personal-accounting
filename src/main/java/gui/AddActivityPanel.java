@@ -26,13 +26,13 @@ import java.util.Properties;
  * */
 
 public class AddActivityPanel extends JPanel implements Observer {
-    private ManagerFactory managerFactory;
+    private final ManagerFactory managerFactory;
     /**
      * available currencies
      * */
     private ArrayList<String> currencies;
-    private JComboBox<String> currenciesBox;
-    private JTextField descriptionField, amountField;
+    private final JComboBox<String> currenciesBox;
+    private final JTextField descriptionField, amountField;
     public JButton okBtn, cancelBtn;
     public JComboBox<String> activitiesBox;
     public JLabel activitiesLabel, currencyLabel, dateLabel, timeLabel, descriptionLabel, amountLabel;
@@ -150,25 +150,25 @@ public class AddActivityPanel extends JPanel implements Observer {
          /* This listener checks the content of combo boxes and text fields, and if all is in
           order it adds a new activity.*/
        this.okBtn.addActionListener(ae->{
-                    String sign;
-                    if(activitiesBox.getSelectedItem().toString().equalsIgnoreCase(this.managerFactory.settingsManager.getWord("income")))
-                        sign = "+";
-                    else
-                        sign = "-";
+            String sign;
+            if(activitiesBox.getSelectedItem().toString().equalsIgnoreCase(this.managerFactory.settingsManager.getWord("income")))
+                sign = "+";
+            else
+                sign = "-";
 
-                   if(this.managerFactory.activityManager.addActivity(descriptionField.getText(), amountField.getText(),
-                        (String)currenciesBox.getSelectedItem(), sign, datePicker.getJFormattedTextField().getText(),
-                        (Integer) hourSpinner.getValue(), (Integer) minuteSpinner.getValue())){
+           if(this.managerFactory.activityManager.addActivity(descriptionField.getText(), amountField.getText(),
+                (String)currenciesBox.getSelectedItem(), sign, datePicker.getJFormattedTextField().getText(),
+                (Integer) hourSpinner.getValue(), (Integer) minuteSpinner.getValue())){
 
 
-                       JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("activity_information"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
-                       this.descriptionField.setText("");
-                       this.amountField.setText("");
+               JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("activity_information"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
+               this.descriptionField.setText("");
+               this.amountField.setText("");
 
-                   }
-                   else{
-                       JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("activity_error"), this.managerFactory.settingsManager.getWord("error"), JOptionPane.ERROR_MESSAGE);
-                   }
+           }
+           else{
+               JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("activity_error"), this.managerFactory.settingsManager.getWord("error"), JOptionPane.ERROR_MESSAGE);
+           }
        });
     }
 

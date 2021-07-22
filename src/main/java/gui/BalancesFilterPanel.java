@@ -26,16 +26,16 @@ import java.util.Properties;
 
 
 public class BalancesFilterPanel extends JPanel implements Observer {
-    private ManagerFactory managerFactory;
-    private JComboBox<String> currenciesBox;
+    private final ManagerFactory managerFactory;
+    private final JComboBox<String> currenciesBox;
     /**
      * available currencies
      * */
     private ArrayList<String> currencies;
     public JButton okBtn, cancelBtn;
     public ArrayList<Balance> balances;
-    private JDatePickerImpl datePicker, datePicker1;
-    private JLabel currencyLabel, fromLabel, toLabel, timeLabel;
+    private final JDatePickerImpl datePicker, datePicker1;
+    private final JLabel currencyLabel, fromLabel, toLabel, timeLabel;
     public String currency;
 
     public BalancesFilterPanel(ManagerFactory managerFactory){

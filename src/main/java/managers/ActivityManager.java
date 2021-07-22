@@ -6,6 +6,7 @@ import event.Observer;
 import event.UpdateEvent;
 import gui.HomePanel;
 import main.Main;
+import util.Util;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +27,7 @@ public class ActivityManager implements Publisher {
     /**
      * enables indirect communication with the database
      * */
-    private DatabaseManager databaseManager;
+    private final DatabaseManager databaseManager;
     /**
      * List of observers
      * */
@@ -75,18 +76,7 @@ public class ActivityManager implements Publisher {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm");
         LocalDateTime dateTime = LocalDateTime.parse(dateToFormat.toString(), formatter);
 
-        int amountNum = 0;
-        String[] tokens = amount.split("\\.");
-        amountNum += 100 * Integer.parseInt(tokens[0]);
-        if(tokens.length == 2){
-            String parts = tokens[1];
-            if(parts.length() == 1){
-                amountNum += Integer.parseInt(parts) * 10;
-            }
-            else if(parts.length() == 2){
-                amountNum += Integer.parseInt(parts);
-            }
-        }
+        int amountNum = Util.parseString(amount);
 
         if(this.databaseManager.addActivity(description, amountNum, currency, activity, dateTime)){
             this.activity = new Activity(currency, amountNum, activity);

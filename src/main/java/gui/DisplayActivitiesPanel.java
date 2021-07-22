@@ -33,9 +33,9 @@ public class DisplayActivitiesPanel extends JPanel {
      * list of activities to be displayed
      * */
     private ArrayList<Activity> activities;
-    private JTable table;
+    private final JTable table;
     public JButton backBtn, printBtn, pieBtn;
-    private ManagerFactory managerFactory;
+    private final ManagerFactory managerFactory;
 
     public DisplayActivitiesPanel(ManagerFactory managerFactory){
         this.managerFactory = managerFactory;

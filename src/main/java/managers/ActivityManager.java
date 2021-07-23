@@ -5,6 +5,7 @@ import entities.Publisher;
 import event.Observer;
 import event.UpdateEvent;
 import gui.HomePanel;
+import managers.interfaces.IActivityManager;
 import util.Util;
 
 import java.sql.ResultSet;
@@ -22,7 +23,7 @@ import java.util.List;
  * */
 
 
-public class ActivityManager implements Publisher {
+public class ActivityManager implements Publisher, IActivityManager {
     /**
      * enables indirect communication with the database
      * */

@@ -3,6 +3,7 @@ package managers;
 import entities.Publisher;
 import event.Observer;
 import event.UpdateEvent;
+import managers.interfaces.ICurrencyManager;
 import util.Util;
 
 import java.sql.ResultSet;
@@ -17,7 +18,7 @@ import java.util.List;
  * */
 
 
-public class CurrencyManager implements Publisher {
+public class CurrencyManager implements Publisher, ICurrencyManager {
     /**
      * indicates that currency abbreviation to be added doesn't consist of 3 characters
      * */
@@ -63,6 +64,7 @@ public class CurrencyManager implements Publisher {
      * @param balance string representation of the currency's balance
      * @return number which indicates which message will be displayed.
      * */
+    @Override
     public int addCurrency(String currency, String balance){
         //boolean res = true;
         if(currency.length() != 3)
@@ -90,6 +92,7 @@ public class CurrencyManager implements Publisher {
      * @throws SQLException if counting doesn't go like intended
      * @return number of currencies
      * */
+    @Override
     public int countCurrencies() throws SQLException {
         ResultSet rs = this.databaseManager.countCurrencies();
         if(rs == null)

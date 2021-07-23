@@ -1,5 +1,7 @@
 package managers;
 
+import managers.interfaces.ILookAndFeelManager;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,7 +12,7 @@ import java.awt.*;
  * */
 
 
-public class LookAndFeelManager {
+public class LookAndFeelManager implements ILookAndFeelManager {
     /**
      * home panel dimension
      * */
@@ -83,7 +85,7 @@ public class LookAndFeelManager {
      * @param height  new dimension height
      * */
 
-    private void updateDimension(Dimension d, int width, int height){
+    public void updateDimension(Dimension d, int width, int height){
         d.width = width;
         d.height = height;
     }

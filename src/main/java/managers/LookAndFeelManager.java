@@ -1,6 +1,5 @@
 package managers;
 
-import managers.interfaces.ILookAndFeelManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +11,7 @@ import java.awt.*;
  * */
 
 
-public class LookAndFeelManager implements ILookAndFeelManager {
+public class LookAndFeelManager {
     /**
      * home panel dimension
      * */

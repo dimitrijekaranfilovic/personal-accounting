@@ -1,6 +1,5 @@
 package managers;
 
-import managers.interfaces.IDatabaseManager;
 import util.Util;
 
 import java.sql.*;
@@ -14,7 +13,7 @@ import java.time.LocalDateTime;
  */
 
 
-public class DatabaseManager implements IDatabaseManager {
+public class DatabaseManager {
     /**
      * currently established connection
      */

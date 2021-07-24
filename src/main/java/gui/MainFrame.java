@@ -20,23 +20,21 @@ import java.sql.SQLException;
 
 public class MainFrame extends JFrame{
     private final JPanel mainPanel;
-    private final ManagerFactory managerFactory;
     private final HomePanel homePanel;
 
     private static MainFrame instance = null;
 
-    public static MainFrame getInstance(ManagerFactory managerFactory) throws SQLException {
+    public static MainFrame getInstance() throws SQLException, ClassNotFoundException {
         if(instance == null)
-            instance = new MainFrame(managerFactory);
+            instance = new MainFrame();
         return instance;
     }
-    private  MainFrame(ManagerFactory managerFactory) throws SQLException {
-        this.managerFactory = managerFactory;
+    private  MainFrame() throws SQLException, ClassNotFoundException {
         this.homePanel = new HomePanel(this.managerFactory);
 
-        AddCurrencyBalancePanel addCurrencyBalancePanel = new AddCurrencyBalancePanel(this.managerFactory);
-        AddActivityPanel addActivityPanel = new AddActivityPanel(this.managerFactory);
-        ActivitiesFilterPanel activitiesFilterPanel = new ActivitiesFilterPanel(this.managerFactory);
+        AddCurrencyBalancePanel addCurrencyBalancePanel = new AddCurrencyBalancePanel();
+        AddActivityPanel addActivityPanel = new AddActivityPanel();
+        ActivitiesFilterPanel activitiesFilterPanel = new ActivitiesFilterPanel();
         BalancesFilterPanel balancesFilterPanel = new BalancesFilterPanel(this.managerFactory);
         DisplayActivitiesPanel displayActivitiesPanel = new DisplayActivitiesPanel(this.managerFactory);
         DisplayBalancesPanel displayBalancesPanel = new DisplayBalancesPanel(this.managerFactory);

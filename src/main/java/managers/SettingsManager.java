@@ -3,7 +3,6 @@ package managers;
 import entities.Publisher;
 import event.Observer;
 import event.UpdateEvent;
-import managers.interfaces.ISettingsManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +15,7 @@ import java.util.*;
  * */
 
 
-public class SettingsManager implements Publisher, ISettingsManager {
+public class SettingsManager implements Publisher {
     /**
      * enables indirect communication with the database
      * */

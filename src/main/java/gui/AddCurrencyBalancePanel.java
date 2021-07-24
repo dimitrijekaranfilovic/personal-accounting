@@ -4,10 +4,13 @@ import event.Observer;
 import event.UpdateEvent;
 import managers.CurrencyManager;
 import managers.ManagerFactory;
+import managers.ResourceManager;
+import managers.SettingsManager;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 /**
  * Class that represents panel used for adding a new currency.
@@ -16,19 +19,23 @@ import java.awt.*;
  * */
 
 public class AddCurrencyBalancePanel extends JPanel implements Observer {
-    private final  ManagerFactory managerFactory;
     public final JButton finishBtn;
     private final JLabel currencyLabel, balanceLabel;
+    private final SettingsManager settingsManager;
+    private final CurrencyManager currencyManager;
+    private final ResourceManager resourceManager;
 
-    AddCurrencyBalancePanel(ManagerFactory managerFactory){
-        this.managerFactory = managerFactory;
+    AddCurrencyBalancePanel() throws SQLException, ClassNotFoundException {
         this.setLayout(new MigLayout());
+        this.settingsManager = ManagerFactory.createSettingsManager();
+        this.currencyManager = ManagerFactory.createCurrencyManager();
+        this.resourceManager = ManagerFactory.createResourceManager();
 
-        this.managerFactory.settingsManager.addObserver(this);
-        this.currencyLabel = new JLabel(this.managerFactory.settingsManager.getWord("currency"));
+        this.settingsManager.addObserver(this);
+        this.currencyLabel = new JLabel(this.settingsManager.getWord("currency"));
         JTextField currencyField = new JTextField(20);
 
-        this.balanceLabel = new JLabel(this.managerFactory.settingsManager.getWord("balance"));
+        this.balanceLabel = new JLabel(this.settingsManager.getWord("balance"));
         JTextField balanceField = new JTextField(20);
 
         Dimension d = new Dimension(70, 30);
@@ -38,7 +45,7 @@ public class AddCurrencyBalancePanel extends JPanel implements Observer {
         balanceLabel.setMaximumSize(d);
 
         this.finishBtn = new JButton();
-        JButton addBtn = new JButton(this.managerFactory.resourceManager.addIcon);
+        JButton addBtn = new JButton(this.resourceManager.addIcon);
 
         this.add(currencyLabel, "split 2");
         this.add(currencyField, "wrap");
@@ -53,17 +60,17 @@ public class AddCurrencyBalancePanel extends JPanel implements Observer {
 
         //Checks the parameters specified in the text fields and if everyhting is in order, adds a new currency and its balance.
         addBtn.addActionListener(ae->{
-            int result = this.managerFactory.currencyManager.addCurrency(currencyField.getText(), balanceField.getText());
+            int result = this.currencyManager.addCurrency(currencyField.getText(), balanceField.getText());
             switch (result) {
-                case CurrencyManager.NUM_CHARACTERS -> JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_1"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
-                case CurrencyManager.NOT_CHARACTER -> JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_2"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
-                case CurrencyManager.NOT_NUMBER -> JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_3"), this.managerFactory.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
+                case CurrencyManager.NUM_CHARACTERS -> JOptionPane.showMessageDialog(null, this.settingsManager.getWord("currency_warning_1"), this.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
+                case CurrencyManager.NOT_CHARACTER -> JOptionPane.showMessageDialog(null, this.settingsManager.getWord("currency_warning_2"), this.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
+                case CurrencyManager.NOT_NUMBER -> JOptionPane.showMessageDialog(null, this.settingsManager.getWord("currency_warning_3"), this.settingsManager.getWord("warning"), JOptionPane.WARNING_MESSAGE);
                 case CurrencyManager.OK -> {
-                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_information"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, this.settingsManager.getWord("currency_information"), this.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
                     currencyField.setText("");
                     balanceField.setText("");
                 }
-                case CurrencyManager.WRONG -> JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_error"), this.managerFactory.settingsManager.getWord("error"), JOptionPane.ERROR_MESSAGE);
+                case CurrencyManager.WRONG -> JOptionPane.showMessageDialog(null, this.settingsManager.getWord("currency_error"), this.settingsManager.getWord("error"), JOptionPane.ERROR_MESSAGE);
             }
         });
     }
@@ -76,9 +83,9 @@ public class AddCurrencyBalancePanel extends JPanel implements Observer {
      * */
     public void updateIcon(boolean firstTimeSetup){
         if(firstTimeSetup)
-            this.finishBtn.setIcon(this.managerFactory.resourceManager.nextIcon);
+            this.finishBtn.setIcon(this.resourceManager.nextIcon);
         else
-            this.finishBtn.setIcon(this.managerFactory.resourceManager.backIcon);
+            this.finishBtn.setIcon(this.resourceManager.backIcon);
     }
 
     /**
@@ -88,7 +95,7 @@ public class AddCurrencyBalancePanel extends JPanel implements Observer {
      * */
     @Override
     public void updatePerformed(UpdateEvent e) {
-        this.currencyLabel.setText(this.managerFactory.settingsManager.getWord("currency"));
-        this.balanceLabel.setText(this.managerFactory.settingsManager.getWord("balance"));
+        this.currencyLabel.setText(this.settingsManager.getWord("currency"));
+        this.balanceLabel.setText(this.settingsManager.getWord("balance"));
     }
 }

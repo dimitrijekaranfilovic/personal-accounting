@@ -1,6 +1,5 @@
 package managers;
 
-import managers.interfaces.IResourceManager;
 
 import javax.swing.*;
 
@@ -12,7 +11,7 @@ import javax.swing.*;
  * @since 22.06.2020.
  */
 
-public class ResourceManager implements IResourceManager {
+public class ResourceManager {
     public final ImageIcon okIcon;
     public final ImageIcon backIcon;
     public final ImageIcon addIcon;

@@ -1,7 +1,6 @@
 package managers;
 
 import entities.Balance;
-import managers.interfaces.IBalanceManager;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
  * */
 
 
-public class BalanceManager  implements IBalanceManager {
+public class BalanceManager {
     /**
      * enables indirect communication with the database
      * */
@@ -32,7 +31,6 @@ public class BalanceManager  implements IBalanceManager {
      * @param currency  string whose balance is wanted
      * @return amount for desired currency
      * */
-    @Override
     public int getLatestBalance(String currency){
         ResultSet rs = this.databaseManager.getLatestBalance(currency);
         if(rs == null)
@@ -55,7 +53,6 @@ public class BalanceManager  implements IBalanceManager {
      * @param amount  amount of the currency
      * @return indicator whether the balance was successfully added
      * */
-    @Override
     public boolean addBalance(String currency, int amount){
         return this.databaseManager.addBalance(currency, amount);
     }
@@ -67,7 +64,6 @@ public class BalanceManager  implements IBalanceManager {
      * @param amount  new amount for the desired currency
      * @return indicator whether the balance was successfully updated
      * */
-    @Override
     public boolean updateCurrentBalance(String currency, int amount){
         return this.databaseManager.updateCurrentBalance(currency, amount);
     }
@@ -79,7 +75,6 @@ public class BalanceManager  implements IBalanceManager {
      * @param toDate  string representation of the date which is ending date of time span
      * @return list of balances
      * */
-    @Override
     public ArrayList<Balance> getBalances(String currency, String fromDate, String toDate){
         ArrayList<Balance> balances = new ArrayList<>();
         if(fromDate.equalsIgnoreCase("") || toDate.equalsIgnoreCase(""))

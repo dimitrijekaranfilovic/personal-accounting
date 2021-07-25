@@ -31,7 +31,6 @@ public class ActivitiesFilterPanel extends JPanel implements Observer {
      * Available currencies.
      */
     private ArrayList<String> currencies;
-    //private final ManagerFactory managerFactory;
     private final CurrencyManager currencyManager;
     private final SettingsManager settingsManager;
     private final ResourceManager resourceManager;

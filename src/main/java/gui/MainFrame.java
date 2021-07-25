@@ -11,10 +11,10 @@ import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 /**
- * Function that encompasses all other panels and controls conditions which need to be met
+ * Class that encompasses all other panels and controls conditions which need to be met
  * in order for panels to be displayed. This class is implemented as Singleton.
  * @author Dimitrije Karanfilovic
- * @since 22.06.2020.
+ * @since 25.07.2021.
  * */
 
 

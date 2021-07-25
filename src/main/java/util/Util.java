@@ -1,5 +1,11 @@
 package util;
 
+
+/**
+ * Class that has static util methods for parsing and formatting.
+ * @author Dimitrije Karanfilovic
+ * @since 25.07.2021.
+ * */
 public class Util {
 
 

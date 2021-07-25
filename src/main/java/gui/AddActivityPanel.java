@@ -45,7 +45,6 @@ public class AddActivityPanel extends JPanel implements Observer {
     private final SettingsManager settingsManager;
     private final ActivityManager activityManager;
 
-    //public AddActivityPanel(ManagerFactory managerFactory){
     public AddActivityPanel() throws SQLException, ClassNotFoundException {
         this.currencyManager = ManagerFactory.createCurrencyManager();
         this.resourceManager = ManagerFactory.createResourceManager();

@@ -10,6 +10,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 import display.Display;
 import entities.Activity;
 import managers.ManagerFactory;
+import managers.ResourceManager;
+import managers.SettingsManager;
 import models.ActivityModel;
 import net.miginfocom.swing.MigLayout;
 
@@ -18,6 +20,7 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
@@ -37,17 +40,19 @@ public class DisplayActivitiesPanel extends JPanel {
     public final JButton backBtn;
     public final JButton printBtn;
     public final JButton pieBtn;
-    private final ManagerFactory managerFactory;
+    private final ResourceManager resourceManager;
+    private final SettingsManager settingsManager;
 
-    public DisplayActivitiesPanel(ManagerFactory managerFactory){
-        this.managerFactory = managerFactory;
+    public DisplayActivitiesPanel() throws SQLException, ClassNotFoundException {
+        this.resourceManager = ManagerFactory.createResourceManager();
+        this.settingsManager = ManagerFactory.createSettingsManager();
         this.activities = new ArrayList<>();
-        this.table = new JTable(new ActivityModel(this.activities, this.managerFactory));
+        this.table = new JTable(new ActivityModel(this.activities));
         this.table.getTableHeader().setReorderingAllowed(false);
 
-        this.backBtn = new JButton(this.managerFactory.resourceManager.backIcon);
-        this.printBtn = new JButton(this.managerFactory.resourceManager.saveIcon);
-        this.pieBtn = new JButton(this.managerFactory.resourceManager.pieChartIcon);
+        this.backBtn = new JButton(this.resourceManager.backIcon);
+        this.printBtn = new JButton(this.resourceManager.saveIcon);
+        this.pieBtn = new JButton(this.resourceManager.pieChartIcon);
 
         this.setLayout(new BorderLayout());
 
@@ -88,7 +93,7 @@ public class DisplayActivitiesPanel extends JPanel {
     }
 
     private void addTableHeader(PdfPTable table){
-        Stream.of(this.managerFactory.settingsManager.getWord("description"), this.managerFactory.settingsManager.getWord("amount"), this.managerFactory.settingsManager.getWord("currency"), this.managerFactory.settingsManager.getWord("date"), this.managerFactory.settingsManager.getWord("activity"))
+        Stream.of(this.settingsManager.getWord("description"), this.settingsManager.getWord("amount"), this.settingsManager.getWord("currency"), this.settingsManager.getWord("date"), this.settingsManager.getWord("activity"))
                 .forEach(columnTitle -> {
                     PdfPCell header = new PdfPCell();
                     header.setBackgroundColor(BaseColor.LIGHT_GRAY);
@@ -115,9 +120,9 @@ public class DisplayActivitiesPanel extends JPanel {
      * if the {@link ActivitiesFilterPanel#activities} size is larger than zero.
      * @param activities activities to be displayed
      * */
-    public void setActivities(ArrayList<Activity> activities){
+    public void setActivities(ArrayList<Activity> activities) throws SQLException, ClassNotFoundException {
         this.activities = activities;
-        ActivityModel am = new ActivityModel(this.activities, this.managerFactory);
+        ActivityModel am = new ActivityModel(this.activities);
         am.updateColumnNames();
         TableRowSorter<ActivityModel> sorter = new TableRowSorter<>(am);
         this.table.setRowSorter(sorter);

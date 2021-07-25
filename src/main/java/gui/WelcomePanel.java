@@ -1,6 +1,7 @@
 package gui;
 
 import managers.ManagerFactory;
+import managers.ResourceManager;
 
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
@@ -14,11 +15,11 @@ import java.awt.*;
 
 public class WelcomePanel extends JPanel {
         public final JButton nextBtn;
-        //private ManagerFactory managerFactory;
+        private final ResourceManager resourceManager;
 
-        public WelcomePanel(ManagerFactory managerFactory) {
-            //this.managerFactory = managerFactory;
-            this.nextBtn = new JButton(managerFactory.resourceManager.nextIcon);
+        public WelcomePanel() {
+            this.resourceManager = ManagerFactory.createResourceManager();
+            this.nextBtn = new JButton(this.resourceManager.nextIcon);
 
             JLabel welcomeLabel = new JLabel("Welcome", SwingConstants.CENTER);
 

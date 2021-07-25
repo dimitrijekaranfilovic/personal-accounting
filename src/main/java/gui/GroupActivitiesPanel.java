@@ -3,6 +3,8 @@ package gui;
 import event.Observer;
 import event.UpdateEvent;
 import managers.ManagerFactory;
+import managers.ResourceManager;
+import managers.SettingsManager;
 import net.miginfocom.swing.MigLayout;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -12,6 +14,7 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.HashMap;
 
 /**
@@ -21,19 +24,21 @@ import java.util.HashMap;
  * */
 
 public class GroupActivitiesPanel extends JPanel implements Observer {
-    private final ManagerFactory managerFactory;
     private final JScrollPane pane;
     public final JButton backButton;
     public JFreeChart chart;
     public final JTextField totalField;
     private final JLabel totalLabel;
+    private final SettingsManager settingsManager;
+    private final ResourceManager resourceManager;
 
-    GroupActivitiesPanel(ManagerFactory managerFactory){
-        this.managerFactory = managerFactory;
-        this.managerFactory.settingsManager.addObserver(this);
+    GroupActivitiesPanel() throws SQLException, ClassNotFoundException {
+        this.settingsManager = ManagerFactory.createSettingsManager();
+        this.resourceManager = ManagerFactory.createResourceManager();
+        this.settingsManager.addObserver(this);
         this.pane = new JScrollPane();
-        this.backButton = new JButton(this.managerFactory.resourceManager.backIcon);
-        this.totalLabel = new JLabel(this.managerFactory.settingsManager.getWord("total"));
+        this.backButton = new JButton(this.resourceManager.backIcon);
+        this.totalLabel = new JLabel(this.settingsManager.getWord("total"));
         this.totalField = new JTextField(30);
         this.totalField.setEditable(false);
         JPanel panel = new JPanel(new MigLayout());
@@ -57,7 +62,7 @@ public class GroupActivitiesPanel extends JPanel implements Observer {
         }
         this.totalField.setText(sum + "");
         this.chart = ChartFactory.createPieChart(
-          this.managerFactory.settingsManager.getWord("group_activities"),
+          this.settingsManager.getWord("group_activities"),
           dataSet,
           true,
           true,
@@ -77,6 +82,6 @@ public class GroupActivitiesPanel extends JPanel implements Observer {
 
     @Override
     public void updatePerformed(UpdateEvent e) {
-        this.totalLabel.setText(this.managerFactory.settingsManager.getWord("total"));
+        this.totalLabel.setText(this.settingsManager.getWord("total"));
     }
 }

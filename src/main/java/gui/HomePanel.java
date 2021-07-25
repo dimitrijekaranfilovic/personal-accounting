@@ -3,10 +3,7 @@ package gui;
 import display.Display;
 import event.Observer;
 import event.UpdateEvent;
-import managers.ActivityManager;
-import managers.CurrencyManager;
-import managers.ManagerFactory;
-import managers.SettingsManager;
+import managers.*;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
@@ -15,6 +12,7 @@ import java.awt.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,11 +24,15 @@ import java.util.HashMap;
 
 
 public class HomePanel extends JPanel implements Observer {
-    private final ManagerFactory managerFactory;
     /**
      * available currencies
      * */
     private ArrayList<String> currencies;
+    private final ResourceManager resourceManager;
+    private final SettingsManager settingsManager;
+    private final CurrencyManager currencyManager;
+    private final ActivityManager activityManager;
+    private final BalanceManager balanceManager;
     public final JButton addActivityBtn;
     public final JButton balancesHistoryBtn;
     public final JButton activitiesHistoryBtn;
@@ -42,29 +44,33 @@ public class HomePanel extends JPanel implements Observer {
     public final HashMap<String, Integer> currencyValueMap;
     private final JEditorPane editorPane;
 
-    public HomePanel(ManagerFactory managerFactory){
+    public HomePanel() throws SQLException, ClassNotFoundException {
         this.currencyValueMap = new HashMap<>();
-        this.managerFactory = managerFactory;
+        this.resourceManager = ManagerFactory.createResourceManager();
+        this.settingsManager = ManagerFactory.createSettingsManager();
+        this.currencyManager = ManagerFactory.createCurrencyManager();
+        this.activityManager = ManagerFactory.createActivityManager();
+        this.balanceManager = ManagerFactory.createBalanceManager();
 
-        this.addActivityBtn = new JButton(this.managerFactory.resourceManager.addIcon);
-        this.balancesHistoryBtn = new JButton(this.managerFactory.resourceManager.balancesHistoryIcon);
-        this.activitiesHistoryBtn = new JButton(this.managerFactory.resourceManager.activitiesHistoryIcon);
-        this.addCurrencyButton = new JButton(this.managerFactory.resourceManager.addCurrencyIcon);
-        this.settingsButton = new JButton(this.managerFactory.resourceManager.settingsIcon);
-        this.helpBtn = new JButton(this.managerFactory.resourceManager.helpIcon);
+        this.addActivityBtn = new JButton(this.resourceManager.addIcon);
+        this.balancesHistoryBtn = new JButton(this.resourceManager.balancesHistoryIcon);
+        this.activitiesHistoryBtn = new JButton(this.resourceManager.activitiesHistoryIcon);
+        this.addCurrencyButton = new JButton(this.resourceManager.addCurrencyIcon);
+        this.settingsButton = new JButton(this.resourceManager.settingsIcon);
+        this.helpBtn = new JButton(this.resourceManager.helpIcon);
         this.editorPane = setUpEditorPane();
 
-        this.addActivityBtn.setToolTipText(this.managerFactory.settingsManager.getWord("add_activity"));
-        this.activitiesHistoryBtn.setToolTipText(this.managerFactory.settingsManager.getWord("activities_history"));
-        this.addCurrencyButton.setToolTipText(this.managerFactory.settingsManager.getWord("add_currency"));
-        this.balancesHistoryBtn.setToolTipText(this.managerFactory.settingsManager.getWord("balances_history"));
-        this.settingsButton.setToolTipText(this.managerFactory.settingsManager.getWord("settings"));
-        this.helpBtn.setToolTipText(this.managerFactory.settingsManager.getWord("help"));
+        this.addActivityBtn.setToolTipText(this.settingsManager.getWord("add_activity"));
+        this.activitiesHistoryBtn.setToolTipText(this.settingsManager.getWord("activities_history"));
+        this.addCurrencyButton.setToolTipText(this.settingsManager.getWord("add_currency"));
+        this.balancesHistoryBtn.setToolTipText(this.settingsManager.getWord("balances_history"));
+        this.settingsButton.setToolTipText(this.settingsManager.getWord("settings"));
+        this.helpBtn.setToolTipText(this.settingsManager.getWord("help"));
 
-        this.currencies = this.managerFactory.currencyManager.getCurrencies();
-        this.managerFactory.currencyManager.addObserver(this);
-        this.managerFactory.activityManager.addObserver(this);
-        this.managerFactory.settingsManager.addObserver(this);
+        this.currencies = this.currencyManager.getCurrencies();
+        this.currencyManager.addObserver(this);
+        this.activityManager.addObserver(this);
+        this.settingsManager.addObserver(this);
 
         this.balanceField = new JTextField(50);
         Dimension fieldDimension = new Dimension(90, 30);
@@ -74,10 +80,10 @@ public class HomePanel extends JPanel implements Observer {
         this.currenciesBox = new JComboBox<>();
         for(String s : this.currencies){
             this.currenciesBox.addItem(s);
-            this.currencyValueMap.put(s, this.managerFactory.balanceManager.getLatestBalance(s));
+            this.currencyValueMap.put(s, this.balanceManager.getLatestBalance(s));
         }
         if(this.currencies.size() > 0){
-            balanceField.setText(Display.amountDisplay(this.managerFactory.balanceManager.getLatestBalance(this.currencies.get(0))));
+            balanceField.setText(Display.amountDisplay(this.balanceManager.getLatestBalance(this.currencies.get(0))));
         }
         this.balanceField.setEditable(false);
 
@@ -86,7 +92,7 @@ public class HomePanel extends JPanel implements Observer {
             this.balanceField.setText(Display.amountDisplay(this.currencyValueMap.get(currency)));
 
         });
-        helpBtn.addActionListener(ae-> JOptionPane.showMessageDialog(null, editorPane, this.managerFactory.settingsManager.getWord("help"), JOptionPane.INFORMATION_MESSAGE));
+        helpBtn.addActionListener(ae-> JOptionPane.showMessageDialog(null, editorPane, this.settingsManager.getWord("help"), JOptionPane.INFORMATION_MESSAGE));
 
         this.setLayout(new MigLayout());
 
@@ -117,12 +123,12 @@ public class HomePanel extends JPanel implements Observer {
     public void updatePerformed(UpdateEvent e) {
         if(e.getSource() instanceof CurrencyManager){
             this.currenciesBox.removeAllItems();
-            this.currencies = this.managerFactory.currencyManager.getCurrencies();
+            this.currencies = this.currencyManager.getCurrencies();
             for(String s : currencies){
-                this.currencyValueMap.put(s, this.managerFactory.balanceManager.getLatestBalance(s));
+                this.currencyValueMap.put(s, this.balanceManager.getLatestBalance(s));
                 this.currenciesBox.addItem(s);
             }
-            balanceField.setText(Display.amountDisplay(this.managerFactory.balanceManager.getLatestBalance(this.currencies.get(0))));
+            balanceField.setText(Display.amountDisplay(this.balanceManager.getLatestBalance(this.currencies.get(0))));
         }
         else if(e.getSource() instanceof ActivityManager am){
             int newValue = 0;
@@ -135,18 +141,18 @@ public class HomePanel extends JPanel implements Observer {
                 this.currencyValueMap.put(am.activity.getCurrency(), newValue);
                 //TODO: pazi na sledece 2 linije
                 //this.managerFactory.balanceManager.addBalance(am.activity.getCurrency(), newValue);
-                this.managerFactory.balanceManager.updateCurrentBalance(am.activity.getCurrency(), newValue);
+                this.balanceManager.updateCurrentBalance(am.activity.getCurrency(), newValue);
                 int balance = this.currencyValueMap.get((String)currenciesBox.getSelectedItem());
                 this.balanceField.setText(Display.amountDisplay(balance));
         }
 
         else if(e.getSource() instanceof SettingsManager){
-            this.addActivityBtn.setToolTipText(this.managerFactory.settingsManager.getWord("add_activity"));
-            this.activitiesHistoryBtn.setToolTipText(this.managerFactory.settingsManager.getWord("activities_history"));
-            this.addCurrencyButton.setToolTipText(this.managerFactory.settingsManager.getWord("add_currency"));
-            this.balancesHistoryBtn.setToolTipText(this.managerFactory.settingsManager.getWord("balances_history"));
-            this.settingsButton.setToolTipText(this.managerFactory.settingsManager.getWord("settings"));
-            this.helpBtn.setToolTipText(this.managerFactory.settingsManager.getWord("help"));
+            this.addActivityBtn.setToolTipText(this.settingsManager.getWord("add_activity"));
+            this.activitiesHistoryBtn.setToolTipText(this.settingsManager.getWord("activities_history"));
+            this.addCurrencyButton.setToolTipText(this.settingsManager.getWord("add_currency"));
+            this.balancesHistoryBtn.setToolTipText(this.settingsManager.getWord("balances_history"));
+            this.settingsButton.setToolTipText(this.settingsManager.getWord("settings"));
+            this.helpBtn.setToolTipText(this.settingsManager.getWord("help"));
         }
     }
 

@@ -3,8 +3,10 @@ package models;
 import display.Display;
 import entities.Balance;
 import managers.ManagerFactory;
+import managers.SettingsManager;
 
 import javax.swing.table.AbstractTableModel;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -20,11 +22,12 @@ public class BalanceModel extends AbstractTableModel{
 
     public final ArrayList<Balance> balances;
     public final String[] columnNames = {"Amount", "Currency", "Date"};
-    private final ManagerFactory managerFactory;
+    private final SettingsManager settingsManager;
 
-    public BalanceModel(ArrayList<Balance> balances, ManagerFactory managerFactory) {
+    public BalanceModel(ArrayList<Balance> balances) throws SQLException, ClassNotFoundException {
         this.balances = balances;
-        this.managerFactory = managerFactory;
+        this.settingsManager = ManagerFactory.createSettingsManager();
+
     }
 
     public Balance getBalance(int row){
@@ -67,9 +70,9 @@ public class BalanceModel extends AbstractTableModel{
     }
 
     public void updateColumnNames(){
-        columnNames[DATE_COLUMN] = this.managerFactory.settingsManager.getWord("date");
-        columnNames[CURRENCY_COLUMN] = this.managerFactory.settingsManager.getWord("currency");
-        columnNames[AMOUNT_COLUMN] = this.managerFactory.settingsManager.getWord("amount");
+        columnNames[DATE_COLUMN] = this.settingsManager.getWord("date");
+        columnNames[CURRENCY_COLUMN] = this.settingsManager.getWord("currency");
+        columnNames[AMOUNT_COLUMN] = this.settingsManager.getWord("amount");
         fireTableStructureChanged();
     }
 }

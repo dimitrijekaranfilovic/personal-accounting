@@ -4,9 +4,7 @@ import display.DateLabelFormatter;
 import entities.Balance;
 import event.Observer;
 import event.UpdateEvent;
-import managers.CurrencyManager;
-import managers.ManagerFactory;
-import managers.SettingsManager;
+import managers.*;
 import net.miginfocom.swing.MigLayout;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -14,6 +12,7 @@ import org.jdatepicker.impl.UtilDateModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -26,7 +25,6 @@ import java.util.Properties;
 
 
 public class BalancesFilterPanel extends JPanel implements Observer {
-    private final ManagerFactory managerFactory;
     private final JComboBox<String> currenciesBox;
     /**
      * available currencies
@@ -38,17 +36,23 @@ public class BalancesFilterPanel extends JPanel implements Observer {
     private final JDatePickerImpl datePicker, datePicker1;
     private final JLabel currencyLabel, fromLabel, toLabel, timeLabel;
     public String currency;
+    private final ResourceManager resourceManager;
+    private final CurrencyManager currencyManager;
+    private final SettingsManager settingsManager;
+    private final BalanceManager balanceManager;
 
-    public BalancesFilterPanel(ManagerFactory managerFactory){
-        this.managerFactory = managerFactory;
+    public BalancesFilterPanel() throws SQLException, ClassNotFoundException {
         this.currenciesBox = new JComboBox<>();
+        this.resourceManager = ManagerFactory.createResourceManager();
+        this.currencyManager = ManagerFactory.createCurrencyManager();
+        this.settingsManager = ManagerFactory.createSettingsManager();
+        this.balanceManager = ManagerFactory.createBalanceManager();
+        this.okBtn = new JButton(this.resourceManager.okIcon);
+        this.cancelBtn = new JButton(this.resourceManager.backIcon);
 
-        this.okBtn = new JButton(this.managerFactory.resourceManager.okIcon);
-        this.cancelBtn = new JButton(this.managerFactory.resourceManager.backIcon);
-
-        this.currencies = this.managerFactory.currencyManager.getCurrencies();
-        this.managerFactory.currencyManager.addObserver(this);
-        this.managerFactory.settingsManager.addObserver(this);
+        this.currencies = this.currencyManager.getCurrencies();
+        this.currencyManager.addObserver(this);
+        this.settingsManager.addObserver(this);
         for(String s : this.currencies)
             this.currenciesBox.addItem(s);
         this.currenciesBox.addItem("");
@@ -72,16 +76,16 @@ public class BalancesFilterPanel extends JPanel implements Observer {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
-        this.currencyLabel = new JLabel(this.managerFactory.settingsManager.getWord("currency"));
+        this.currencyLabel = new JLabel(this.settingsManager.getWord("currency"));
 
         JPanel panel1 = new JPanel(new MigLayout());
         panel1.add(this.currencyLabel, "wrap");
         panel1.add(currenciesBox, "wrap");
 
         Dimension d = new Dimension(30, 28);
-        this.fromLabel = new JLabel(this.managerFactory.settingsManager.getWord("from"));
-        this.toLabel = new JLabel(this.managerFactory.settingsManager.getWord("to"));
-        this.timeLabel = new JLabel(this.managerFactory.settingsManager.getWord("time"));
+        this.fromLabel = new JLabel(this.settingsManager.getWord("from"));
+        this.toLabel = new JLabel(this.settingsManager.getWord("to"));
+        this.timeLabel = new JLabel(this.settingsManager.getWord("time"));
         fromLabel.setMinimumSize(d);
         fromLabel.setMaximumSize(d);
 
@@ -113,7 +117,7 @@ public class BalancesFilterPanel extends JPanel implements Observer {
      * */
     public void search() {
         this.currency = (String)currenciesBox.getSelectedItem();
-        this.balances = this.managerFactory.balanceManager.getBalances(currency, this.datePicker.getJFormattedTextField().getText(), this.datePicker1.getJFormattedTextField().getText());
+        this.balances = this.balanceManager.getBalances(currency, this.datePicker.getJFormattedTextField().getText(), this.datePicker1.getJFormattedTextField().getText());
     }
 
 
@@ -127,16 +131,16 @@ public class BalancesFilterPanel extends JPanel implements Observer {
     public void updatePerformed(UpdateEvent e) {
         if(e.getSource() instanceof CurrencyManager){
             this.currenciesBox.removeAllItems();
-            this.currencies = this.managerFactory.currencyManager.getCurrencies();
+            this.currencies = this.currencyManager.getCurrencies();
             for(String s : this.currencies)
                 this.currenciesBox.addItem(s);
             this.currenciesBox.addItem("");
         }
         else if(e.getSource() instanceof SettingsManager){
-            this.currencyLabel.setText(this.managerFactory.settingsManager.getWord("currency"));
-            this.fromLabel.setText(this.managerFactory.settingsManager.getWord("from"));
-            this.toLabel.setText(this.managerFactory.settingsManager.getWord("to"));
-            this.timeLabel.setText(this.managerFactory.settingsManager.getWord("time"));
+            this.currencyLabel.setText(this.settingsManager.getWord("currency"));
+            this.fromLabel.setText(this.settingsManager.getWord("from"));
+            this.toLabel.setText(this.settingsManager.getWord("to"));
+            this.timeLabel.setText(this.settingsManager.getWord("time"));
         }
     }
 }

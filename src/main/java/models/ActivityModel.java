@@ -3,8 +3,10 @@ package models;
 import display.Display;
 import entities.Activity;
 import managers.ManagerFactory;
+import managers.SettingsManager;
 
 import javax.swing.table.AbstractTableModel;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -23,11 +25,11 @@ public class ActivityModel extends AbstractTableModel {
 
     public final ArrayList<Activity> activities;
     private final String[] columnNames = {"Description", "Amount", "Currency", "Date", "Version"};
-    private final ManagerFactory managerFactory;
+    private final SettingsManager settingsManager;
 
-    public ActivityModel(ArrayList<Activity> activities, ManagerFactory managerFactory) {
+    public ActivityModel(ArrayList<Activity> activities) throws SQLException, ClassNotFoundException {
         this.activities = activities;
-        this.managerFactory = managerFactory;
+        this.settingsManager = ManagerFactory.createSettingsManager();
     }
 
     public Activity getActivity(int row){
@@ -80,11 +82,11 @@ public class ActivityModel extends AbstractTableModel {
     }
 
     public void updateColumnNames(){
-        columnNames[CURRENCY_COLUMN] = this.managerFactory.settingsManager.getWord("currency");
-        columnNames[DESCRIPTION_COLUMN] = this.managerFactory.settingsManager.getWord("description");
-        columnNames[VERSION_COLUMN] = this.managerFactory.settingsManager.getWord("activity");
-        columnNames[AMOUNT_COLUMN] = this.managerFactory.settingsManager.getWord("amount");
-        columnNames[DATE_COLUMN] = this.managerFactory.settingsManager.getWord("date");
+        columnNames[CURRENCY_COLUMN] = this.settingsManager.getWord("currency");
+        columnNames[DESCRIPTION_COLUMN] = this.settingsManager.getWord("description");
+        columnNames[VERSION_COLUMN] = this.settingsManager.getWord("activity");
+        columnNames[AMOUNT_COLUMN] = this.settingsManager.getWord("amount");
+        columnNames[DATE_COLUMN] = this.settingsManager.getWord("date");
         fireTableStructureChanged();
     }
 }

@@ -10,6 +10,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 import display.Display;
 import entities.Balance;
 import managers.ManagerFactory;
+import managers.ResourceManager;
+import managers.SettingsManager;
 import models.BalanceModel;
 import net.miginfocom.swing.MigLayout;
 
@@ -18,6 +20,7 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
@@ -34,20 +37,22 @@ public class DisplayBalancesPanel extends JPanel{
      * */
     private ArrayList<Balance> balances;
     private final JTable table;
-    private final ManagerFactory managerFactory;
     public final JButton backBtn;
     public final JButton printBtn;
     public final JButton graphBtn;
+    private final ResourceManager resourceManager;
+    private final SettingsManager settingsManager;
 
-    DisplayBalancesPanel(ManagerFactory managerFactory){
-        this.managerFactory = managerFactory;
+    DisplayBalancesPanel() throws SQLException, ClassNotFoundException {
         this.balances = new ArrayList<>();
-        this.table = new JTable(new BalanceModel(this.balances, this.managerFactory));
+        this.resourceManager = ManagerFactory.createResourceManager();
+        this.settingsManager = ManagerFactory.createSettingsManager();
+        this.table = new JTable(new BalanceModel(this.balances));
         this.table.getTableHeader().setReorderingAllowed(false);
 
-        this.backBtn = new JButton(this.managerFactory.resourceManager.backIcon);
-        this.printBtn = new JButton(this.managerFactory.resourceManager.saveIcon);
-        this.graphBtn = new JButton(this.managerFactory.resourceManager.graphIcon);
+        this.backBtn = new JButton(this.resourceManager.backIcon);
+        this.printBtn = new JButton(this.resourceManager.saveIcon);
+        this.graphBtn = new JButton(this.resourceManager.graphIcon);
 
         this.setLayout(new BorderLayout());
         JScrollPane tablePane = new JScrollPane(this.table);
@@ -83,7 +88,7 @@ public class DisplayBalancesPanel extends JPanel{
     }
 
     private void addTableHeader(PdfPTable table){
-        Stream.of(this.managerFactory.settingsManager.getWord("amount"), this.managerFactory.settingsManager.getWord("currency"), this.managerFactory.settingsManager.getWord("date"))
+        Stream.of(this.settingsManager.getWord("amount"), this.settingsManager.getWord("currency"), this.settingsManager.getWord("date"))
                 .forEach(columnTitle -> {
                     PdfPCell header = new PdfPCell();
                     header.setBackgroundColor(BaseColor.LIGHT_GRAY);
@@ -106,9 +111,9 @@ public class DisplayBalancesPanel extends JPanel{
      * if the {@link BalancesFilterPanel#balances} size is larger than zero.
      * @param balances activities to be displayed
      * */
-    public void setBalances(ArrayList<Balance> balances){
+    public void setBalances(ArrayList<Balance> balances) throws SQLException, ClassNotFoundException {
         this.balances = balances;
-        BalanceModel bm = new BalanceModel(this.balances, this.managerFactory);
+        BalanceModel bm = new BalanceModel(this.balances);
         bm.updateColumnNames();
         TableRowSorter<BalanceModel> sorter = new TableRowSorter<>(bm);
         this.table.setRowSorter(sorter);

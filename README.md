@@ -24,9 +24,9 @@ Click on the next button, which will lead you to the configurations page
 Here, you enter currencies whose balances you wish to keep track of. Bear in mind, currency abbreviations
 must be exactly 3 characters long. In addition, you have to enter at least one before proceeding.
 
-If you entered everything correctly, click the add button:  ![picture](src/icons/plus-2.png)
+If you entered everything correctly, click the add button:  ![picture](src/main/resources/icons/plus-2.png)
 
-After that, you can add more currencies, or you can finish the setup by clicking the next button: ![picture](src/icons/play.png)
+After that, you can add more currencies, or you can finish the setup by clicking the next button: ![picture](src/main/resources/icons/play.png)
 
 Now, after the setup is complete, you are free to use the app however you want.
 
@@ -49,12 +49,12 @@ selecting a desired one through a menu:
 ###### Home Panel Legend
 Home panel buttons will be explained. Other panels mentioned here will be explained shortly.
 
-* add activity button ![picture](src/icons/plus-2.png) takes you to add activity panel
-* activities history button ![picture](src/icons/stock-market-analysis.png) takes you to activities filter panel
-* balances history button ![picture](src/icons/balance-2.png) takes you to balances filter panel
-* add currency button ![picture](src/icons/currency-1.png) takes you to add currency panel
-* settings button ![picture](src/icons/settings.png) takes you to settings panel
-* help button ![picture](src/icons/help-2.png) will display help message which will take you to my github page
+* add activity button ![picture](src/main/resources/icons/plus-2.png) takes you to add activity panel
+* activities history button ![picture](src/main/resources/icons/stock-market-analysis.png) takes you to activities filter panel
+* balances history button ![picture](src/main/resources/icons/balance-2.png) takes you to balances filter panel
+* add currency button ![picture](src/main/resources/icons/currency-1.png) takes you to add currency panel
+* settings button ![picture](src/main/resources/icons/settings.png) takes you to settings panel
+* help button ![picture](src/main/resources/icons/help-2.png) will display help message which will take you to my github page
 
 If at any time you forget which button is which, tooltips are provided for each button.
 
@@ -66,8 +66,8 @@ If you click on the add activity button, you will be presented with the AddActiv
 ![picture](images/add_activity.png)
 
 Here you can choose which currency and type your activity has. After you've entered everything, you can confirm
-by clicking the ok button ![picture](src/icons/accept.png). You can go back to home panel by clicking 
-the back button ![picture](src/icons/skip-back.png)
+by clicking the ok button ![picture](src/main/resources/icons/accept.png). You can go back to home panel by clicking 
+the back button ![picture](src/main/resources/icons/skip-back.png)
 
 ##### Add Currency Panel
 
@@ -93,10 +93,10 @@ Here all filtered activities are displayed and can be sorted at will.
 
 ![picture](images/display_activities.png)
 
-By clicking the chart button ![picture](src/icons/piechart.png), you can view the activities in the form of a pie chart.
+By clicking the chart button ![picture](src/main/resources/icons/piechart.png), you can view the activities in the form of a pie chart.
 Be aware, graph can be displayed only if one currency is selected and one kind of activity.
 
-By clicking the save button ![picture](src/icons/save.png), you can export the table as pdf to a desired location.
+By clicking the save button ![picture](src/main/resources/icons/save.png), you can export the table as pdf to a desired location.
 
 Plus represents income and minus represent expense.
 
@@ -117,10 +117,10 @@ Here all filtered balances are displayed and can be sorted at will.
 
 ![picture](images/display_balances.png)
 
-By clicking the graph button ![picture](src/icons/graph.png), balances history will be displayed in the form of a graph.
+By clicking the graph button ![picture](src/main/resources/icons/graph.png), balances history will be displayed in the form of a graph.
 Be aware, graph can be displayed if only one currency is selected.
 
-By clicking the save button ![picture](src/icons/save.png), you can export the table as pdf to a desired location.
+By clicking the save button ![picture](src/main/resources/icons/save.png), you can export the table as pdf to a desired location.
 
 #### Settings Panel
 

@@ -1,6 +1,6 @@
 package gui;
 
-import managers.ManagerFactory;
+import managers.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,30 +20,38 @@ import java.sql.SQLException;
 
 public class MainFrame extends JFrame{
     private final JPanel mainPanel;
-    private final ManagerFactory managerFactory;
     private final HomePanel homePanel;
+    private final ResourceManager resourceManager;
+    private final SettingsManager settingsManager;
+    private final CurrencyManager currencyManager;
+    private final LookAndFeelManager lookAndFeelManager;
+    private final BalanceManager balanceManager;
 
     private static MainFrame instance = null;
 
-    public static MainFrame getInstance(ManagerFactory managerFactory) throws SQLException {
+    public static MainFrame getInstance() throws SQLException, ClassNotFoundException {
         if(instance == null)
-            instance = new MainFrame(managerFactory);
+            instance = new MainFrame();
         return instance;
     }
-    private  MainFrame(ManagerFactory managerFactory) throws SQLException {
-        this.managerFactory = managerFactory;
-        this.homePanel = new HomePanel(this.managerFactory);
+    private  MainFrame() throws SQLException, ClassNotFoundException {
+        this.homePanel = new HomePanel();
+        this.resourceManager = ManagerFactory.createResourceManager();
+        this.settingsManager = ManagerFactory.createSettingsManager();
+        this.currencyManager = ManagerFactory.createCurrencyManager();
+        this.lookAndFeelManager = ManagerFactory.createLookAndFeelManager();
+        this.balanceManager = ManagerFactory.createBalanceManager();
 
-        AddCurrencyBalancePanel addCurrencyBalancePanel = new AddCurrencyBalancePanel(this.managerFactory);
-        AddActivityPanel addActivityPanel = new AddActivityPanel(this.managerFactory);
-        ActivitiesFilterPanel activitiesFilterPanel = new ActivitiesFilterPanel(this.managerFactory);
-        BalancesFilterPanel balancesFilterPanel = new BalancesFilterPanel(this.managerFactory);
-        DisplayActivitiesPanel displayActivitiesPanel = new DisplayActivitiesPanel(this.managerFactory);
-        DisplayBalancesPanel displayBalancesPanel = new DisplayBalancesPanel(this.managerFactory);
-        WelcomePanel welcomePanel = new WelcomePanel(this.managerFactory);
-        SettingsPanel settingsPanel = new SettingsPanel(this.managerFactory, this);
-        GroupActivitiesPanel groupActivitiesPanel = new GroupActivitiesPanel(this.managerFactory);
-        BalancesGraphPanel balancesGraphPanel = new BalancesGraphPanel(this.managerFactory);
+        AddCurrencyBalancePanel addCurrencyBalancePanel = new AddCurrencyBalancePanel();
+        AddActivityPanel addActivityPanel = new AddActivityPanel();
+        ActivitiesFilterPanel activitiesFilterPanel = new ActivitiesFilterPanel();
+        BalancesFilterPanel balancesFilterPanel = new BalancesFilterPanel();
+        DisplayActivitiesPanel displayActivitiesPanel = new DisplayActivitiesPanel();
+        DisplayBalancesPanel displayBalancesPanel = new DisplayBalancesPanel();
+        WelcomePanel welcomePanel = new WelcomePanel();
+        SettingsPanel settingsPanel = new SettingsPanel(this);
+        GroupActivitiesPanel groupActivitiesPanel = new GroupActivitiesPanel();
+        BalancesGraphPanel balancesGraphPanel = new BalancesGraphPanel();
 
         mainPanel = new JPanel(new CardLayout());
         mainPanel.add(this.homePanel, "home");
@@ -64,10 +72,10 @@ public class MainFrame extends JFrame{
         this.setResizable(false);
 
         //if at least one currency is found, previous settings are loaded
-        if(this.managerFactory.currencyManager.countCurrencies() > 0){
-            this.managerFactory.settingsManager.loadSettings();
-            this.managerFactory.lookAndFeelManager.changeLookAndFeel(this, this.managerFactory.settingsManager.style);
-            this.setLocation(this.managerFactory.settingsManager.x, this.managerFactory.settingsManager.y);
+        if(this.currencyManager.countCurrencies() > 0){
+            this.settingsManager.loadSettings();
+            this.lookAndFeelManager.changeLookAndFeel(this, this.settingsManager.style);
+            this.setLocation(this.settingsManager.x, this.settingsManager.y);
             this.setVisible(true);
             showCard("home");
         }
@@ -78,7 +86,7 @@ public class MainFrame extends JFrame{
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             this.setLocation((int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2);
             this.setVisible(true);
-            this.managerFactory.settingsManager.addInitialSettings(this.managerFactory.settingsManager.style, (int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2, this.managerFactory.settingsManager.currentLanguage);
+            this.settingsManager.addInitialSettings(this.settingsManager.style, (int)(screenSize.getWidth() - this.getWidth()) / 2, (int)(screenSize.getHeight() - this.getHeight()) / 2, this.settingsManager.currentLanguage);
 
         }
 
@@ -111,8 +119,8 @@ public class MainFrame extends JFrame{
         //checks whether at least one currency was added in the initial setup
         addCurrencyBalancePanel.finishBtn.addActionListener(ae->{
             try {
-                if(this.managerFactory.currencyManager.countCurrencies() == 0)
-                    JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("currency_warning_4"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.WARNING_MESSAGE);
+                if(this.currencyManager.countCurrencies() == 0)
+                    JOptionPane.showMessageDialog(null, this.settingsManager.getWord("currency_warning_4"), this.settingsManager.getWord("information"), JOptionPane.WARNING_MESSAGE);
                 else
                     showCard("home");
             } catch (SQLException e) {
@@ -139,11 +147,15 @@ public class MainFrame extends JFrame{
         activitiesFilterPanel.okBtn.addActionListener(ae->{
             activitiesFilterPanel.search();
             if(activitiesFilterPanel.activities == null)
-                JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("check_parameters"), this.managerFactory.settingsManager.getWord("error"), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, this.settingsManager.getWord("check_parameters"), this.settingsManager.getWord("error"), JOptionPane.ERROR_MESSAGE);
             else if(activitiesFilterPanel.activities.size() == 0)
-                JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("no_result"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, this.settingsManager.getWord("no_result"), this.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
             else {
-                displayActivitiesPanel.setActivities(activitiesFilterPanel.activities);
+                try {
+                    displayActivitiesPanel.setActivities(activitiesFilterPanel.activities);
+                } catch (SQLException | ClassNotFoundException throwables) {
+                    throwables.printStackTrace();
+                }
                 displayActivitiesPanel.pieBtn.setEnabled(!activitiesFilterPanel.sign.equalsIgnoreCase("") && !activitiesFilterPanel.currency.equalsIgnoreCase("") && activitiesFilterPanel.groupedActivities != null);
                 showCard("display_activities");
             }
@@ -154,34 +166,38 @@ public class MainFrame extends JFrame{
         balancesFilterPanel.okBtn.addActionListener(ae->{
             balancesFilterPanel.search();
             if(balancesFilterPanel.balances == null)
-                JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("check_parameters"), this.managerFactory.settingsManager.getWord("error"), JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, this.settingsManager.getWord("check_parameters"), this.settingsManager.getWord("error"), JOptionPane.ERROR_MESSAGE);
             else if(balancesFilterPanel.balances.size() == 0)
-                JOptionPane.showMessageDialog(null, this.managerFactory.settingsManager.getWord("no_result"), this.managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, this.settingsManager.getWord("no_result"), this.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
             else{
-                displayBalancesPanel.setBalances(balancesFilterPanel.balances);
+                try {
+                    displayBalancesPanel.setBalances(balancesFilterPanel.balances);
+                } catch (SQLException | ClassNotFoundException throwables) {
+                    throwables.printStackTrace();
+                }
                 displayBalancesPanel.graphBtn.setEnabled(!balancesFilterPanel.currency.equalsIgnoreCase(""));
                 showCard("display_balances");
             }
         });
 
         displayActivitiesPanel.printBtn.addActionListener(ae->{
-            String filename = JOptionPane.showInputDialog(null, managerFactory.settingsManager.getWord("file_name"));
+            String filename = JOptionPane.showInputDialog(null, settingsManager.getWord("file_name"));
             if(filename != null){
-                ChooseFolderPanel panel = new ChooseFolderPanel(this, this.managerFactory.settingsManager.getWord("choose_folder"));
+                ChooseFolderPanel panel = new ChooseFolderPanel(this, this.settingsManager.getWord("choose_folder"));
                 if(panel.path != null){
                     displayActivitiesPanel.createTable(panel.path, filename);
-                    JOptionPane.showMessageDialog(null, managerFactory.settingsManager.getWord("saved"), managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, settingsManager.getWord("saved"), settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
 
         displayBalancesPanel.printBtn.addActionListener(ae->{
-            String filename = JOptionPane.showInputDialog(null, managerFactory.settingsManager.getWord("file_name"));
+            String filename = JOptionPane.showInputDialog(null, settingsManager.getWord("file_name"));
             if(filename != null){
-                ChooseFolderPanel panel = new ChooseFolderPanel(this, this.managerFactory.settingsManager.getWord("choose_folder"));
+                ChooseFolderPanel panel = new ChooseFolderPanel(this, this.settingsManager.getWord("choose_folder"));
                 if(panel.path != null){
                     displayBalancesPanel.createTable(panel.path, filename);
-                    JOptionPane.showMessageDialog(null, managerFactory.settingsManager.getWord("saved"), managerFactory.settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, settingsManager.getWord("saved"), settingsManager.getWord("information"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
@@ -192,9 +208,9 @@ public class MainFrame extends JFrame{
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                managerFactory.settingsManager.saveSettings(managerFactory.settingsManager.style, getX(), getY(), managerFactory.settingsManager.currentLanguage);
+                settingsManager.saveSettings(settingsManager.style, getX(), getY(), settingsManager.currentLanguage);
                 for(String key : homePanel.currencyValueMap.keySet()){
-                    managerFactory.balanceManager.addBalance(key, homePanel.currencyValueMap.get(key));
+                    balanceManager.addBalance(key, homePanel.currencyValueMap.get(key));
                     //managerFactory.balanceManager.updateCurrentBalance(key, homePanel.currencyValueMap.get(key));
                 }
             }
@@ -217,27 +233,27 @@ public class MainFrame extends JFrame{
         CardLayout cl = (CardLayout)(mainPanel.getLayout());
         cl.show(mainPanel, name);
         if(name.equalsIgnoreCase("home"))
-            this.setSize(this.managerFactory.lookAndFeelManager.homeDimension);
+            this.setSize(this.lookAndFeelManager.homeDimension);
         else if(name.equalsIgnoreCase("add_activity"))
-            this.setSize(this.managerFactory.lookAndFeelManager.addActivityDimension);
+            this.setSize(this.lookAndFeelManager.addActivityDimension);
         else if(name.equalsIgnoreCase("activities_filter"))
-            this.setSize(this.managerFactory.lookAndFeelManager.activityHistoryDimension);
+            this.setSize(this.lookAndFeelManager.activityHistoryDimension);
         else if(name.equalsIgnoreCase("balances_filter"))
-            this.setSize(this.managerFactory.lookAndFeelManager.balanceHistoryDimension);
+            this.setSize(this.lookAndFeelManager.balanceHistoryDimension);
         else if(name.equalsIgnoreCase("display_activities"))
-            this.setSize(this.managerFactory.lookAndFeelManager.displayActivitiesDimension);
+            this.setSize(this.lookAndFeelManager.displayActivitiesDimension);
         else if(name.equalsIgnoreCase("add_currency"))
-            this.setSize(this.managerFactory.lookAndFeelManager.addCurrencyDimension);
+            this.setSize(this.lookAndFeelManager.addCurrencyDimension);
         else if(name.equalsIgnoreCase("display_balances"))
-            this.setSize(this.managerFactory.lookAndFeelManager.displayBalancesDimension);
+            this.setSize(this.lookAndFeelManager.displayBalancesDimension);
         else if(name.equalsIgnoreCase("welcome"))
-            this.setSize(this.managerFactory.lookAndFeelManager.welcomeDimension);
+            this.setSize(this.lookAndFeelManager.welcomeDimension);
         else if(name.equalsIgnoreCase("settings"))
-            this.setSize(this.managerFactory.lookAndFeelManager.settingsDimension);
+            this.setSize(this.lookAndFeelManager.settingsDimension);
         else if(name.equalsIgnoreCase("group_activities"))
-            this.setSize(this.managerFactory.lookAndFeelManager.pieChartDimension);
+            this.setSize(this.lookAndFeelManager.pieChartDimension);
         else if(name.equalsIgnoreCase("balances_graph"))
-            this.setSize(this.managerFactory.lookAndFeelManager.balancesGraphDimension);
-        this.setTitle(this.managerFactory.settingsManager.getWord(name));
+            this.setSize(this.lookAndFeelManager.balancesGraphDimension);
+        this.setTitle(this.settingsManager.getWord(name));
     }
 }

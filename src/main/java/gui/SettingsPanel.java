@@ -2,10 +2,14 @@ package gui;
 
 import event.Observer;
 import event.UpdateEvent;
+import managers.LookAndFeelManager;
 import managers.ManagerFactory;
+import managers.ResourceManager;
+import managers.SettingsManager;
 import net.miginfocom.swing.MigLayout;
 
 import javax.swing.*;
+import java.sql.SQLException;
 
 /**
  * Class that represents a panel used for changing app's settings, such as
@@ -15,34 +19,40 @@ import javax.swing.*;
  * */
 
 public class SettingsPanel extends JPanel implements Observer {
-    private final ManagerFactory managerFactory;
-    public JComboBox<String> lookAndFeelsBox, languageBox;
-    public JButton backBtn, okBtn;
+    public final JComboBox<String> lookAndFeelsBox;
+    public final JComboBox<String> languageBox;
+    public final JButton backBtn;
+    public final JButton okBtn;
     private final JLabel styleLabel, languageLabel;
+    private final ResourceManager resourceManager;
+    private final SettingsManager settingsManager;
+    private final LookAndFeelManager lookAndFeelManager;
 
-    public SettingsPanel(ManagerFactory managerFactory, JFrame parent){
-        this.managerFactory = managerFactory;
+    public SettingsPanel(JFrame parent) throws SQLException, ClassNotFoundException {
+        this.resourceManager = ManagerFactory.createResourceManager();
+        this.settingsManager = ManagerFactory.createSettingsManager();
+        this.lookAndFeelManager = ManagerFactory.createLookAndFeelManager();
         this.setLayout(new MigLayout());
         this.lookAndFeelsBox = new JComboBox<>();
         this.languageBox = new JComboBox<>();
-        this.backBtn = new JButton(this.managerFactory.resourceManager.backIcon);
-        this.okBtn = new JButton(this.managerFactory.resourceManager.okIcon);
-        this.managerFactory.settingsManager.addObserver(this);
+        this.backBtn = new JButton(this.resourceManager.backIcon);
+        this.okBtn = new JButton(this.resourceManager.okIcon);
+        this.settingsManager.addObserver(this);
 
         //adding all available lookAndFeels
-        this.lookAndFeelsBox.addItem(this.managerFactory.settingsManager.getWord("nimbus"));
-        this.lookAndFeelsBox.addItem(this.managerFactory.settingsManager.getWord("metal"));
-        this.lookAndFeelsBox.addItem(this.managerFactory.settingsManager.getWord("system_default"));
-        this.lookAndFeelsBox.addItem(this.managerFactory.settingsManager.getWord("mcwin"));
+        this.lookAndFeelsBox.addItem(this.settingsManager.getWord("nimbus"));
+        this.lookAndFeelsBox.addItem(this.settingsManager.getWord("metal"));
+        this.lookAndFeelsBox.addItem(this.settingsManager.getWord("system_default"));
+        this.lookAndFeelsBox.addItem(this.settingsManager.getWord("mcwin"));
 
         //adding all available languages
-        this.languageBox.addItem(this.managerFactory.settingsManager.getWord("serbian"));
-        this.languageBox.addItem(this.managerFactory.settingsManager.getWord("english"));
-        this.languageBox.addItem(this.managerFactory.settingsManager.getWord("slovenian"));
+        this.languageBox.addItem(this.settingsManager.getWord("serbian"));
+        this.languageBox.addItem(this.settingsManager.getWord("english"));
+        this.languageBox.addItem(this.settingsManager.getWord("slovenian"));
         //this.languageBox.addItem(this.managerFactory.settingsManager.getWord("serbian_cyrillic"));
 
-        this.styleLabel = new JLabel(this.managerFactory.settingsManager.getWord("style"));
-        this.languageLabel = new JLabel(this.managerFactory.settingsManager.getWord("language"));
+        this.styleLabel = new JLabel(this.settingsManager.getWord("style"));
+        this.languageLabel = new JLabel(this.settingsManager.getWord("language"));
 
 
         this.add(this.styleLabel, "split 2");
@@ -54,9 +64,9 @@ public class SettingsPanel extends JPanel implements Observer {
 
         //after okBtn is clicked, parameters specified in combo boxes are used and changes are applied
         this.okBtn.addActionListener(ae->{
-            managerFactory.lookAndFeelManager.changeLookAndFeel(parent, lookAndFeelsBox.getSelectedItem().toString());
-            managerFactory.settingsManager.style = lookAndFeelsBox.getSelectedItem().toString();
-            managerFactory.settingsManager.updateLocale(languageBox.getSelectedItem().toString());
+            lookAndFeelManager.changeLookAndFeel(parent, lookAndFeelsBox.getSelectedItem().toString());
+            settingsManager.style = lookAndFeelsBox.getSelectedItem().toString();
+            settingsManager.updateLocale(languageBox.getSelectedItem().toString());
         });
     }
 
@@ -67,14 +77,14 @@ public class SettingsPanel extends JPanel implements Observer {
      * */
     @Override
     public void updatePerformed(UpdateEvent e) {
-            this.styleLabel.setText(managerFactory.settingsManager.getWord("style"));
-            this.languageLabel.setText(managerFactory.settingsManager.getWord("language"));
+            this.styleLabel.setText(this.settingsManager.getWord("style"));
+            this.languageLabel.setText(this.settingsManager.getWord("language"));
             this.languageBox.removeAllItems();
 
             //adding all available languages
-            this.languageBox.addItem(managerFactory.settingsManager.getWord("serbian"));
-            this.languageBox.addItem(managerFactory.settingsManager.getWord("english"));
-            this.languageBox.addItem(managerFactory.settingsManager.getWord("slovenian"));
+            this.languageBox.addItem(this.settingsManager.getWord("serbian"));
+            this.languageBox.addItem(this.settingsManager.getWord("english"));
+            this.languageBox.addItem(this.settingsManager.getWord("slovenian"));
             //this.languageBox.addItem(managerFactory.settingsManager.getWord("serbian_cyrillic"));
 
             //this.lookAndFeelsBox.removeAllItems();

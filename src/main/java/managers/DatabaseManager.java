@@ -23,7 +23,7 @@ public class DatabaseManager {
      */
     public boolean hasData = false;
 
-    public boolean useTestDb = true;
+    public final boolean useTestDb = true;
 
     /**
      * Function that establishes a connection wih the database.
@@ -59,7 +59,7 @@ public class DatabaseManager {
      *
      * @throws SQLException if the tables cannot be created
      */
-    private void initialize() throws SQLException {
+    public void initialize() throws SQLException {
         if (!hasData) {
             hasData = true;
             Statement statement = connection.createStatement();
@@ -119,7 +119,7 @@ public class DatabaseManager {
      * @param currency desired currency
      * @return ResultSet of the prepared statement
      */
-    ResultSet getLatestBalance(String currency) {
+    public ResultSet getLatestBalance(String currency) {
         try {
             if (connection == null) {
                 getConnection();
@@ -141,7 +141,7 @@ public class DatabaseManager {
      * @param amount   balance amount
      * @return indicator whether adding was successful
      */
-    boolean addBalance(String currency, int amount) {
+    public boolean addBalance(String currency, int amount) {
         try {
             if (connection == null) {
                 getConnection();
@@ -166,7 +166,7 @@ public class DatabaseManager {
      * @param amount   balance amount
      * @return indicator whether adding was successful
      */
-    boolean addCurrentBalance(String currency, int amount) {
+    public boolean addCurrentBalance(String currency, int amount) {
         try {
             if (connection == null) {
                 getConnection();
@@ -192,7 +192,7 @@ public class DatabaseManager {
      * @param amount   balance amount
      * @return indicator whether adding was successful
      */
-    boolean updateCurrentBalance(String currency, int amount) {
+    public boolean updateCurrentBalance(String currency, int amount) {
         try {
             if (connection == null) {
                 getConnection();
@@ -217,7 +217,7 @@ public class DatabaseManager {
      * @param to       ending date
      * @return ResultSet of the prepared statement
      */
-    ResultSet getBalances(String currency, LocalDateTime from, LocalDateTime to) {
+    public ResultSet getBalances(String currency, LocalDateTime from, LocalDateTime to) {
         try {
             if (connection == null) {
                 getConnection();
@@ -242,7 +242,7 @@ public class DatabaseManager {
      *
      * @return ResultSet of the prepared statement.
      */
-    ResultSet getCurrencies() {
+    public ResultSet getCurrencies() {
         try {
             if (connection == null) {
                 getConnection();
@@ -259,7 +259,7 @@ public class DatabaseManager {
      *
      * @return ResultSet of the prepared statement
      */
-    ResultSet countCurrencies() {
+    public ResultSet countCurrencies() {
         try {
             if (connection == null) {
                 getConnection();
@@ -278,7 +278,7 @@ public class DatabaseManager {
      * @param abbreviation currency abbreviation
      * @return indicator whether the currency was successfully added/
      */
-    boolean addCurrency(String abbreviation) {
+    public boolean addCurrency(String abbreviation) {
         try {
             if (connection == null) {
                 getConnection();
@@ -299,7 +299,7 @@ public class DatabaseManager {
      *
      * @return ResultSet of the prepared statement.
      */
-    ResultSet getActivitiesDescriptions() {
+    public ResultSet getActivitiesDescriptions() {
         try {
             if (connection == null) {
                 getConnection();
@@ -323,7 +323,7 @@ public class DatabaseManager {
      * @param date        date and time of the activity
      * @return indicator whether the adding was successful
      */
-    boolean addActivity(String description, int amount, String currency, String activity, LocalDateTime date) {
+    public boolean addActivity(String description, int amount, String currency, String activity, LocalDateTime date) {
         try {
             if (connection == null) {
                 getConnection();
@@ -353,7 +353,7 @@ public class DatabaseManager {
      * @param description activity description
      * @return ResultSet of the prepared statement
      */
-    ResultSet getActivities(String activity, LocalDateTime from, LocalDateTime to, String currency, String description) {
+    public ResultSet getActivities(String activity, LocalDateTime from, LocalDateTime to, String currency, String description) {
         try {
             if (connection == null) {
                 getConnection();
@@ -386,7 +386,7 @@ public class DatabaseManager {
      * @param description activity description
      * @return ResultSet of the prepared statement
      */
-    ResultSet groupActivities(String activity, LocalDateTime from, LocalDateTime to, String currency, String description) {
+    public ResultSet groupActivities(String activity, LocalDateTime from, LocalDateTime to, String currency, String description) {
         try {
             if (connection == null) {
                 getConnection();
@@ -415,7 +415,7 @@ public class DatabaseManager {
      *
      * @return ResultSet of the prepared statement.
      */
-    ResultSet loadSettings() {
+    public ResultSet loadSettings() {
         try {
             if (connection == null) {
                 getConnection();
@@ -438,7 +438,7 @@ public class DatabaseManager {
      * @param language    initial language
      * @return indicator whether the adding was successful
      */
-    boolean addInitialSettings(String lookAndFeel, int x, int y, String language) {
+    public boolean addInitialSettings(String lookAndFeel, int x, int y, String language) {
         try {
             if (connection == null) {
                 getConnection();
@@ -466,7 +466,7 @@ public class DatabaseManager {
      * @param language    last used language
      * @return indicator whether the saving was successful
      */
-    boolean saveSettings(String lookAndFeel, int x, int y, String language) {
+    public boolean saveSettings(String lookAndFeel, int x, int y, String language) {
         try {
             if (connection == null) {
                 getConnection();
@@ -485,7 +485,7 @@ public class DatabaseManager {
 
     }
 
-    ResultSet getAllBalances() throws SQLException, ClassNotFoundException {
+    public ResultSet getAllBalances() throws SQLException, ClassNotFoundException {
         if (connection == null) {
             getConnection();
         }
@@ -493,7 +493,7 @@ public class DatabaseManager {
         return statement.executeQuery("select * from balances;");
     }
 
-    ResultSet getAllActivities() throws SQLException, ClassNotFoundException {
+    public ResultSet getAllActivities() throws SQLException, ClassNotFoundException {
         if (connection == null) {
             getConnection();
         }

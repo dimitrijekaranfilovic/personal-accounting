@@ -3,7 +3,6 @@ package managers;
 import entities.Publisher;
 import event.Observer;
 import event.UpdateEvent;
-import main.Main;
 import util.Util;
 
 import java.sql.ResultSet;
@@ -71,7 +70,7 @@ public class CurrencyManager implements Publisher {
         else{
             if(currency.matches(".*\\d.*"))
                 return NOT_CHARACTER;
-            if(!Main.isNumeric(balance))
+            if(Util.isNotNumeric(balance))
                 return NOT_NUMBER;
             int amount = Util.parseString(balance);
 

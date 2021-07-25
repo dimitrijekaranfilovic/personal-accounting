@@ -1,5 +1,6 @@
 package managers;
 
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,48 +15,48 @@ public class LookAndFeelManager {
     /**
      * home panel dimension
      * */
-    public Dimension homeDimension;
+    public final Dimension homeDimension;
     /**
      * add activity panel dimension
      * */
-    public Dimension addActivityDimension;
+    public final Dimension addActivityDimension;
     /**
      * activity history panel dimension
      * */
-    public Dimension activityHistoryDimension;
+    public final Dimension activityHistoryDimension;
     /**
      * balance panel dimension
      * */
-    public Dimension balanceHistoryDimension;
+    public final Dimension balanceHistoryDimension;
     /**
      * add currency panel dimension
      * */
-    public Dimension addCurrencyDimension;
+    public final Dimension addCurrencyDimension;
     /**
      * display balances panel dimension
      * */
-    public Dimension displayBalancesDimension;
+    public final Dimension displayBalancesDimension;
     /**
      * display activities dimension
      * */
-    public Dimension displayActivitiesDimension;
+    public final Dimension displayActivitiesDimension;
     /**
      * welcome panel dimension
      * */
-    public Dimension welcomeDimension;
+    public final Dimension welcomeDimension;
     /**
      * settings panel dimension
      * */
-    public Dimension settingsDimension;
+    public final Dimension settingsDimension;
 
     /**
      * pie chart panel dimension
      * */
-    public Dimension pieChartDimension;
+    public final Dimension pieChartDimension;
     /**
      * balances graph panel dimension
      * */
-    public Dimension balancesGraphDimension;
+    public final Dimension balancesGraphDimension;
 
     /**
      * Class constructor. Initializes default dimension values.
@@ -83,7 +84,7 @@ public class LookAndFeelManager {
      * @param height  new dimension height
      * */
 
-    private void updateDimension(Dimension d, int width, int height){
+    public void updateDimension(Dimension d, int width, int height){
         d.width = width;
         d.height = height;
     }

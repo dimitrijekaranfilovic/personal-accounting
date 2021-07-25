@@ -3,6 +3,8 @@ package gui;
 import display.Display;
 import entities.Balance;
 import managers.ManagerFactory;
+import managers.ResourceManager;
+import managers.SettingsManager;
 import net.miginfocom.swing.MigLayout;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -12,18 +14,21 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class BalancesGraphPanel extends JPanel {
-    private final ManagerFactory managerFactory;
     private final JScrollPane pane;
-    public JButton backButton;
+    public final JButton backButton;
     public JFreeChart chart;
+    private final ResourceManager resourceManager;
+    private final SettingsManager settingsManager;
 
-    public BalancesGraphPanel(ManagerFactory managerFactory){
-        this.managerFactory = managerFactory;
+    public BalancesGraphPanel() throws SQLException, ClassNotFoundException {
+        this.resourceManager = ManagerFactory.createResourceManager();
+        this.settingsManager = ManagerFactory.createSettingsManager();
         this.pane = new JScrollPane();
-        this.backButton = new JButton(this.managerFactory.resourceManager.backIcon);
+        this.backButton = new JButton(this.resourceManager.backIcon);
         JPanel panel = new JPanel(new MigLayout());
         panel.add(this.backButton, "split 2");
         this.add(this.pane, BorderLayout.CENTER);
@@ -33,12 +38,12 @@ public class BalancesGraphPanel extends JPanel {
     public void setUpChart(ArrayList<Balance> balances){
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
         for(Balance balance : balances){
-            dataSet.addValue((double)balance.getAmount() / 100, this.managerFactory.settingsManager.getWord("balance"), Display.shortenedDisplay(balance.getDateTime()));
+            dataSet.addValue((double)balance.getAmount() / 100, this.settingsManager.getWord("balance"), Display.shortenedDisplay(balance.getDateTime()));
         }
         JFreeChart chart = ChartFactory.createLineChart(
-                this.managerFactory.settingsManager.getWord("balances_history"),
-                this.managerFactory.settingsManager.getWord("time"),
-                this.managerFactory.settingsManager.getWord("balance"),
+                this.settingsManager.getWord("balances_history"),
+                this.settingsManager.getWord("time"),
+                this.settingsManager.getWord("balance"),
                 dataSet,
                 PlotOrientation.VERTICAL,
                 true,

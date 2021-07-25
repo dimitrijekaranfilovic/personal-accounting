@@ -15,28 +15,64 @@ public class ManagerFactory {
     /**
      * parameter for all other managers
      * */
-    public DatabaseManager databaseManager;
-    public CurrencyManager currencyManager;
-    public BalanceManager balanceManager;
-    public ActivityManager activityManager;
-    public ResourceManager resourceManager;
-    public LookAndFeelManager lookAndFeelManager;
-    public SettingsManager settingsManager;
+    private static DatabaseManager databaseManager = null;
+    private static CurrencyManager currencyManager = null;
+    private static BalanceManager balanceManager = null;
+    private static ActivityManager activityManager = null;
+    private static ResourceManager resourceManager = null;
+    private static LookAndFeelManager lookAndFeelManager = null;
+    private static SettingsManager settingsManager = null;
 
-    /**
-     * Class constructor which initializes all managers.
-     * @throws SQLException : when establishing connection fails
-     * @throws ClassNotFoundException : when specified drivers cannot be found
-     * */
-    public ManagerFactory() throws SQLException, ClassNotFoundException {
-        this.databaseManager = new DatabaseManager();
-        this.databaseManager.getConnection();
-        this.currencyManager = new CurrencyManager(this.databaseManager);
-        this.balanceManager = new BalanceManager(this.databaseManager);
-        this.activityManager = new ActivityManager(this.databaseManager);
-        this.resourceManager = new ResourceManager();
-        this.lookAndFeelManager = new LookAndFeelManager();
-        this.settingsManager = new SettingsManager(this.databaseManager);
+    public static DatabaseManager createDatabaseManager() throws SQLException, ClassNotFoundException {
+        if(databaseManager == null){
+            databaseManager = new DatabaseManager();
+            databaseManager.getConnection();
+        }
+        return databaseManager;
     }
+
+    public static CurrencyManager createCurrencyManager() throws SQLException, ClassNotFoundException {
+        if(currencyManager == null){
+            currencyManager = new CurrencyManager(createDatabaseManager());
+        }
+        return currencyManager;
+    }
+
+    public static BalanceManager createBalanceManager() throws SQLException, ClassNotFoundException {
+        if(balanceManager == null){
+            balanceManager = new BalanceManager(createDatabaseManager());
+        }
+        return balanceManager;
+    }
+
+    public static ActivityManager createActivityManager() throws SQLException, ClassNotFoundException{
+        if(activityManager == null){
+            activityManager = new ActivityManager(createDatabaseManager());
+        }
+        return activityManager;
+    }
+
+    public static ResourceManager createResourceManager(){
+        if(resourceManager == null){
+            resourceManager = new ResourceManager();
+        }
+        return resourceManager;
+    }
+
+    public static LookAndFeelManager createLookAndFeelManager(){
+        if(lookAndFeelManager == null){
+            lookAndFeelManager = new LookAndFeelManager();
+        }
+        return lookAndFeelManager;
+    }
+
+    public static SettingsManager createSettingsManager() throws SQLException, ClassNotFoundException {
+        if(settingsManager == null){
+            settingsManager = new SettingsManager(createDatabaseManager());
+        }
+        return settingsManager;
+    }
+
+
 
 }

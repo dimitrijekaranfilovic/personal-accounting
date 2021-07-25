@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * */
 
 
-public class BalanceManager  {
+public class BalanceManager {
     /**
      * enables indirect communication with the database
      * */
